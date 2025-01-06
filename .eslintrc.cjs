@@ -1,4 +1,9 @@
 // .eslintrc.js
+
+/**
+ * ESLint 規則
+ * https://eslint.org/docs/latest/rules/
+ */
 module.exports = {
   root: true,
   extends: ['@nuxtjs/eslint-config-typescript'],
