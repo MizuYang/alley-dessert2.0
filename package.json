@@ -19,6 +19,8 @@
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "eslint": "^8.57.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
     "typescript": "^5.7.2",
     "vue-tsc": "^2.1.10"
   }

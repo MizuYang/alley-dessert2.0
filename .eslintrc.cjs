@@ -37,6 +37,9 @@ module.exports = {
     // 縮進使用 2 個空格
     indent: ['error', 2],
 
+    // 關閉 multi-word 規則
+    'vue/multi-word-component-names': 'off',
+
     // 禁止未使用的變量
     'no-unused-vars': 'warn',
 
@@ -44,10 +47,10 @@ module.exports = {
     eqeqeq: 'error',
 
     // 行尾不允許有空格
-    'no-trailing-spaces': 'error',
+    // 'no-trailing-spaces': 'error',
 
     // 行尾必須使用分號
-    semi: ['error', 'always'],
+    // semi: ['error', 'always'],
 
     // TypeScript 特定規則
     '@typescript-eslint/explicit-function-return-type': 'error',
@@ -56,4 +59,4 @@ module.exports = {
     // 禁止使用 any 類型
     // '@typescript-eslint/no-explicit-any': 'warn',
   }
-};
+}
