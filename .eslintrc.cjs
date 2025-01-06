@@ -40,6 +40,9 @@ module.exports = {
     // 關閉 multi-word 規則
     'vue/multi-word-component-names': 'off',
 
+    // 關閉禁止使用 new 的規則
+    'no-new': 'off',
+
     // 禁止未使用的變量
     'no-unused-vars': 'warn',
 
