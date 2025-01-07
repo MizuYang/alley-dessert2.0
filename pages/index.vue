@@ -3,8 +3,9 @@
 </script>
 
 <template>
-  <main>
+  <main class="bg-black">
     <IndexBanner />
+    <IndexSection2 />
   </main>
 </template>
 

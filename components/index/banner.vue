@@ -38,47 +38,48 @@ onMounted(() => {
 </script>
 
 <template>
-  <ClientOnly>
-    <swiper-container ref="containerRef" :init="false">
-      <swiper-slide
-        v-for="(imgUrl, idx) in mainSwiper"
-        :key="`mainSwiper-${idx}`"
-        class="relative"
-      >
-        <!-- 背景圖 -->
-        <div
-          class="h-full w-full bg-cover bg-fixed bg-center bg-no-repeat"
-          :style="`background-image: url(${imgUrl})`"
-        ></div>
-
-        <div
-          class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+  <section>
+    <ClientOnly>
+      <swiper-container ref="containerRef" :init="false">
+        <swiper-slide
+          v-for="(imgUrl, idx) in mainSwiper"
+          :key="`mainSwiper-${idx}`"
+          class="relative"
         >
-          <h2 class="text-primary mb-6 text-right text-[48px]">
-            <span class="mb-2 inline-block bg-[#110e0e6c] px-4 py-2"
-              >❝ 最意想不到的...
-            </span>
-            <br />
-            <span
-              class="mb-4 ms-9 inline-block translate-x-16 bg-[#110e0e6c] px-4 py-2"
-              >永遠最甜蜜 ❞</span
-            >
-          </h2>
-          <div class="text-center">
-            <NuxtLink
-              to="/products"
-              class="text-primary border-primary btn-active-animation relative inline-block border-2 bg-[#110e0e6c] p-2 text-center text-[28px] hover:!scale-100 hover:rounded-lg hover:!bg-black/50"
-              >前往商品<i
-                class="bi bi-hand-index finger-active-animation absolute left-1/2 top-1/2 text-[48px]"
-              ></i
-            ></NuxtLink>
+          <!-- 背景圖 -->
+          <div
+            class="h-full w-full bg-cover bg-fixed bg-center bg-no-repeat"
+            :style="`background-image: url(${imgUrl})`"
+          ></div>
+          <div
+            class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+          >
+            <h2 class="text-primary mb-6 text-right text-[48px]">
+              <span class="mb-2 inline-block bg-[#110e0e6c] px-4 py-2"
+                >❝ 最意想不到的...
+              </span>
+              <br />
+              <span
+                class="mb-4 ms-9 inline-block translate-x-16 bg-[#110e0e6c] px-4 py-2"
+                >永遠最甜蜜 ❞</span
+              >
+            </h2>
+            <div class="text-center">
+              <NuxtLink
+                to="/products"
+                class="text-primary border-primary btn-active-animation relative inline-block border-2 bg-[#110e0e6c] p-2 text-center text-[28px] hover:!scale-100 hover:rounded-lg hover:!bg-black/50"
+                >前往商品<i
+                  class="bi bi-hand-index finger-active-animation absolute left-1/2 top-1/2 text-[48px]"
+                ></i
+              ></NuxtLink>
+            </div>
           </div>
-        </div>
-      </swiper-slide>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-    </swiper-container>
-  </ClientOnly>
+        </swiper-slide>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </swiper-container>
+    </ClientOnly>
+  </section>
 </template>
 
 <style lang="scss">
