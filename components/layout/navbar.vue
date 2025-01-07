@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <nav class="bg-black py-3">
+  <nav class="bg-black">
     <ul
       class="text-primary mx-auto flex max-w-[1320px] items-center justify-center text-xl"
     >
@@ -9,7 +9,7 @@
         <h1>
           <NuxtLink
             to="/"
-            class="block p-2 transition-all duration-75 hover:scale-105 hover:opacity-90"
+            class="block p-1 transition-all duration-75 hover:scale-105 hover:opacity-90"
           >
             <img
               src="/images/logos/橫向LOGO.png"
