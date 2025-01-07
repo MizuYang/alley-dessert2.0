@@ -12,8 +12,8 @@ module.exports = {
   },
   rules: {
     // 自訂規則
-    // 使用 console 時警告提示
-    // 'no-console': 'warn',
+    // 用 console 時不警告
+    'no-console': 'never',
 
     // 引號規則
     quotes: ['error', 'single'],
