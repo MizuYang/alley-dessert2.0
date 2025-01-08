@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="text-primary flex-column flex flex-col-reverse">
+  <section class="text-primary flex-column flex flex-col-reverse">
     <div
       class="flex h-[960px] w-[636px] bg-no-repeat"
       style="
@@ -9,7 +9,10 @@
       "
     >
       <div class="m-auto">
-        <div data-aos="flip-right" data-aos-duration="4000">
+        <div
+          data-aos="flip-right"
+          data-aos-duration="4000"
+        >
           <p class="-translate-y-9 bg-[#110e0e6c] text-left text-xl leading-10">
             我相信努力不會白費 <br />
             就算將來的某一天我不得不放棄這個夢想 <br />
@@ -39,7 +42,7 @@
         >前往熱門產品</span
       >
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

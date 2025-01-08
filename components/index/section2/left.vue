@@ -1,14 +1,8 @@
 <script setup>
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-onMounted(() => {
-  AOS.init({});
-});
 </script>
 
 <template>
-  <div class="text-primary col">
+  <section class="text-primary">
     <div
       class="flex h-[960px] w-[636px] bg-no-repeat"
       style="
@@ -29,12 +23,11 @@ onMounted(() => {
             他們靠著滿腔熱血，征服了夢想...
           </p>
           <div>
-            <router-link
+            <NuxtLink
               class="hover:bg-primary/20 border-primary inline-block border-2 px-2 py-3 text-2xl transition-all duration-75 hover:scale-[1.01]"
-              to="/about"
+              to="/"
               title="查看品牌故事"
-              @click="currentPage('about')"
-              >想聽他們的故事</router-link
+              >想聽他們的故事</NuxtLink
             >
           </div>
         </div>
@@ -61,7 +54,7 @@ onMounted(() => {
         >前往經典蛋糕</span
       >
     </div>
-  </div>
+  </section>
 </template>
 
 <style lang="scss" scoped>

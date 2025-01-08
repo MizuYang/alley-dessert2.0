@@ -1,11 +1,4 @@
-<script setup>
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-onMounted(() => {
-  AOS.init({});
-});
-</script>
+<script setup></script>
 
 <template>
   <div>
