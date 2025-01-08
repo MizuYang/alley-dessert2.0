@@ -15,7 +15,7 @@ onMounted(() => {
         background-image: url(&quot;/images/pages/主頁/垂直banner-主要/垂直大.png&quot;);
       "
     >
-      <div class="m-auto bg-[#110e0e6c] px-4 py-6 text-center translate-y-16">
+      <div class="m-auto translate-y-16 bg-[#110e0e6c] px-4 py-6 text-center">
         <div
           data-aos="fade-right"
           data-aos-offset="300"
@@ -41,29 +41,35 @@ onMounted(() => {
       </div>
     </div>
     <div
-      class="square-main block h-[290px] w-[400px] bg-contain bg-no-repeat"
+      class="square-main group relative mx-auto my-[5%] block h-[290px] w-[400px] cursor-pointer overflow-hidden bg-contain bg-center bg-no-repeat opacity-70 transition-all hover:!opacity-100"
       style="
         background-image: url(&quot;/images/pages/主頁/垂直banner-主要/「招牌」草莓酥.png&quot;);
       "
     >
-      <p class="flex items-end justify-center">
-        <span class="badge text-2xl" data-aos="fade-right" data-aos-duration="5500"
+      <p
+        class="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-end justify-center"
+      >
+        <span
+          class="bg-[#110e0e6c] text-2xl font-bold text-white"
+          data-aos="fade-right"
+          data-aos-duration="5500"
           >「招牌」草莓酥</span
         >
-        <span class="badge hoverShowText">前往經典蛋糕</span>
       </p>
+      <span
+        class="text-primary absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-40 text-nowrap bg-[#110e0e6c] px-2 py-3 text-[32px] font-bold transition-all duration-500 group-hover:!-translate-y-1/2"
+        >前往經典蛋糕</span
+      >
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .square-main {
-  overflow: hidden;
-  position: relative;
-  opacity: 0.7;
   clip-path: polygon(25% 0%, 75% 0%, 95% 50%, 70% 100%, 30% 100%, 0% 40%);
-  // margin: 5% auto;
-  // width: 25rem;
-  // height: 20rem;
+
+  &:hover {
+    clip-path: none;
+  }
 }
 </style>
