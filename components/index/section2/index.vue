@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+import Left from '@/components/index/section2/left.vue'
+import Right from '@/components/index/section2/right.vue'
+</script>
 
 <template>
   <div>
@@ -7,10 +10,8 @@
     </h2>
 
     <div class="flex justify-center">
-      <!-- 左 -->
-       <IndexSection2Left />
-       <!-- 右 -->
-       <IndexSection2Right />
+       <Left />
+       <Right />
     </div>
   </div>
 </template>
