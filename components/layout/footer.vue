@@ -3,7 +3,7 @@
 <template>
   <footer class="text-primary bg-black py-3">
     <ul class="mx-auto flex max-w-[1320px] items-center justify-center text-xl">
-      <li class="mr-auto">
+      <li>
         <ul>
           <li class="text-center text-2xl">
             個人聲明

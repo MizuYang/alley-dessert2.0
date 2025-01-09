@@ -67,7 +67,7 @@ onMounted(() => {
             <div class="text-center">
               <NuxtLink
                 to="/products"
-                class="text-primary border-primary btn-active-animation hover:!bg-primary/20 relative inline-block border-2 bg-[#110e0e6c] p-2 text-center text-[28px] transition-all hover:!scale-100 hover:rounded-lg"
+                class="text-primary border-primary btn-active-animation hover:!bg-primary/20 relative inline-block border-2 bg-[#110e0e6c] p-2 text-center text-[28px] transition-all hover:!scale-100 hover:rounded-lg active:!scale-105"
                 >前往商品<i
                   class="bi bi-hand-index text-primary finger-active-animation absolute left-1/2 top-1/2 text-[48px]"
                 ></i
