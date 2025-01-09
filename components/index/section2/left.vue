@@ -23,7 +23,7 @@
           </p>
           <div>
             <NuxtLink
-              class="hover:bg-primary/20 border-primary inline-block border-2 px-2 py-3 text-2xl transition-all duration-75 hover:scale-[1.01] active:!scale-105"
+              class="hover:bg-primary/20 border-primary inline-block border-2 border-solid px-2 py-3 text-2xl transition-all duration-75 hover:scale-[1.01] active:!scale-105"
               to="/"
               title="查看品牌故事"
               >想聽他們的故事</NuxtLink

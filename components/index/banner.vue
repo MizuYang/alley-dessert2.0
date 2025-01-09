@@ -38,7 +38,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <section>
+  <section class="swiper-banner">
     <ClientOnly>
       <swiper-container ref="containerRef" :init="false">
         <swiper-slide
@@ -67,7 +67,7 @@ onMounted(() => {
             <div class="text-center">
               <NuxtLink
                 to="/products"
-                class="text-primary border-primary btn-active-animation hover:!bg-primary/20 relative inline-block border-2 bg-[#110e0e6c] p-2 text-center text-[28px] transition-all hover:!scale-100 hover:rounded-lg active:!scale-105"
+                class="text-primary border-primary btn-active-animation hover:!bg-primary/20 relative inline-block border-2 border-solid bg-[#110e0e6c] p-2 text-center text-[28px] transition-all hover:!scale-100 hover:rounded-lg active:!scale-105"
                 >前往商品<i
                   class="bi bi-hand-index text-primary finger-active-animation absolute left-1/2 top-1/2 text-[48px]"
                 ></i
@@ -83,7 +83,7 @@ onMounted(() => {
 </template>
 
 <style lang="scss">
-:root {
+.swiper-banner {
   // 輪播箭頭顏色
   --swiper-navigation-color: #f1ebd8;
 
@@ -95,7 +95,7 @@ onMounted(() => {
   --swiper-pagination-bullet-inactive-opacity: 0.5;
   --swiper-pagination-color: #f1ebd8;
 }
-swiper-slide {
+.swiper-banner swiper-slide {
   --nav-height: 83.53px;
   height: calc(100vh - var(--nav-height));
 }
