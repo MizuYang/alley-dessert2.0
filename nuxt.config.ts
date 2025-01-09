@@ -3,6 +3,8 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
 
+  css: ['@/assets/style/index.scss'],
+
   // 環境變數設定
   runtimeConfig: {
     // 只能在 server 端讀取到的環境變數
