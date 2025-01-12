@@ -6,7 +6,8 @@ const swiper = useSwiper(homeSsction3Swiper, {
   slidesPerView: 4,
   spaceBetween: 50,
   autoplay: {
-    delay: 20000,
+    delay: 2000,
+    pauseOnMouseEnter: true,
   },
   navigation: true,
   // pagination: true,
@@ -78,7 +79,7 @@ function addCart(id) {
 </script>
 
 <template>
-  <div class="text-primary mx-auto max-w-[1200px]">
+  <div class="product-swiper-banner text-primary mx-auto max-w-[1200px]">
     <ClientOnly>
       <swiper-container ref="homeSsction3Swiper" :init="false">
         <swiper-slide
@@ -96,12 +97,6 @@ function addCart(id) {
                 <div
                   class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-50"
                 ></div>
-                <p
-                  class="text-primary bg-danger absolute -left-6 top-5 z-50 rotate-[-42deg] bg-red-600 px-6 py-[3.2px]"
-                  style="border-top-left-radius: 40%"
-                >
-                  熱門產品
-                </p>
                 <img
                   class="absolute left-1/2 top-1/2 w-[75%] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 group-hover:opacity-100"
                   alt="顯示產品細節"
@@ -116,6 +111,14 @@ function addCart(id) {
                   </p>
                 </div>
               </div>
+
+              <!-- 緞帶 -->
+              <p
+                class="text-primary bg-danger absolute -left-6 top-5 z-50 rotate-[-42deg] bg-red-600 px-6 py-[3.2px]"
+                style="border-top-left-radius: 40%"
+              >
+                熱門產品
+              </p>
             </a>
           </div>
           <button
@@ -133,4 +136,17 @@ function addCart(id) {
   </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.product-swiper-banner {
+  // 輪播箭頭顏色
+  --swiper-navigation-color: #f1ebd8;
+
+  // 下方圓點
+  --swiper-pagination-bullet-width: 20px;
+  --swiper-pagination-bullet-size: 20px;
+  --swiper-pagination-bullet-horizontal-gap: 10px;
+  --swiper-pagination-bullet-inactive-color: #fff;
+  --swiper-pagination-bullet-inactive-opacity: 0.5;
+  --swiper-pagination-color: #f1ebd8;
+}
+</style>
