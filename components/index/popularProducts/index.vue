@@ -1,5 +1,5 @@
 <script setup>
-import ProductSwiper from "@/components/index/section3/productSwiper.vue";
+import ProductSwiper from "@/components/index/popularProducts/productSwiper.vue";
 </script>
 
 <template>

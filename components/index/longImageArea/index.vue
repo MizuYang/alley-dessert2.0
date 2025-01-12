@@ -1,6 +1,6 @@
 <script setup>
-import Left from '@/components/index/section2/left.vue'
-import Right from '@/components/index/section2/right.vue'
+import Left from '@/components/index/longImageArea/left.vue'
+import Right from '@/components/index/longImageArea/right.vue'
 </script>
 
 <template>

@@ -5,8 +5,8 @@
 <template>
   <main class="bg-black">
     <IndexBanner />
-    <IndexSection2 />
-    <IndexSection3 />
+    <IndexLongImageArea />
+    <IndexPopularProducts />
   </main>
 </template>
 
