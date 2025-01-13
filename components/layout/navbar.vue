@@ -23,7 +23,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           主頁
@@ -32,7 +32,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/products"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           產品列表
@@ -41,7 +41,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/questions"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           常見問題
@@ -50,7 +50,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/about"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           關於我們
@@ -59,7 +59,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/contact"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           聯絡我們
@@ -68,7 +68,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/order"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           查詢訂單
@@ -77,7 +77,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/favorite"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="nav-link collect border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           <!-- <span v-if="collect_data.length > 0"> -->
@@ -92,7 +92,7 @@
       <li class="mr-6">
         <NuxtLink
           to="/carts"
-          active-class="border-primary border-b-2"
+          active-class="border-primary border-solid border-b-2 font-bold"
           class="nav-link collect border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           <i class="bi bi-cart4 text-[30px]" />
