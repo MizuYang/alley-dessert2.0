@@ -1,15 +1,42 @@
 <script setup>
-const homeSsction3Swiper = ref(null);
-const swiper = useSwiper(homeSsction3Swiper, {
+const props = defineProps({
+  products: {
+    type: Array,
+    required: true,
+    default: () => [],
+  },
+  title: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  slidesPerView: {
+    type: Number,
+    required: false,
+    default: 1,
+  },
+  maxWidth: {
+    type: Number,
+    required: true,
+  }
+});
+
+const maxW = {
+  390: "max-w-[390px]",
+  1200: "max-w-[1200px]",
+}
+
+const indexProfiteroleSwiper = ref(null);
+const swiper = useSwiper(indexProfiteroleSwiper, {
   // effect: 'creative',
   loop: true,
-  slidesPerView: 4,
+  slidesPerView: props.slidesPerView || 1,
   spaceBetween: 50,
   autoplay: {
     delay: 2000,
     pauseOnMouseEnter: true,
   },
-  navigation: true,
+  // navigation: true,
   // pagination: true,
   // pagination: {
   //   clickable: true,
@@ -28,48 +55,25 @@ const swiper = useSwiper(homeSsction3Swiper, {
   //   },
   // },
 });
-
-import { useProductStore } from "@/stores/productStore.js";
-console.log('useProductStore: ', useProductStore)
-
-const { popularProducts } = storeToRefs(useProductStore());
-const { getProducts } = useProductStore();
-
-onMounted(() => {
-  getProducts();
-});
-function viewProduct(id) {
-  this.$router.push("/products");
-  setTimeout(() => {
-    this.$router.push(`/one_product/${id}`);
-  });
-}
-function addCart(id) {
-  this.isLoading = true;
-  this.addProductData.product_id = id;
-  const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`;
-  this.$http.post(api, { data: this.addProductData }).then((res) => {
-    this.isLoading = false;
-    this.$httpMessageState(res.data.success, "加入購物車");
-    this.emitter.emit("get_cart"); //* Navbar更新
-  });
-}
 </script>
 
 <template>
-  <div class="product-swiper-banner text-primary mx-auto max-w-[1200px]">
+  <div class="product-swiper-banner text-primary mx-auto"
+       :class="maxW[maxWidth]">
+    <h3 class="mb-4 text-center text-2xl font-bold" v-if="title">{{ title }}</h3>
+
     <ClientOnly>
-      <swiper-container ref="homeSsction3Swiper" :init="false">
+      <swiper-container ref="indexProfiteroleSwiper" :init="false">
         <swiper-slide
-          v-for="products in popularProducts"
-          :key="products.id"
+          v-for="product in props.products"
+          :key="product.id"
           class="group"
         >
-          <div class="h-[320px] w-[260px] overflow-hidden">
-            <a href="#" @click.prevent="viewProduct(products.id)">
+          <div class="h-[320px] overflow-hidden">
+            <a href="#" @click.prevent="viewProduct(product.id)">
               <div
-                class="img-fluid relative h-full w-full bg-cover bg-center bg-no-repeat"
-                :style="{ backgroundImage: `url(${products.imageUrl})` }"
+                class="relative block h-full w-full bg-cover bg-center bg-no-repeat"
+                :style="{ backgroundImage: `url(${product.imageUrl})` }"
               >
                 <!-- hover:遮罩 -->
                 <div
@@ -85,7 +89,7 @@ function addCart(id) {
                     class="inline-block px-3 py-[10px] font-bold"
                     style="background-color: rgba(168, 90, 0, 0.562)"
                   >
-                    {{ products.title }}
+                    {{ product.title }}
                   </p>
                 </div>
               </div>
@@ -102,7 +106,7 @@ function addCart(id) {
           <button
             type="button"
             class="bg-danger block w-full bg-red-800 px-3 py-[6px] text-2xl text-white hover:bg-red-700/80 active:bg-red-700/90"
-            @click="addCart(`${products.id}`)"
+            @click="addCart(`${product.id}`)"
           >
             <i class="bi bi-cart4"></i>加入購物車
           </button>

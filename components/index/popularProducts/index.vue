@@ -1,5 +1,5 @@
 <script setup>
-import ProductSwiper from "@/components/index/popularProducts/productSwiper.vue";
+const { popularProducts } = storeToRefs(useProductStore());
 </script>
 
 <template>
@@ -10,7 +10,11 @@ import ProductSwiper from "@/components/index/popularProducts/productSwiper.vue"
 
     <h3 class="text-primary pb-6 text-center text-[32px]">熱門商品</h3>
 
-    <ProductSwiper />
+    <IndexProductSwiper
+      :slidesPerView="4"
+      :products="popularProducts"
+      :max-width="1200"
+    />
 
     <div class="py-12 text-center">
       <div data-aos="zoom-out">

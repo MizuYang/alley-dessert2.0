@@ -1,5 +1,9 @@
 <script setup>
+const { getProducts } = useProductStore();
 
+onMounted(() => {
+  getProducts();
+});
 </script>
 
 <template>
@@ -7,6 +11,7 @@
     <IndexBanner />
     <IndexLongImageArea />
     <IndexPopularProducts />
+    <IndexProductCategory />
   </main>
 </template>
 
