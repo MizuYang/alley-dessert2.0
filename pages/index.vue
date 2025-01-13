@@ -7,7 +7,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="bg-black">
+  <main class="bg-black text-primary">
     <IndexBanner />
     <IndexLongImageArea />
     <IndexPopularProducts />
