@@ -28,31 +28,16 @@ const swiper = useSwiper(homeSsction3Swiper, {
   //   },
   // },
 });
-const env = useRuntimeConfig();
-const popular = ref([]);
-const products = ref([]);
-const temp_product = ref([]);
+
+import { useProductStore } from "@/stores/productStore.js";
+console.log('useProductStore: ', useProductStore)
+
+const { popularProducts } = storeToRefs(useProductStore());
+const { getProducts } = useProductStore();
 
 onMounted(() => {
   getProducts();
 });
-
-async function getProducts() {
-  console.log("env: ", env.public);
-  const api = `${env.public.apiBaseUrl}/api/${env.public.apiPath}/products/all`;
-
-  try {
-    const res = await $fetch(api);
-    console.log("getProducts: ", res);
-    const popularProducts = res.products.filter((item) => item.popular >= 3);
-    console.log("popular: ", popularProducts);
-    popular.value = structuredClone(popularProducts);
-    products.value = res.products;
-    temp_product.value = res.products;
-  } catch (err) {
-    console.error(err);
-  }
-}
 function viewProduct(id) {
   this.$router.push("/products");
   setTimeout(() => {
@@ -69,13 +54,6 @@ function addCart(id) {
     this.emitter.emit("get_cart"); //* Navbar更新
   });
 }
-// function getPopularProducts() {
-
-//   this.popular = this.products.filter((item) => item.popular >= 3);
-//   if (this.popular.length > 0) {
-//     this.swiperShow = true;
-//   }
-// }
 </script>
 
 <template>
@@ -83,7 +61,7 @@ function addCart(id) {
     <ClientOnly>
       <swiper-container ref="homeSsction3Swiper" :init="false">
         <swiper-slide
-          v-for="products in popular"
+          v-for="products in popularProducts"
           :key="products.id"
           class="group"
         >
