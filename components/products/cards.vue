@@ -32,6 +32,41 @@ const props = defineProps({
             alt="顯示產品細節"
             src="/images/other/product_info.png"
           />
+
+          <!-- 類別名稱 -->
+          <div
+            class="text-primary absolute left-0 top-0 rounded-br-2xl bg-red-800/70 p-2 font-bold"
+          >
+            <p>{{ product.category }}</p>
+          </div>
+
+          <!-- 收藏按鈕 -->
+          <div class="absolute right-0 top-0 bg-red-800/30 rounded-bl-2xl px-2 py-1">
+            <button
+              data-clickType="btn"
+              type="button"
+              class="badge animation_hover collect_btn"
+              :class="`collect_btn${index}`"
+              title="加入收藏"
+              @click.prevent="toggleCollect(product.id, index)"
+            >
+              <!-- <span v-if="collect.includes(product.id)">
+                <i
+                  class="bi bi-heart-fill text-2xl text-red-500"
+                  data-clickType="btn"
+                ></i>
+              </span>
+              <i class="bi bi-heart-fill text-2xl text-red-500" v-else data-clickType="btn"></i> -->
+              <!-- <i class="bi bi-heart-fill text-2xl text-red-500" data-clickType="btn"></i> -->
+              <i class="bi bi-heart-fill text-2xl text-primary hover:text-red-500" data-clickType="btn"></i>
+            </button>
+            <!-- //* 收藏愛心特效 -->
+            <!-- <i class="bi bi-heart-fill heart" :class="`heart${index}`"></i>
+            <i
+              class="bi bi-heartbreak-fill heartbreak"
+              :class="`heartbreak${index}`"
+            ></i> -->
+          </div>
         </div>
 
         <div class="flex-grow p-4 pb-0">
