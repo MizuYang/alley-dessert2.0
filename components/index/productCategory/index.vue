@@ -6,9 +6,7 @@ const { cakeProducts, puddingProducts, profiteroleProducts } =
 <template>
   <div>
     <h3 class="text-primary pb-5 text-center text-[32px]">產品類別</h3>
-    <div
-      class="border-primary border-b border-t border-solid py-12 text-center"
-    >
+    <div class="border-primary border-t border-solid py-12 text-center">
       <div class="mx-auto mb-14 grid max-w-[1200px] grid-cols-3 gap-20">
         <IndexProductSwiper
           title="蛋糕"

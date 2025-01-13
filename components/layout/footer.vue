@@ -1,13 +1,13 @@
 <script setup></script>
 
 <template>
-  <footer class="text-primary bg-black py-3">
+  <footer
+    class="text-primary border-primary border-t border-solid bg-black py-3"
+  >
     <ul class="mx-auto flex max-w-[1320px] items-center justify-center text-xl">
       <li>
         <ul>
-          <li class="text-center text-2xl">
-            個人聲明
-          </li>
+          <li class="text-center text-2xl">個人聲明</li>
           <li>- 此作品僅為練習使用，無商業用途。</li>
           <li>- 所使用圖片皆為免費資源。</li>
           <li>- 如不小心誤觸版權圖片，請聯絡我。</li>
@@ -15,7 +15,8 @@
             -
             <i class="bi bi-envelope border-primary border-b-2">
               <a href="mailto:psdk55052004@gmail.com">
-                psdk55052004@gmail.com</a>
+                psdk55052004@gmail.com</a
+              >
             </i>
           </li>
         </ul>
@@ -30,7 +31,7 @@
             width="180"
             height="180"
             alt="表尾logo"
-          >
+          />
         </NuxtLink>
       </li>
       <li class="mr-6">
