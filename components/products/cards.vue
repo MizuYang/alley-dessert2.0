@@ -13,6 +13,9 @@ const props = defineProps({
     <li v-for="product in products" :key="`procust-card-${product.id}`">
       <div
         class="border-primary hover:bg-primary/10 group flex h-full cursor-pointer flex-col border border-solid hover:ring-4 hover:ring-gray-400/50"
+        data-aos="fade-up"
+        aos-delay="1000"
+        data-aos-once="true"
       >
         <div class="relative">
           <img
