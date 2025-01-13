@@ -1,8 +1,9 @@
 <script setup>
+const { products } = storeToRefs(useProductStore())
 const { getProducts } = useProductStore();
 
 onMounted(() => {
-  getProducts();
+  if (!products.value.length) getProducts()
 });
 </script>
 

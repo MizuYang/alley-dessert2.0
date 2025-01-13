@@ -21,6 +21,7 @@ export const useProductStore = defineStore("useProductStore", () => {
 
     try {
       const res = await $fetch(api);
+      console.log('res: ', res)
       products.value = res.products;
     } catch (err) {
       console.error(err);
