@@ -13,7 +13,9 @@ onMounted(() => {
 <template>
   <div>
     <LayoutNavbar />
-    <slot />
+    <div class="pt-[83.53px]">
+      <slot />
+    </div>
     <LayoutFooter />
   </div>
 </template>

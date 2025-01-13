@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <nav class="bg-black">
+  <nav class="fixed top-0 w-full z-50 bg-black">
     <ul
       class="text-primary mx-auto flex max-w-[1320px] items-center justify-center text-xl"
     >
