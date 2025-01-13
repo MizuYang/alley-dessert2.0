@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
 
-  css: ['@/assets/style/index.scss'],
+  css: ["@/assets/style/index.scss"],
 
   // 環境變數設定
   runtimeConfig: {
@@ -15,11 +15,16 @@ export default defineNuxtConfig({
     // 可放 apiUrl 或其他不敏感的變數資訊
     public: {
       apiBaseUrl: "https://vue3-course-api.hexschool.io/v2",
-      apiPath: "mizupath72"
+      apiPath: "mizupath72",
     },
   },
 
-  modules: ["@nuxtjs/tailwindcss", "nuxt-swiper", "nuxt-aos"],
+  // 新增其他想 Auto Import 的資料夾
+  imports: {
+    dirs: ["stores"], // 資料夾名稱
+  },
+
+  modules: ["@nuxtjs/tailwindcss", "nuxt-swiper", "nuxt-aos", "@pinia/nuxt"],
 
   tailwindcss: {
     config: {
