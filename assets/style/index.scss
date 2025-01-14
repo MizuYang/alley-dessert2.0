@@ -1,2 +1,2 @@
-@import "@/assets/style/modules/_css-reset.scss";
-@import "@/assets/style/modules/_base.scss";
+@use "@/assets/style/modules/_css-reset.scss" as *;
+@use "@/assets/style/modules/_base.scss" as *;
