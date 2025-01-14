@@ -7,11 +7,12 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
+    "deploy":"gh-pages --dotfiles -d .output/public",
     "lint": "eslint --ext .ts,.js,.vue .",
     "postinstall": "nuxt prepare"
   },
   "overrides": {
-   "vue": "latest"
+    "vue": "latest"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.0",
@@ -26,6 +27,7 @@
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "eslint": "^8.57.1",
+    "gh-pages": "^6.3.0",
     "nuxt-aos": "^1.2.5",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
