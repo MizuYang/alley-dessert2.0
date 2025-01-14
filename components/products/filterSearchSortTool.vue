@@ -17,7 +17,7 @@ const activeStyle =
 
 onMounted(() => {
   filterBtnList.includes(route.params.filterCategory)
-    ? setCategory(route.params.filterCategory || '全部')
+    ? setCategory(route.params.filterCategory || "全部")
     : setCategory("全部");
 
   if (route.query.search) setSearch(route.query.search);
@@ -53,15 +53,19 @@ onMounted(() => {
         </button>
       </li>
       <li class="ml-auto">
-        <input
-          type="text"
-          class="p-1 px-2 text-2xl text-black outline-none ring-4 focus:ring-gray-400"
-          :ref="(el) => (refs['searchInput'] = el)"
-          placeholder="請輸入產品名稱"
-          :value="search"
-          autofocus
-          @input="debounceSetSearch($event.target.value)"
-        />
+        <label for="products-search-input">
+          <i class="bi bi-search me-4 text-3xl"></i>
+          <input
+            type="text"
+            class="p-1 px-2 text-2xl text-black outline-none ring-4 focus:ring-gray-400"
+            id="products-search-input"
+            :ref="(el) => (refs['searchInput'] = el)"
+            placeholder="請輸入產品名稱"
+            :value="search"
+            autofocus
+            @input="debounceSetSearch($event.target.value)"
+          />
+        </label>
       </li>
     </ul>
   </div>
