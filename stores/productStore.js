@@ -1,32 +1,42 @@
 import { defineStore } from "pinia";
 import cloneDeep from "lodash/cloneDeep.js";
+import debounce from "lodash/debounce.js";
 
 export const useProductStore = defineStore("useProductStore", () => {
+  const route = useRoute();
   const router = useRouter();
   const env = useRuntimeConfig();
   const products = ref([]);
 
-  // 產品頁的商品篩選、排序
-  const filter = ref("全部");
-  const isLowToHigh = ref("default");
-  const productsRender = computed(() => {
-    const tempProducts = cloneDeep(products.value);
-    if (filter.value === "全部") {
-      return tempProducts;
+  // 產品頁的商品篩選、排序、搜尋
+  const category = ref("全部");
+  const isHighToLow = ref("default");
+  const search = ref("");
+  const sortPriceBtnName = computed(() => {
+    if (isHighToLow.value === "default") {
+      return "價格排序";
     } else {
+      if (isHighToLow.value) return "價格排序(高→低)";
+      else return "價格排序(低→高)";
+    }
+  });
+  const productsRender = computed(() => {
+    let tempProducts = cloneDeep(products.value);
+
+    // 搜尋篩選
+    if (search.value) tempProducts = getFilterSearchData(tempProducts);
+
+    if (category.value === "全部") {
+      // 價格排序
+      return getSortPriceData(tempProducts);
+    } else {
+      // 類別篩選
       const filterData = tempProducts.filter((item) => {
-        if (filter.value === "熱門") return item.popular >= 3;
-        else return item.category === filter.value;
+        if (category.value === "熱門") return item.popular >= 3;
+        else return item.category === category.value;
       });
-      if (isLowToHigh.value === "default") {
-        return filterData;
-      } else {
-        if (isLowToHigh.value === "低到高") {
-          return filterData.sort((a, b) => a.price - b.price);
-        } else {
-          return filterData.sort((a, b) => b.price - a.price);
-        }
-      }
+      // 價格排序
+      return getSortPriceData(filterData);
     }
   });
 
@@ -55,13 +65,45 @@ export const useProductStore = defineStore("useProductStore", () => {
       console.error(err);
     }
   }
-  function setFilter(value) {
-    filter.value = value;
-    router.push(`/products/${value}`);
+  function setCategory(value) {
+    category.value = value;
+    // router.push(`/products/${value}`);
+    const { search } = route.query;
+
+    router.push({ path: `/products/${value}`, query: { search } });
   }
-  function sortToggle() {
-    isLowToHigh.value = !isLowToHigh.value;
+  function getSortPriceData(data) {
+    if (isHighToLow.value === "default") {
+      return data;
+    } else {
+      if (isHighToLow.value) {
+        return data.sort((a, b) => b.price - a.price);
+      } else {
+        return data.sort((a, b) => a.price - b.price);
+      }
+    }
   }
+  function sortPriceToggle() {
+    if (isHighToLow.value === "default") {
+      isHighToLow.value = false;
+    } else {
+      isHighToLow.value = !isHighToLow.value;
+    }
+  }
+  function setSearch(value) {
+    search.value = value;
+    const { filterCategory } = route.params;
+    router.push({
+      path: `/products/${filterCategory||category.value}`,
+      query: { search: value },
+    });
+  }
+
+  function getFilterSearchData(tempProducts) {
+    return tempProducts.filter((item) => item.title.includes(search.value));
+  }
+
+  const debounceSetSearch = debounce(setSearch, 700);
 
   return {
     cakeProducts,
@@ -70,10 +112,14 @@ export const useProductStore = defineStore("useProductStore", () => {
     puddingProducts,
     products,
     productsRender,
-    filter,
-    isLowToHigh,
+    category,
+    isHighToLow,
+    search,
+    sortPriceBtnName,
     getProducts,
-    setFilter,
-    sortToggle,
+    setCategory,
+    sortPriceToggle,
+    setSearch,
+    debounceSetSearch,
   };
 });

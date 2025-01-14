@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+const { category, search } = storeToRefs(useProductStore());
+</script>
 
 <template>
-  <nav class="fixed top-0 w-full z-50 bg-black">
+  <nav class="fixed top-0 z-50 w-full bg-black">
     <ul
       class="text-primary mx-auto flex max-w-[1320px] items-center justify-center text-xl"
     >
@@ -16,7 +18,7 @@
               width="130"
               height="75"
               alt="小巷弄甜點logo"
-            >
+            />
           </NuxtLink>
         </h1>
       </li>
@@ -31,7 +33,7 @@
       </li>
       <li class="mr-6">
         <NuxtLink
-          to="/products"
+          :to="`/products/${category || '全部'}?search=${search}`"
           active-class="border-primary border-solid border-b-2 font-bold"
           class="border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
