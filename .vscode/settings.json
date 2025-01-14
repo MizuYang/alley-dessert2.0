@@ -1,9 +1,10 @@
 // .vscode/settings.json
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "always",
-    "source.fixAll.eslint": "always"
-  },
+  "editor.formatOnSave": false,
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll": "always",
+  //   "source.fixAll.eslint": "always"
+  // },
   "tailwindCSS.includeLanguages": {
     "html": "html",
     "javascript": "javascript, vue",
