@@ -1,9 +1,8 @@
 <script setup>
-const { products } = storeToRefs(useProductStore());
+const { products, productsRender } = storeToRefs(useProductStore());
 const { getProducts } = useProductStore();
 
 onMounted(() => {
-  console.log("products: ", products);
   if (!products.value.length) getProducts();
 });
 </script>
@@ -17,7 +16,10 @@ onMounted(() => {
       >
     </h2>
 
-    <ProductsCards :products="products" />
+    <ProductsFilterSearchSortTool />
+
+    <!-- <ProductsCards :products="products" /> -->
+    <ProductsCards :products="productsRender" />
   </main>
 </template>
 

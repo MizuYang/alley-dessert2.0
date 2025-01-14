@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     dirs: ["stores"], // 資料夾名稱
   },
 
-  modules: ["@nuxtjs/tailwindcss", "nuxt-swiper", "nuxt-aos", "@pinia/nuxt"],
+  modules: ["@nuxtjs/tailwindcss", "nuxt-swiper", "nuxt-aos", "@pinia/nuxt", "nuxt-lodash"],
 
   tailwindcss: {
     config: {
