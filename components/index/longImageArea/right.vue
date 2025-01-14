@@ -1,18 +1,20 @@
-<script setup></script>
+<script setup>
+const config = useRuntimeConfig();
+let imgBaseUrl = config.public.imgPath;
+const img1 = ref("");
+const img2 = ref("");
+img1.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-次要/垂直大.png`;
+img2.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-次要/垂直小.png`;
+</script>
 
 <template>
   <section class="text-primary flex-column flex flex-col-reverse">
     <div
       class="flex h-[960px] w-[636px] bg-no-repeat"
-      style="
-        background-image: url(&quot;/images/pages/主頁/垂直banner-次要/垂直大.png&quot;);
-      "
+      :style="`background-image: url(${img1});`"
     >
       <div class="m-auto">
-        <div
-          data-aos="flip-right"
-          data-aos-duration="4000"
-        >
+        <div data-aos="flip-right" data-aos-duration="4000">
           <p class="-translate-y-9 bg-[#110e0e6c] text-left text-xl leading-10">
             我相信努力不會白費 <br />
             就算將來的某一天我不得不放棄這個夢想 <br />
@@ -25,9 +27,7 @@
     </div>
     <div
       class="square-secondary group relative mx-auto block h-[320px] w-[430px] cursor-pointer overflow-hidden bg-contain bg-center bg-no-repeat opacity-70 transition-all hover:!opacity-100"
-      style="
-        background-image: url(&quot;/images/pages/主頁/垂直banner-次要/垂直小.png&quot;);
-      "
+      :style="`background-image: url(${img2});`"
     >
       <p class="ms-20 mt-12">
         <span

@@ -26,11 +26,28 @@ const swiper = useSwiper(containerRef, {
   },
 });
 
-const mainSwiper = [
-  "/images/pages/主頁/主要輪播/主頁大輪播1.jpeg",
-  "/images/pages/主頁/主要輪播/主頁大輪播2.jpeg",
-  "/images/pages/主頁/主要輪播/主頁輪播3.jpg",
+const config = useRuntimeConfig();
+let imgBaseUrl = config.public.imgPath;
+
+let mainSwiper = [
+  `${imgBaseUrl}/images/pages/主頁/主要輪播/主頁大輪播1.jpeg`,
+  `${imgBaseUrl}/images/pages/主頁/主要輪播/主頁大輪播2.jpeg`,
+  `${imgBaseUrl}/images/pages/主頁/主要輪播/主頁輪播3.jpg`,
 ];
+
+// let mainSwiper = [
+//   "/images/pages/主頁/主要輪播/主頁大輪播1.jpeg",
+//   "/images/pages/主頁/主要輪播/主頁大輪播2.jpeg",
+//   "/images/pages/主頁/主要輪播/主頁輪播3.jpg",
+// ];
+
+// if (process.env.NODE_ENV === "production") {
+//   mainSwiper = [
+//     "/alley-dessert2.0/images/pages/主頁/主要輪播/主頁大輪播1.jpeg",
+//     "/alley-dessert2.0/images/pages/主頁/主要輪播/主頁大輪播2.jpeg",
+//     "/alley-dessert2.0/images/pages/主頁/主要輪播/主頁輪播3.jpg",
+//   ];
+// }
 
 onMounted(() => {
   // console.log(swiper.instance);

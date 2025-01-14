@@ -46,10 +46,11 @@ const props = defineProps({
               data-clickType="btn"
               type="button"
               class="badge animation_hover collect_btn"
-              :class="`collect_btn${index}`"
               title="加入收藏"
-              @click.prevent="toggleCollect(product.id, index)"
-            >
+              >
+              <!-- :class="`collect_btn${index}`" -->
+              <!-- @click.prevent="toggleCollect(product.id, index)" -->
+               
               <!-- <span v-if="collect.includes(product.id)">
                 <i
                   class="bi bi-heart-fill text-2xl text-red-500"

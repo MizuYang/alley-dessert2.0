@@ -1,12 +1,17 @@
-<script setup></script>
+<script setup>
+const config = useRuntimeConfig();
+let imgBaseUrl = config.public.imgPath;
+const img1 = ref("");
+const img2 = ref("");
+img1.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-主要/垂直大.png`;
+img2.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-主要/「招牌」草莓酥.png`;
+</script>
 
 <template>
   <section class="text-primary">
     <div
       class="flex h-[960px] w-[636px] bg-no-repeat"
-      style="
-        background-image: url(&quot;/images/pages/主頁/垂直banner-主要/垂直大.png&quot;);
-      "
+      :style="`background-image: url(${img1});`"
     >
       <div class="m-auto translate-y-16 bg-[#110e0e6c] px-4 py-6 text-center">
         <div
@@ -34,9 +39,7 @@
     </div>
     <div
       class="square-main group relative mx-auto my-[5%] block h-[290px] w-[400px] cursor-pointer overflow-hidden bg-contain bg-center bg-no-repeat opacity-70 transition-all hover:!opacity-100"
-      style="
-        background-image: url(&quot;/images/pages/主頁/垂直banner-主要/「招牌」草莓酥.png&quot;);
-      "
+      :style="`background-image: url(${img2});`"
     >
       <p
         class="absolute bottom-8 left-1/2 flex -translate-x-1/2 items-end justify-center"
