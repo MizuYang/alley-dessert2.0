@@ -67,6 +67,7 @@ const enabledListIdx = ref(-1);
 const isLoaing = ref(true);
 
 function llistToggle(idx) {
+  removeAosAnimate(questionsRefs.value[idx].offsetParent);
   // 若上次索引與這次一樣，則關閉，並初始化索引
   if (enabledListIdx.value === idx) {
     questionsRefs.value[idx].style.height = "0px";
@@ -78,6 +79,7 @@ function llistToggle(idx) {
   Object.keys(questionsRefs.value).forEach((key, index) => {
     // 關閉其他選單
     if (index !== idx) {
+      removeAosAnimate(questionsRefs.value[key].offsetParent);
       questionsRefs.value[key].style.height = "0px";
       questionsRefs.value[key].classList.add("h-0");
       return;
@@ -102,6 +104,9 @@ function getQuestionHeight() {
   });
   isLoaing.value = false;
 }
+function removeAosAnimate(el) {
+  el.removeAttribute("data-aos");
+}
 
 onMounted(() => {
   getQuestionHeight();
@@ -122,9 +127,15 @@ onMounted(() => {
         class="mb-5"
         :class="enabledListIdx === idx && 'enabled-list'"
         @click="llistToggle(idx)"
+        data-aos="fade-right"
+        data-aos-easing="linear"
+        aos-delay="1000"
+        data-aos-duration="1000"
+        data-aos-once="true"
       >
         <div
           class="border-primary hover:bg-primary/20 cursor-pointer border border-solid p-4"
+          :class="enabledListIdx === idx && 'bg-primary/20'"
         >
           <h3 class="flex items-center">
             <span class="me-3 inline-block text-lg font-black"
@@ -160,7 +171,7 @@ onMounted(() => {
       v-if="isLoaing"
       class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-black"
     >
-      讀取中..
+      讀取中...
     </div>
   </main>
 </template>
