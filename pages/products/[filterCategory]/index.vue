@@ -23,7 +23,7 @@ onMounted(() => {
       </div>
     </template>
     <template v-else>
-      <div class="text-primary min-h flex items-center justify-center text-center text-2xl">載入中...</div>
+      <div class="text-primary min-h flex items-center justify-center text-center text-2xl">讀取中..</div>
     </template>
   </main>
 </template>

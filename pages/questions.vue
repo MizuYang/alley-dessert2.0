@@ -61,15 +61,71 @@ const questions = ref([
     isListCircle: true,
   },
 ]);
+const questionHeight = ref({});
+const questionsRefs = ref({});
+const enabledListIdx = ref(-1);
+const isLoaing = ref(true);
+
+function llistToggle(idx) {
+  // 若上次索引與這次一樣，則關閉，並初始化索引
+  if (enabledListIdx.value === idx) {
+    questionsRefs.value[idx].style.height = "0px";
+    questionsRefs.value[idx].classList.add("h-0");
+    enabledListIdx.value = -1;
+    return;
+  }
+
+  Object.keys(questionsRefs.value).forEach((key, index) => {
+    // 關閉其他選單
+    if (index !== idx) {
+      questionsRefs.value[key].style.height = "0px";
+      questionsRefs.value[key].classList.add("h-0");
+      return;
+    }
+    // 開啟當前選單
+    questionsRefs.value[key].style.height = `${questionHeight.value[index]}px`;
+  });
+
+  // 賦予當前索引
+  enabledListIdx.value = idx;
+}
+/**
+ * 先將取得展開的手風琴元素高度，並透過 translate-x 移到畫面外
+ * 當取得高度後，將元素高度設為 0，並透過 translate-x 移回畫面內
+ * 這樣可以避免一開始就看到元素展開的動畫
+ */
+function getQuestionHeight() {
+  Object.keys(questionsRefs.value).forEach((key, index) => {
+    const el = questionsRefs.value[key];
+    questionHeight.value[index] = el.offsetHeight;
+    el.classList.add("h-0");
+  });
+  isLoaing.value = false;
+}
+
+onMounted(() => {
+  getQuestionHeight();
+});
 </script>
 
 <template>
   <main class="text-primary bg-black pb-14 pt-10">
     <PageTitle :title="'常見問題'" />
 
-    <ul class="mx-auto max-w-[1200px]">
-      <li v-for="(que, idx) in questions" :key="`que-${idx}`" class="mb-5">
-        <div class="border-primary cursor-pointer border border-solid p-4">
+    <ul
+      class="mx-auto max-w-[1200px]"
+      :class="isLoaing && 'translate-x-[9999px]'"
+    >
+      <li
+        v-for="(que, idx) in questions"
+        :key="`que-${idx}`"
+        class="mb-5"
+        :class="enabledListIdx === idx && 'enabled-list'"
+        @click="llistToggle(idx)"
+      >
+        <div
+          class="border-primary hover:bg-primary/20 cursor-pointer border border-solid p-4"
+        >
           <h3 class="flex items-center">
             <span class="me-3 inline-block text-lg font-black"
               >{{ idx + 1 }}.</span
@@ -77,8 +133,11 @@ const questions = ref([
             <span class="text-2xl font-black">{{ que.title }}</span>
           </h3>
         </div>
-        <div class="border-primary border border-solid p-4">
-          <ul>
+        <div
+          class="overflow-hidden transition-all duration-500"
+          :ref="(el) => (questionsRefs[`${idx}`] = el)"
+        >
+          <ul class="border-primary border border-solid p-4">
             <li
               class="list-inside text-xl"
               :class="[
@@ -97,7 +156,17 @@ const questions = ref([
         </div>
       </li>
     </ul>
+    <div
+      v-if="isLoaing"
+      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-black"
+    >
+      讀取中..
+    </div>
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.enabled-list {
+  @apply ring-primary/50 bg-primary/10 h-auto ring-4;
+}
+</style>
