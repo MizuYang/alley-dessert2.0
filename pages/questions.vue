@@ -129,8 +129,8 @@ onMounted(() => {
         @click="llistToggle(idx)"
         data-aos="fade-right"
         data-aos-easing="linear"
-        aos-delay="1000"
-        data-aos-duration="1000"
+        :data-aos-delay="`${idx <= 6 && (idx + 1) * 150}`"
+        data-aos-duration="300"
         data-aos-once="true"
       >
         <div
