@@ -1,4 +1,6 @@
 <script setup>
+import { addAnimation } from "~/utils/animation.client.js";
+
 const form = ref({ category: "-請選擇聯絡類別-" });
 const formInput = ref([
   {
@@ -15,7 +17,7 @@ const formInput = ref([
     type: "text",
     label: "E-mail",
     id: "email",
-    placeholder: "請輸入信箱",
+    placeholder: "請輸入信箱, 例：xxx@gmail.com.tw",
     isInvalid: null, // null: 未檢查, false: 通過, true: 未通過
     requireErrorMsg: "*信箱 為必填",
     isCustomRule: true,
@@ -61,6 +63,12 @@ const formInput = ref([
     requireErrorMsg: "*留言 為必填",
   },
 ]);
+const formInputRef = ref({});
+
+const addAnimationFn = ({ element, animateName }) => {
+  const fn = addAnimation({ element, animateName });
+  if (typeof fn === "function") fn();
+};
 
 function submitForm() {
   console.log(form);
@@ -68,16 +76,25 @@ function submitForm() {
 }
 function checkForm() {
   formInput.value.forEach((item) => {
+    const element = formInputRef.value[item.id];
     // 先檢查有特殊規則的欄位
     if (item.isCustomRule) {
       !item.rule(form.value[item.id])
-        ? (item.isInvalid = true)
+        ? fieldInvalidHandler({ element, item })
         : (item.isInvalid = false);
     } else {
       // 檢查必填欄位
-      console.log("form.value[item.id]: ", form.value[item.id]);
-      !form.value[item.id] ? (item.isInvalid = true) : (item.isInvalid = false);
+      !form.value[item.id]
+        ? fieldInvalidHandler({ element, item })
+        : (item.isInvalid = false);
     }
+  });
+}
+function fieldInvalidHandler({ element, item }) {
+  item.isInvalid = true;
+  addAnimationFn({
+    element,
+    animateName: "shakeX",
   });
 }
 </script>
@@ -110,6 +127,7 @@ function checkForm() {
                   { '!ring-red-500': item.isInvalid === true },
                   { '!ring-green-500': item.isInvalid === false },
                 ]"
+                :ref="(el) => (formInputRef[item.id] = el)"
                 :id="item.id"
                 :placeholder="item.placeholder"
                 v-model="form[item.id]"
@@ -122,6 +140,7 @@ function checkForm() {
                   { '!ring-red-500': item.isInvalid === true },
                   { '!ring-green-500': item.isInvalid === false },
                 ]"
+                :ref="(el) => (formInputRef[item.id] = el)"
                 :id="item.id"
                 v-model="form[item.id]"
               >

@@ -21,6 +21,9 @@ export function addAnimation({ element, animateName }) {
 
   return function () {
     try {
+      if (![...element.classList].includes("animate__animated")) {
+        element.classList.add("animate__animated");
+      }
       if (isAnimationEnd) {
         element.classList.remove(`animate__${animateName}`);
         isAnimationEnd = false;

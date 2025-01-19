@@ -1,5 +1,5 @@
 <script setup>
-import "animate.css";
+import { addAnimation } from "~/utils/animation.client.js";
 
 const orderId = ref("");
 const orderInput = ref(null);
@@ -15,32 +15,20 @@ const btnClass = computed(() =>
     ? "bg-red-800 hover:bg-red-800/90 active:bg-red-800/80"
     : "bg-gray-400 hover:bg-gray-400/90 active:bg-gray-400/80 cursor-not-allowed animate__animated  animate__shakeX",
 );
-const addErrorAnimationFn = addErrorAnimation();
+const addAnimationFn = ({ element, animateName }) => {
+  const fn = addAnimation({ element, animateName });
+  if (typeof fn === "function") fn();
+};
 
 function getOeder() {
   if (!isOrderIdInputDisabled.value) {
     if (orderInput.value) orderInput.value.focus();
-    addErrorAnimationFn();
+    addAnimationFn({
+      element: orderInput.value,
+      animateName: "shakeX",
+    });
     return;
   }
-}
-function addErrorAnimation() {
-  let isAnimationEnd = false;
-
-  return function () {
-    if (isAnimationEnd) {
-      orderInput.value.classList.remove("animate__animated", "animate__shakeX");
-      isAnimationEnd = false;
-      return;
-    }
-    isAnimationEnd = true;
-    orderInput.value.classList.add("animate__animated", "animate__shakeX");
-
-    setTimeout(() => {
-      isAnimationEnd = false;
-      orderInput.value.classList.remove("animate__animated", "animate__shakeX");
-    }, 1000);
-  };
 }
 </script>
 
@@ -57,7 +45,10 @@ function addErrorAnimation() {
       v-model="orderId"
       ref="orderInput"
     />
-    <p class="text-left text-xl font-bold text-red-500" v-if="!isOrderIdInputDisabled">
+    <p
+      class="text-left text-xl font-bold text-red-500"
+      v-if="!isOrderIdInputDisabled"
+    >
       *訂單編號不足20碼
     </p>
     <button
