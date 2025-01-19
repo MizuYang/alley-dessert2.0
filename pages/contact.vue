@@ -96,7 +96,7 @@ function checkForm() {
             :for="item.id"
             v-for="item in formInput"
             :key="item.id"
-            class="mb-5 inline-block w-full"
+            class="mb-4 inline-block w-full"
           >
             <span class="mb-2 inline-block font-bold">
               {{ item.label }}
@@ -146,10 +146,14 @@ function checkForm() {
 
           <button
             type="submit"
-            class="text-primary mx-auto w-full hover:bg-red-800/90 active:bg-red-800/80 mt-8 block rounded-xl bg-red-800 px-4 py-1 text-2xl"
+            class="text-primary mx-auto my-5 block w-full rounded-xl bg-red-800 px-4 py-1 text-2xl hover:bg-red-800/90 active:bg-red-800/80"
           >
             送出
           </button>
+
+          <p class="text-primary">
+            送出內容後，我們將在 3~5 個工作天內回覆您。
+          </p>
         </form>
       </div>
     </div>
