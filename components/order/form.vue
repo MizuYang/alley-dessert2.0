@@ -3,17 +3,32 @@ import { addAnimation } from "~/utils/animation.client.js";
 
 const orderId = ref("");
 const orderInput = ref(null);
+let isUserChange = false;
+const inputClassList = {
+  default: "ring-gray-400 focus:ring-gray/50 ",
+  error: "ring-red-500 focus:ring-red/50",
+  success: "ring-green-500 focus:ring-green/50",
+};
 
 const isOrderIdInputDisabled = computed(() => orderId.value.length === 20);
 const inputClass = computed(() => {
-  return isOrderIdInputDisabled.value
-    ? "ring-gray-400 focus:ring-gray/50 "
-    : "ring-red-500 focus:ring-red/50";
+  let inputStatus = "default";
+
+  if (orderId.value === "" && !isUserChange) {
+    inputStatus = "default";
+  } else if (orderId.value.length < 20) {
+    inputStatus = "error";
+    isUserChange = true;
+  } else {
+    inputStatus = "success";
+    isUserChange = true;
+  }
+  return inputClassList[inputStatus];
 });
 const btnClass = computed(() =>
   isOrderIdInputDisabled.value
     ? "bg-red-800 hover:bg-red-800/90 active:bg-red-800/80"
-    : "bg-gray-400 hover:bg-gray-400/90 active:bg-gray-400/80 cursor-not-allowed animate__animated  animate__shakeX",
+    : "bg-gray-400 hover:bg-gray-400/90 active:bg-gray-400/80 cursor-not-allowed",
 );
 const addAnimationFn = ({ element, animateName }) => {
   const fn = addAnimation({ element, animateName });
@@ -42,14 +57,16 @@ function getOeder() {
       class="mb-4 w-full bg-gray-700/80 px-3 py-2 text-xl ring-1 focus:outline-none focus:ring-4"
       :class="inputClass"
       placeholder="請輸入訂單編號 (20碼)"
-      v-model="orderId"
+      v-model.trim="orderId"
       ref="orderInput"
     />
     <p
       class="text-left text-xl font-bold text-red-500"
-      v-if="!isOrderIdInputDisabled"
+      v-if="!isOrderIdInputDisabled && isUserChange"
     >
-      *訂單編號不足20碼
+      *訂單編號
+      {{ orderId.length < 20 ? "不足" : "超過" }}
+      20碼
     </p>
     <button
       type="button"
