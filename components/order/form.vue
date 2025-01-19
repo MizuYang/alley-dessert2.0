@@ -1,7 +1,9 @@
 <script setup>
 import { addAnimation } from "~/utils/animation.client.js";
 
-const orderId = ref("");
+const emits = defineEmits(["showOrder"]);
+
+const orderId = ref("11111111111111111111");
 const orderInput = ref(null);
 let isUserChange = false;
 const inputClassList = {
@@ -44,6 +46,8 @@ function getOeder() {
     });
     return;
   }
+
+  emits("showOrder", orderId.value);
 }
 </script>
 
