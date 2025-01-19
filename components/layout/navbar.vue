@@ -11,7 +11,7 @@ const { category, search } = storeToRefs(useProductStore());
         <h1>
           <NuxtLink
             to="/"
-            class="block p-1 transition-all duration-75 hover:scale-105 hover:opacity-90"
+            class="block p-1 transition-all duration-75 hover:scale-95 active:scale-100 hover:opacity-90"
           >
             <img
               src="/images/logos/橫向LOGO.png"

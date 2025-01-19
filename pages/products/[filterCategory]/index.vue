@@ -8,7 +8,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="text-primary bg-black pb-14 pt-10">
+  <main class="pb-14 pt-10">
     <PageTitle :title="'精選產品'" />
 
 

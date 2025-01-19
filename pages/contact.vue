@@ -83,7 +83,7 @@ function checkForm() {
 </script>
 
 <template>
-  <main class="text-primary bg-black pb-14 pt-10">
+  <main class="pb-14 pt-10">
     <div>
       <PageTitle :title="'聯絡我們'" />
 

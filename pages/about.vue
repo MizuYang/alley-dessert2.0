@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <main class="text-primary bg-black pb-14 pt-10">
+  <main class="pb-14 pt-10">
     <PageTitle :title="'品牌故事'" />
 
     <div class="mx-auto max-w-[1200px]">
