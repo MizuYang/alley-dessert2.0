@@ -1,5 +1,14 @@
 <script setup>
+import { useFavoriteStore } from "~/stores/favoriteStore.client.js";
+
 const { category, search } = storeToRefs(useProductStore());
+const { favoriteData } = storeToRefs(useFavoriteStore());
+
+const { favoriteInit } = useFavoriteStore();
+
+onMounted(() => {
+  favoriteInit();
+});
 </script>
 
 <template>
@@ -11,7 +20,7 @@ const { category, search } = storeToRefs(useProductStore());
         <h1>
           <NuxtLink
             to="/"
-            class="block p-1 transition-all duration-75 hover:scale-95 active:scale-100 hover:opacity-90"
+            class="block p-1 transition-all duration-75 hover:scale-95 hover:opacity-90 active:scale-100"
           >
             <img
               src="/images/logos/橫向LOGO.png"
@@ -80,11 +89,16 @@ const { category, search } = storeToRefs(useProductStore());
         <NuxtLink
           to="/favorite"
           active-class="border-primary border-solid border-b-2 font-bold"
-          class="nav-link collect border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
+          class="nav-link collect border-primary relative block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
-          <!-- <span v-if="collect_data.length > 0"> -->
-          <template v-if="true">
+          <template v-if="favoriteData.length">
             <i class="bi bi-heart-fill text-[30px]" style="color: red" />
+
+            <span
+              class="bg-primary absolute -right-5 top-[10px] flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-base font-bold text-red-500"
+            >
+              {{ favoriteData.length }}
+            </span>
           </template>
           <template v-else>
             <i class="bi bi-heart collect_icon text-[30px]" />
