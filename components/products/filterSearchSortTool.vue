@@ -36,10 +36,10 @@ onMounted(() => {
       <li
         v-for="btn in filterBtnList"
         :key="`filterBtn-${btn}`"
-        class="border-primary hover:bg-primary/20 border border-solid transition-all hover:-translate-y-[2px] hover:rounded-br-2xl hover:rounded-tl-2xl"
+        class="border-primary shrink-0 hover:bg-primary/20 border border-solid transition-all hover:-translate-y-[2px] hover:rounded-br-2xl hover:rounded-tl-2xl"
         :class="category === btn && activeStyle"
       >
-        <button type="button" class="px-5 py-3" @click="setCategory(btn)">
+        <button type="button" class="px-4 py-3" @click="setCategory(btn)">
           {{ btn }}
         </button>
       </li>
@@ -47,12 +47,12 @@ onMounted(() => {
         class="border-primary hover:bg-primary/20 border border-solid transition-all hover:-translate-y-[2px] hover:rounded-br-2xl hover:rounded-tl-2xl"
         :class="typeof isHighToLow === 'boolean' && activeStyle"
       >
-        <button type="button" class="px-5 py-3" @click="sortPriceToggle">
+        <button type="button" class="shrink-0 px-4 py-3" @click="sortPriceToggle">
           <i class="bi bi-cash-coin"></i>
           {{ sortPriceBtnName }}
         </button>
       </li>
-      <li class="ml-auto">
+      <li class="ml-auto shrink-0">
         <label for="products-search-input">
           <i class="bi bi-search me-4 text-3xl"></i>
           <input
