@@ -1,4 +1,6 @@
 <script setup>
+import { storeToRefs } from "pinia";
+import { useFavoriteStore } from "@/stores/favoriteStore.js";
 const props = defineProps({
   products: {
     type: Array,
@@ -6,10 +8,25 @@ const props = defineProps({
     default: [],
   },
 });
+const { favoriteData, favoritedPproductKeyName } =
+  storeToRefs(useFavoriteStore());
+const { getFavorite, toggleFavorite, getFavoriteKey } = useFavoriteStore();
+
+onMounted(() => {
+  getFavoriteKey();
+});
 </script>
 
 <template>
   <ul class="mx-auto grid max-w-[1200px] grid-cols-4 gap-7">
+    <!-- "
+    {{
+      favoriteData
+    }}" -->
+    <br />
+    {{
+      favoritedPproductKeyName
+    }}
     <li v-for="product in products" :key="`procust-card-${product.id}`">
       <div
         class="border-primary hover:bg-primary/10 group flex h-full cursor-pointer flex-col border border-solid hover:ring-4 hover:ring-gray-400/50"
@@ -41,32 +58,38 @@ const props = defineProps({
           </div>
 
           <!-- 收藏按鈕 -->
-          <div class="absolute right-0 top-0 bg-red-800/30 rounded-bl-2xl px-2 py-1">
+          <div
+            class="absolute right-0 top-0 rounded-bl-2xl bg-red-800/30 px-2 py-1"
+          >
             <button
               data-clickType="btn"
               type="button"
               class="badge animation_hover collect_btn"
               title="加入收藏"
+              @click="toggleFavorite(product)"
+            >
+              <i
+                class="bi bi-heart-fill text-primary inline-block text-2xl hover:scale-[1.15] hover:text-red-500 active:scale-[1.25] active:text-red-500/80"
+                :class="
+                  favoritedPproductKeyName[product.id]
+                    ? 'text-red-500'
+                    : 'text-primary'
+                "
+              ></i>
+
+              <div
+                class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
               >
-              <!-- :class="`collect_btn${index}`" -->
-              <!-- @click.prevent="toggleCollect(product.id, index)" -->
-               
-              <!-- <span v-if="collect.includes(product.id)">
                 <i
-                  class="bi bi-heart-fill text-2xl text-red-500"
-                  data-clickType="btn"
+                  class="bi bi-heart-fill heart hidden text-red-500"
+                  :class="`heart-full-${product.id}`"
                 ></i>
-              </span>
-              <i class="bi bi-heart-fill text-2xl text-red-500" v-else data-clickType="btn"></i> -->
-              <!-- <i class="bi bi-heart-fill text-2xl text-red-500" data-clickType="btn"></i> -->
-              <i class="bi bi-heart-fill text-2xl text-primary hover:text-red-500" data-clickType="btn"></i>
+                <i
+                  class="bi bi-heartbreak-fill heartbreak hidden text-red-500"
+                  :class="`heart-break-${product.id}`"
+                ></i>
+              </div>
             </button>
-            <!-- //* 收藏愛心特效 -->
-            <!-- <i class="bi bi-heart-fill heart" :class="`heart${index}`"></i>
-            <i
-              class="bi bi-heartbreak-fill heartbreak"
-              :class="`heartbreak${index}`"
-            ></i> -->
           </div>
         </div>
 
@@ -108,4 +131,37 @@ const props = defineProps({
   </ul>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.heart-full-animation {
+  animation: heart-big 1s ease-in-out;
+}
+
+@keyframes heart-big {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(5);
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+.heart-break-animation {
+  animation: heart-break 1s ease-in-out;
+}
+
+@keyframes heart-break {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(5);
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+</style>
