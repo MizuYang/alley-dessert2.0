@@ -1,5 +1,5 @@
 <script setup>
-import { addAnimation } from "~/utils/animation.client.js";
+import { addAnimate } from "~/utils/animate.client.js";
 
 const form = ref({ category: "-請選擇聯絡類別-" });
 const formInput = ref([
@@ -65,8 +65,8 @@ const formInput = ref([
 ]);
 const formInputRef = ref({});
 
-const addAnimationFn = ({ element, animateName }) => {
-  const fn = addAnimation({ element, animateName });
+const addAnimateFn = ({ element, animateName }) => {
+  const fn = addAnimate({ element, animateName });
   if (typeof fn === "function") fn();
 };
 
@@ -92,7 +92,7 @@ function checkForm() {
 }
 function fieldInvalidHandler({ element, item }) {
   item.isInvalid = true;
-  addAnimationFn({
+  addAnimateFn({
     element,
     animateName: "shakeX",
   });

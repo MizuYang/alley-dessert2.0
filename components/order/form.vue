@@ -1,5 +1,5 @@
 <script setup>
-import { addAnimation } from "~/utils/animation.client.js";
+import { addAnimate } from "~/utils/animate.client.js";
 
 const emits = defineEmits(["showOrder"]);
 
@@ -32,15 +32,15 @@ const btnClass = computed(() =>
     ? "bg-red-800 hover:bg-red-800/90 active:bg-red-800/80"
     : "bg-gray-400 hover:bg-gray-400/90 active:bg-gray-400/80 cursor-not-allowed",
 );
-const addAnimationFn = ({ element, animateName }) => {
-  const fn = addAnimation({ element, animateName });
+const addAnimateFn = ({ element, animateName }) => {
+  const fn = addAnimate({ element, animateName });
   if (typeof fn === "function") fn();
 };
 
 function getOeder() {
   if (!isOrderIdInputDisabled.value) {
     if (orderInput.value) orderInput.value.focus();
-    addAnimationFn({
+    addAnimateFn({
       element: orderInput.value,
       animateName: "shakeX",
     });

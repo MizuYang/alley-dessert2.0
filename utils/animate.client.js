@@ -2,18 +2,17 @@
  * https://animate.style/
  */
 import "animate.css";
-
 /**
  * 
-import { addAnimation } from "~/utils/animation.client.js";
+import { addAnimate } from "~/utils/animate.client.js";
 
-const addAnimationFn = ({ element, animateName }) => {
-  const fn = addAnimation({ element, animateName });
+const addAnimateFn = ({ element, animateName }) => {
+  const fn = addAnimate({ element, animateName });
   if (typeof fn === "function") fn();
 };
  */
 
-export function addAnimation({ element, animateName }) {
+export function addAnimate({ element, animateName }) {
   if (!element || !animateName || import.meta.server) return;
 
   let isAnimationEnd = false;
