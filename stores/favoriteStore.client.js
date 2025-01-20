@@ -2,15 +2,17 @@ import { defineStore } from "pinia";
 
 export const useFavoriteStore = defineStore("useFavoriteStore", () => {
   const favoriteData = ref([]);
-  favoriteData.value = JSON.parse(localStorage.getItem("favoriteData") || []);
-  console.log("favoriteData.value: ", favoriteData.value);
   // 透過物件取值 判斷是否為收藏產品 { "product.id": product.id }
   const favoritedPproductKeyName = ref({});
 
+  function favoriteInit() {
+    if (import.meta.client) {
+      getFavorite();
+      getFavoriteKey();
+    }
+  }
   function getFavorite() {
-    favoriteData.value = JSON.parse(
-      JSON.stringify(localStorage.getItem("favoriteData")) || [],
-    );
+    favoriteData.value = JSON.parse(localStorage.getItem("favoriteData") || []);
   }
   function getFavoriteKey() {
     if (favoriteData.value.length) {
@@ -18,16 +20,9 @@ export const useFavoriteStore = defineStore("useFavoriteStore", () => {
         if (!favoritedPproductKeyName.value[item.id])
           favoritedPproductKeyName.value[item.id] = item.id;
       });
-
-      console.log(
-        "favoritedPproductKeyName.value: ",
-        favoritedPproductKeyName.value,
-      );
     }
   }
   function toggleFavorite(product) {
-    console.log("product: ", product);
-    console.log("favoriteData.value: ", favoriteData.value);
     const isAdd =
       favoriteData.value.findIndex((item) => item.id === product.id) === -1;
 
@@ -50,7 +45,6 @@ export const useFavoriteStore = defineStore("useFavoriteStore", () => {
     const heart = document.querySelector(`.${heartName}-${product.id}`);
     const animationMs = 1000;
 
-
     heart.classList.remove("hidden");
     heart.classList.add(`${heartName}-animation`, "block");
     setTimeout(() => {
@@ -61,9 +55,8 @@ export const useFavoriteStore = defineStore("useFavoriteStore", () => {
 
   return {
     favoriteData,
-    getFavorite,
-    toggleFavorite,
-    getFavoriteKey,
     favoritedPproductKeyName,
+    favoriteInit,
+    toggleFavorite,
   };
 });

@@ -1,6 +1,6 @@
 <script setup>
 import { storeToRefs } from "pinia";
-import { useFavoriteStore } from "@/stores/favoriteStore.js";
+import { useFavoriteStore } from "~/stores/favoriteStore.client.js";
 const props = defineProps({
   products: {
     type: Array,
@@ -10,10 +10,10 @@ const props = defineProps({
 });
 const { favoriteData, favoritedPproductKeyName } =
   storeToRefs(useFavoriteStore());
-const { getFavorite, toggleFavorite, getFavoriteKey } = useFavoriteStore();
+const { toggleFavorite, favoriteInit } = useFavoriteStore();
 
 onMounted(() => {
-  getFavoriteKey();
+  favoriteInit();
 });
 </script>
 
