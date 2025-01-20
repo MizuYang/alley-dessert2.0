@@ -32,6 +32,7 @@ export const useFavoriteStore = defineStore("useFavoriteStore", () => {
       favoriteData.value.findIndex((item) => item.id === product.id) === -1;
 
     isAdd ? addFavoriteHandler(product) : removeFavoriteHandler(product);
+    favoriteHeartAnimation({ product, isAdd });
     localStorage.setItem("favoriteData", JSON.stringify(favoriteData.value));
   }
   function addFavoriteHandler(product) {
@@ -43,6 +44,19 @@ export const useFavoriteStore = defineStore("useFavoriteStore", () => {
       (item) => item.id !== product.id,
     );
     delete favoritedPproductKeyName.value[product.id];
+  }
+  function favoriteHeartAnimation({ product, isAdd }) {
+    const heartName = isAdd ? "heart-full" : "heart-break";
+    const heart = document.querySelector(`.${heartName}-${product.id}`);
+    const animationMs = 1000;
+
+
+    heart.classList.remove("hidden");
+    heart.classList.add(`${heartName}-animation`, "block");
+    setTimeout(() => {
+      heart.classList.add("hidden");
+      heart.classList.remove(`${heartName}-animation`, "block");
+    }, animationMs);
   }
 
   return {
