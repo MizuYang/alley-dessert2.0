@@ -18,7 +18,7 @@ const inputClass = computed(() => {
 
   if (orderId.value === "" && !isUserChange) {
     inputStatus = "default";
-  } else if (orderId.value.length < 20) {
+  } else if (orderId.value.length !== 20) {
     inputStatus = "error";
     isUserChange = true;
   } else {
