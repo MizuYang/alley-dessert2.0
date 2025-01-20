@@ -12,7 +12,9 @@ const { favoritedPproductKeyName } = storeToRefs(useFavoriteStore());
 const { toggleFavorite, favoriteInit } = useFavoriteStore();
 
 onMounted(() => {
-  favoriteInit();
+  if (import.meta.client) {
+    favoriteInit();
+  }
 });
 </script>
 

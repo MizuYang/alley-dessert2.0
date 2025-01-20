@@ -7,7 +7,9 @@ const { favoriteData } = storeToRefs(useFavoriteStore());
 const { favoriteInit } = useFavoriteStore();
 
 onMounted(() => {
-  favoriteInit();
+  if (import.meta.client) {
+    favoriteInit();
+  }
 });
 </script>
 
