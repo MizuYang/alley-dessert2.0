@@ -12,7 +12,7 @@ export const useFavoriteStore = defineStore("useFavoriteStore", () => {
     }
   }
   function getFavorite() {
-    favoriteData.value = JSON.parse(localStorage.getItem("favoriteData") || []);
+    favoriteData.value = JSON.parse(localStorage.getItem("favoriteData")) || [];
   }
   function getFavoriteKey() {
     if (favoriteData.value.length) {
