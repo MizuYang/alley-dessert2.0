@@ -8,8 +8,35 @@ const props = defineProps({
 });
 const { productInfoData } = toRefs(props);
 
-console.log(props.productInfoData);
 const count = ref(1);
+const isMouseDown = ref(false);
+let timer = null;
+
+async function updProductCount(type) {
+  isMouseDown.value = true;
+
+  updCount(type);
+
+  // 長按超過 500ms 就連續增減
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+  timer = setInterval(() => {
+    clearTimer();
+    updCount(type);
+  }, 50);
+}
+function clearTimer() {
+  if (!isMouseDown.value) {
+    clearTimeout(timer);
+    timer = null;
+    return;
+  }
+}
+function updCount(type) {
+  if (!isMouseDown.value) return;
+  if (type === "+") count.value++;
+  else if (type === "-" && count.value > 1) count.value--;
+}
 </script>
 
 <template>
@@ -67,6 +94,9 @@ const count = ref(1);
           <button
             type="button"
             class="hover:bg-primary/20 active:bg-primary/25 border-primay border border-solid px-2 py-1 text-4xl"
+            :class="{ 'cursor-not-allowed bg-gray-600 text-black': count <= 1 }"
+            @mousedown="updProductCount('-')"
+            @mouseup="isMouseDown = false"
           >
             <i class="bi bi-dash-lg"></i>
           </button>
@@ -80,6 +110,8 @@ const count = ref(1);
           <button
             type="button"
             class="hover:bg-primary/20 active:bg-primary/25 border-primay border border-solid px-2 py-1 text-4xl"
+            @mousedown="updProductCount('+')"
+            @mouseup="isMouseDown = false"
           >
             <i class="bi bi-plus-lg"></i>
           </button>
