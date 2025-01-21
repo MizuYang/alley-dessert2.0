@@ -8,19 +8,38 @@ const props = defineProps({
     default: [],
   },
 });
+
+const router = useRouter();
+
 const { favoritedPproductKeyName } = storeToRefs(useFavoriteStore());
 const { toggleFavorite, favoriteInit } = useFavoriteStore();
+
+const { getProductInfo } = useProductInfoStore();
 
 onMounted(() => {
   if (import.meta.client) {
     favoriteInit();
   }
 });
+
+function gotoProductDetail(product = { id: "" }) {
+  const { id } = product;
+  if (!id) return;
+  getProductInfo(product);
+  router.push(`/productInfo/${id}`);
+}
+function addToCart() {
+  console.log("addToCart");
+}
 </script>
 
 <template>
   <ul class="mx-auto grid max-w-[1200px] grid-cols-4 gap-7">
-    <li v-for="product in products" :key="`procust-card-${product.id}`">
+    <li
+      v-for="product in products"
+      :key="`procust-card-${product.id}`"
+      @click="gotoProductDetail(product)"
+    >
       <div
         class="border-primary hover:bg-primary/10 group flex h-full cursor-pointer flex-col border border-solid hover:ring-4 hover:ring-gray-400/50"
         data-aos="fade-up"
@@ -115,6 +134,7 @@ onMounted(() => {
         <button
           type="button"
           class="m-auto block w-full bg-red-800 py-3 text-2xl group-hover:bg-red-700/90 group-active:bg-red-600/80"
+          @click.stop="addToCart(product)"
         >
           <i class="bi bi-cart-check-fill"></i>
           加入購物車

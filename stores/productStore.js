@@ -67,10 +67,9 @@ export const useProductStore = defineStore("useProductStore", () => {
   }
   function setCategory(value) {
     category.value = value;
-    // router.push(`/products/${value}`);
     const { search } = route.query;
 
-    router.push({ path: `/products/${value}`, query: { search } });
+    router.replace({ path: `/products/${value}`, query: { search } });
   }
   function getSortPriceData(data) {
     if (isHighToLow.value === "default") {
@@ -94,7 +93,7 @@ export const useProductStore = defineStore("useProductStore", () => {
     search.value = value;
     const { filterCategory } = route.params;
     router.push({
-      path: `/products/${filterCategory||category.value}`,
+      path: `/products/${filterCategory || category.value}`,
       query: { search: value },
     });
   }
