@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+const { category, search } = storeToRefs(useProductStore());
+</script>
 
 <template>
   <div
@@ -16,13 +18,15 @@
       </div>
     </div>
 
-    <button
-      type="button"
-      class="group-active:bg-red-600/80text-primary m-auto mx-auto block rounded-xl bg-red-800 px-4 py-3 text-2xl hover:bg-red-800/90 active:bg-red-800/80 group-hover:bg-red-700/90"
-    >
-      <i class="bi bi-cart-check-fill"></i>
-      返回購物
-    </button>
+    <div class="text-center">
+      <NuxtLink
+        :to="`/products/${category || '全部'}?search=${search}`"
+        class="group-active:bg-red-600/80text-primary inline-block rounded-xl bg-red-800 px-4 py-3 text-2xl hover:bg-red-800/90 active:bg-red-800/80 group-hover:bg-red-700/90"
+      >
+        <i class="bi bi-cart-check-fill"></i>
+        返回購物
+      </NuxtLink>
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,15 @@
 <script setup>
 import noFavoriteProduct from "@/components/favorite/noFavoriteProduct.vue";
+
+const { favoriteData } = storeToRefs(useFavoriteStore());
+const { favoriteInit } = useFavoriteStore();
+
+let isReady = ref(false);
+
+onMounted(() => {
+  favoriteInit();
+  isReady.value = true;
+});
 </script>
 
 <template>
@@ -8,9 +18,22 @@ import noFavoriteProduct from "@/components/favorite/noFavoriteProduct.vue";
       <PageTitle :title="'收藏清單'" />
     </div>
 
-    <section class="max-w-[700px] mx-auto">
+    <section v-if="favoriteData.length && isReady">
+      <ProductsCards :products="favoriteData" />
+    </section>
+    <section
+      class="mx-auto max-w-[700px]"
+      v-else-if="!favoriteData.length && isReady"
+    >
       <!-- 無收藏產品 -->
       <noFavoriteProduct />
+    </section>
+    <section v-else>
+      <div
+        class="text-primary absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-black"
+      >
+        讀取中...
+      </div>
     </section>
   </main>
 </template>
