@@ -78,7 +78,7 @@ function addToCart() {
               type="button"
               class="badge animation_hover collect_btn"
               title="加入收藏"
-              @click="toggleFavorite(product)"
+              @click.stop="toggleFavorite(product)"
             >
               <i
                 class="bi bi-heart-fill text-primary inline-block text-2xl hover:scale-[1.15] hover:text-red-500 active:scale-[1.25] active:text-red-500/80"
