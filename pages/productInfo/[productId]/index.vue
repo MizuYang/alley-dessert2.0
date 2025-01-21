@@ -21,12 +21,21 @@ onMounted(() => {
 
 <template>
   <main class="pb-14 pt-10">
-    <div>
-      <PageTitle :title="productInfoData?.title || ''" />
-    </div>
-
     <section class="mx-auto max-w-[1200px]">
-      <ProductInfo :productInfoData="productInfoData" />
+      <template v-if="productInfoData.id">
+        <div>
+          <PageTitle :title="productInfoData?.title || ''" />
+        </div>
+        <ProductInfo :productInfoData="productInfoData" />
+      </template>
+
+      <template v-else>
+        <div
+          class="text-primary absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-black"
+        >
+          讀取中...
+        </div>
+      </template>
     </section>
   </main>
 </template>

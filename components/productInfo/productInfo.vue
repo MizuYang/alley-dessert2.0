@@ -94,7 +94,9 @@ function updCount(type) {
           <button
             type="button"
             class="hover:bg-primary/20 active:bg-primary/25 border-primay border border-solid px-2 py-1 text-4xl"
-            :class="{ 'cursor-not-allowed bg-gray-600 text-black': count <= 1 }"
+            :class="{
+              'cursor-not-allowed bg-gray-600 text-black': count <= 1,
+            }"
             @mousedown="updProductCount('-')"
             @mouseup="isMouseDown = false"
           >
