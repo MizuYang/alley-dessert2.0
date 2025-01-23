@@ -84,7 +84,7 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
           class="group"
         >
           <div class="h-[320px] overflow-hidden">
-            <a href="#" @click.prevent="viewProduct(product.id)">
+            <NuxtLink :to="`/productInfo/${product.id}`">
               <div
                 class="relative block h-full w-full bg-cover bg-center bg-no-repeat"
                 :style="{ backgroundImage: `url(${product.imageUrl})` }"
@@ -115,7 +115,7 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
               >
                 熱門產品
               </p>
-            </a>
+            </NuxtLink>
           </div>
           <button
             type="button"

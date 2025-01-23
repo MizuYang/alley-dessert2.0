@@ -10,6 +10,10 @@ const { fetchProductInfo } = useProductInfoStore();
 const route = useRoute();
 const router = useRouter();
 
+watchEffect(() => {
+  if (route?.params?.productId) changePagesFetchProductInfo(route?.params?.productId)
+});
+
 onMounted(() => {
   // 沒產品資料 && 路由也沒產品 ID
   if (!productInfoData.value?.id && !route?.params?.productId) {
@@ -18,6 +22,10 @@ onMounted(() => {
     fetchProductInfo(route?.params?.productId);
   }
 });
+
+function changePagesFetchProductInfo(productId) {
+  fetchProductInfo(productId);
+}
 </script>
 
 <template>

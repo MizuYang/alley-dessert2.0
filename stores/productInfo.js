@@ -19,7 +19,6 @@ export const useProductInfoStore = defineStore("useProductInfoStore", () => {
     try {
       const res = await $fetch(api);
       productInfoData.value = res.product;
-      console.log("productInfoData.value: ", productInfoData.value);
     } catch (err) {
       console.error(err);
     }
