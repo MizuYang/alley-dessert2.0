@@ -2,7 +2,7 @@
 import ProductInfo from "@/components/productInfo/productInfo.vue";
 import RecommendProductSwiper from "@/components/productInfo/recommendProductSwiper.vue";
 
-const { category, search } = storeToRefs(useProductStore());
+const { products, category, search } = storeToRefs(useProductStore());
 
 const { productInfoData } = storeToRefs(useProductInfoStore());
 const { fetchProductInfo } = useProductInfoStore();
@@ -10,8 +10,15 @@ const { fetchProductInfo } = useProductInfoStore();
 const route = useRoute();
 const router = useRouter();
 
-watchEffect(() => {
-  if (route?.params?.productId) changePagesFetchProductInfo(route?.params?.productId)
+const productInfo = computed(() => {
+  if (!route?.params?.productId) return [];
+  if (products.value.length) {
+    return products.value.filter(
+      (product) => product.id === route?.params?.productId,
+    )[0];
+  }
+  fetchProductInfo(route?.params?.productId);
+  return productInfoData.value;
 });
 
 onMounted(() => {
@@ -22,20 +29,16 @@ onMounted(() => {
     fetchProductInfo(route?.params?.productId);
   }
 });
-
-function changePagesFetchProductInfo(productId) {
-  fetchProductInfo(productId);
-}
 </script>
 
 <template>
   <main class="pb-14 pt-10">
     <section class="mx-auto max-w-[1200px]">
-      <template v-if="productInfoData.id">
+      <template v-if="productInfo.id">
         <div>
-          <PageTitle :title="productInfoData?.title || ''" />
+          <PageTitle :title="productInfo?.title || ''" />
         </div>
-        <ProductInfo :productInfoData="productInfoData" />
+        <ProductInfo :productInfoData="productInfo" />
 
         <h3
           class="border-primary my-12 border-b border-solid pb-2 text-center text-[32px]"
