@@ -1,5 +1,12 @@
 <script setup>
 import CartTimeline from "@/components/cart/cartTime.vue";
+
+const { cartData } = storeToRefs(useCartStore());
+const { getCartData } = useCartStore();
+
+onMounted(() => {
+  getCartData();
+});
 </script>
 
 <template>
@@ -9,7 +16,17 @@ import CartTimeline from "@/components/cart/cartTime.vue";
     </div>
 
     <div class="mx-auto max-w-[1200px]">
-      <CartTimeline />
+      <CartTimeline class="mb-12" />
+
+      <div class="mb-6 text-end">
+        <button
+          type="button"
+          class="border-primary border border-solid px-3 py-2"
+        >
+          全部刪除
+        </button>
+      </div>
+      <CartTable :cartData="cartData" />
     </div>
   </main>
 </template>

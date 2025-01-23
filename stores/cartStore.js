@@ -4,6 +4,8 @@ export const useCartStore = defineStore("useCartStore", () => {
   const config = useRuntimeConfig();
   const { apiPath, apiBaseUrl } = config.public;
 
+  const cartData = ref([])
+
   async function addProductToCart({ product, qty = 1 }) {
     if (!product?.id) return;
 
@@ -24,8 +26,25 @@ export const useCartStore = defineStore("useCartStore", () => {
       console.error(err);
     }
   }
+  async function getCartData() {
+    const option = {
+      method: "GET",
+    };
+
+    try {
+      const res = await $fetch(`${apiBaseUrl}/api/${apiPath}/cart`, {
+        ...option,
+      });
+      console.log("res", res);
+      cartData.value = res.data.carts
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return {
+    cartData,
     addProductToCart,
+    getCartData,
   };
 });
