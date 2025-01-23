@@ -18,24 +18,34 @@ const props = defineProps({
   maxWidth: {
     type: Number,
     required: true,
-  }
+  },
+  options: {
+    type: Object,
+    required: false,
+    default: () => ({}),
+  },
 });
+
+const { options } = toRefs(props);
 
 const maxW = {
   390: "max-w-[390px]",
   1200: "max-w-[1200px]",
-}
-
+};
 const indexProfiteroleSwiper = ref(null);
 const swiper = useSwiper(indexProfiteroleSwiper, {
+  ...props.options,
+
   // effect: 'creative',
   loop: true,
   slidesPerView: props.slidesPerView || 1,
   spaceBetween: 50,
   autoplay: {
-    delay: 2000,
+    delay: options.value.delay ? +options.value.delay : 2000,
     pauseOnMouseEnter: true,
   },
+  speed: options.value.speed && options.value.speed,
+  freeMode: options.value.freeMode,
   // navigation: true,
   // pagination: true,
   // pagination: {
@@ -58,9 +68,13 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
 </script>
 
 <template>
-  <div class="product-swiper-banner text-primary mx-auto"
-       :class="maxW[maxWidth]">
-    <h3 class="mb-4 text-center text-2xl font-bold" v-if="title">{{ title }}</h3>
+  <div
+    class="product-swiper-banner text-primary mx-auto"
+    :class="maxW[maxWidth]"
+  >
+    <h3 class="mb-4 text-center text-2xl font-bold" v-if="title">
+      {{ title }}
+    </h3>
 
     <ClientOnly>
       <swiper-container ref="indexProfiteroleSwiper" :init="false">
@@ -130,5 +144,10 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
   --swiper-pagination-bullet-inactive-color: #fff;
   --swiper-pagination-bullet-inactive-opacity: 0.5;
   --swiper-pagination-color: #f1ebd8;
+}
+
+.swiper-free-mode > .swiper-wrapper {
+  transition-timing-function: linear;
+  margin: 0 auto;
 }
 </style>

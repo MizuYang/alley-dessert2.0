@@ -1,5 +1,6 @@
 <script setup>
 import ProductInfo from "@/components/productInfo/productInfo.vue";
+import RecommendProductSwiper from "@/components/productInfo/recommendProductSwiper.vue";
 
 const { category, search } = storeToRefs(useProductStore());
 
@@ -27,6 +28,14 @@ onMounted(() => {
           <PageTitle :title="productInfoData?.title || ''" />
         </div>
         <ProductInfo :productInfoData="productInfoData" />
+
+        <h3
+          class="border-primary my-12 border-b border-solid pb-2 text-center text-[32px]"
+        >
+          猜你會喜歡...
+        </h3>
+
+        <RecommendProductSwiper :currentProductId="route?.params?.productId" />
       </template>
 
       <template v-else>
