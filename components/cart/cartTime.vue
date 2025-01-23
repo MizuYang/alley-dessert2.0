@@ -1,10 +1,4 @@
 <script setup>
-const props = defineProps({
-  maxWidth: {
-    type: Number,
-    default: 1200,
-  },
-});
 const timeline = ref(["確認商品", "填寫資料", "確認付款", "完成訂單"]);
 const step = {
   cart: 0,
@@ -16,7 +10,6 @@ const step = {
 const route = useRoute();
 
 const currentStep = computed(() => (route?.carts ? step[route.carts] : 0));
-const arrowTranslate = computed(() => `${props.maxWidth / 4 / 4}px`);
 </script>
 
 <template>
@@ -25,7 +18,7 @@ const arrowTranslate = computed(() => `${props.maxWidth / 4 / 4}px`);
       <li
         v-for="(item, idx) in timeline"
         :key="`timeline-${item}`"
-        class="flex w-full items-center"
+        class="relative flex w-full items-center"
       >
         <span
           class="border-primary rounded-br-3xl rounded-tl-3xl border border-solid px-3 py-2"
@@ -34,14 +27,30 @@ const arrowTranslate = computed(() => `${props.maxWidth / 4 / 4}px`);
         >
 
         <template v-if="idx !== timeline.length - 1">
-          <i
-            class="bi bi-arrow-right inline-block text-[40px]"
-            :style="`transform: translateX(${arrowTranslate})`"
-          ></i>
+          <span
+            class="arrow-animation absolute left-1/2 ml-8 inline-block text-[40px]"
+          >
+            <i class="bi bi-arrow-right"></i>
+          </span>
         </template>
       </li>
     </ul>
   </header>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.arrow-animation {
+  animation: arrow 1s infinite;
+}
+@keyframes arrow {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(15px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+</style>
