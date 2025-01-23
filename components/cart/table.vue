@@ -12,7 +12,6 @@ const deleteProductsId = ref([]);
 <template>
   <table class="w-full text-center">
     <!-- <caption>標題</caption> -->
-
     <thead class="align-middle">
       <tr class="border-primary border-b-2 border-solid text-xl font-bold">
         <th scope="col" class="pb-2">
@@ -23,9 +22,6 @@ const deleteProductsId = ref([]);
         <th scope="col" class="pb-2">數量</th>
         <th scope="col" class="pb-2">單價</th>
         <th scope="col" class="pb-2">小計</th>
-        <!-- <th scope="col" class="pb-2">
-          <i class="bi bi-trash3"></i>
-        </th> -->
       </tr>
     </thead>
 
@@ -36,7 +32,12 @@ const deleteProductsId = ref([]);
         :key="item.id"
       >
         <td class="w-20 py-3 align-middle">
-          <input type="checkbox" class="bg-black" v-model="deleteProductsId" />
+          <input
+            type="checkbox"
+            class="bg-primary focus:ring-primary/50 size-5 text-red-500 ring-4 checked:text-red-500 hover:text-red-500/90 focus:outline-none"
+            :value="item.id"
+            v-model="deleteProductsId"
+          />
         </td>
         <td class="relative w-[200px] py-3 align-middle">
           <img
@@ -53,10 +54,10 @@ const deleteProductsId = ref([]);
           </span>
         </td>
         <td class="py-3 align-middle">
-          <div class="justify-center flex-col flex items-center">
+          <div class="flex flex-col items-center justify-center">
             {{ item.title }}
             <span
-              class="inline-block bg-red-600 p-1 mt-3 text-base font-semibold text-white"
+              class="mt-3 inline-block bg-red-600 p-1 text-base font-semibold text-white"
             >
               熱門產品
             </span>
