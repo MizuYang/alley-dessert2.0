@@ -16,6 +16,8 @@ const { toggleFavorite, favoriteInit } = useFavoriteStore();
 
 const { getProductInfo } = useProductInfoStore();
 
+const { addProductToCart } = useCartStore();
+
 onMounted(() => {
   if (import.meta.client) {
     favoriteInit();
@@ -28,8 +30,9 @@ function gotoProductDetail(product = { id: "" }) {
   getProductInfo(product);
   router.push(`/productInfo/${id}`);
 }
-function addToCart() {
-  console.log("addToCart");
+function addProduct ({product}) {
+  console.log(product);
+  addProductToCart({product});
 }
 </script>
 
@@ -134,7 +137,7 @@ function addToCart() {
         <button
           type="button"
           class="m-auto block w-full bg-red-800 py-3 text-2xl group-hover:bg-red-700/90 group-active:bg-red-600/80"
-          @click.stop="addToCart(product)"
+          @click.stop="addProduct({ product })"
         >
           <i class="bi bi-cart-check-fill"></i>
           加入購物車

@@ -28,6 +28,8 @@ const props = defineProps({
 
 const { options } = toRefs(props);
 
+const { addProductToCart } = useCartStore();
+
 const maxW = {
   390: "max-w-[390px]",
   1200: "max-w-[1200px]",
@@ -120,7 +122,7 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
           <button
             type="button"
             class="bg-danger block w-full bg-red-800 px-3 py-[6px] text-2xl text-white hover:bg-red-700/80 active:bg-red-700/90"
-            @click="addCart(`${product.id}`)"
+            @click.stop="addProductToCart({product})"
           >
             <i class="bi bi-cart4"></i>加入購物車
           </button>
