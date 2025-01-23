@@ -8,7 +8,9 @@ const props = defineProps({
 });
 const { productInfoData } = toRefs(props);
 
-const count = ref(1);
+const { addProductToCart } = useCartStore();
+
+const qty = ref(1);
 const isMouseDown = ref(false);
 let timer = null;
 
@@ -34,8 +36,12 @@ function clearTimer() {
 }
 function updCount(type) {
   if (!isMouseDown.value) return;
-  if (type === "+") count.value++;
-  else if (type === "-" && count.value > 1) count.value--;
+  if (type === "+") qty.value++;
+  else if (type === "-" && qty.value > 1) qty.value--;
+}
+async function addCart(product, count) {
+  await addProductToCart({ product, qty: count });
+  qty.value = 1;
 }
 </script>
 
@@ -95,7 +101,7 @@ function updCount(type) {
             type="button"
             class="hover:bg-primary/20 active:bg-primary/25 border-primay border border-solid px-2 py-1 text-4xl"
             :class="{
-              'cursor-not-allowed bg-gray-600 text-black': count <= 1,
+              'cursor-not-allowed bg-gray-600 text-black': qty <= 1,
             }"
             @mousedown="updProductCount('-')"
             @mouseup="isMouseDown = false"
@@ -107,7 +113,7 @@ function updCount(type) {
             class="border-primay w-full border border-solid bg-black text-center text-4xl focus:outline-none"
             min="1"
             readonly
-            v-model="count"
+            v-model="qty"
           />
           <button
             type="button"
@@ -122,7 +128,7 @@ function updCount(type) {
           <button
             type="button"
             class="m-auto block w-full bg-red-800 py-3 text-2xl hover:bg-red-700/90 active:bg-red-600/80"
-            @click.stop="addToCart(product)"
+            @click.stop="addCart(productInfoData, qty)"
           >
             <i class="bi bi-cart-check-fill"></i>
             加入購物車
