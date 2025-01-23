@@ -1,4 +1,7 @@
 export default {
-  extend: {
-  }
+  extend: {},
+
+  plugins: [
+    require("@tailwindcss/forms"), //加在這裡
+  ],
 };
