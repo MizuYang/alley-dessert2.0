@@ -18,7 +18,7 @@ const currentStep = computed(() => (route?.carts ? step[route.carts] : 0));
       <li
         v-for="(item, idx) in timeline"
         :key="`timeline-${item}`"
-        class="relative flex w-full items-center"
+        class="relative flex w-full items-center justify-center"
       >
         <span
           class="border-primary rounded-br-3xl rounded-tl-3xl border border-solid px-3 py-2"
@@ -28,7 +28,7 @@ const currentStep = computed(() => (route?.carts ? step[route.carts] : 0));
 
         <template v-if="idx !== timeline.length - 1">
           <span
-            class="arrow-animation absolute left-1/2 ml-8 inline-block text-[40px]"
+            class="arrow-animation absolute right-0 inline-block text-[40px]"
           >
             <i class="bi bi-arrow-right"></i>
           </span>
