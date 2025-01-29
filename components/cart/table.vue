@@ -9,6 +9,39 @@ const props = defineProps({
 const emits = defineEmits(["updDelProdId"]);
 
 const deleteProductsId = ref([]);
+const timer = ref(null);
+const isMouseDown = ref(false);
+
+function updProductCount(action, item) {
+  if (!item.originQty) item.originQty = item.qty;
+
+  if (action === "+" && item.qty) {
+    item.qty++;
+  } else if (action === "-" && item.qty > 1) {
+    item.qty--;
+  }
+}
+
+function handleMouseDown(action, item) {
+  isMouseDown.value = true;
+  updProductCount(action, item);
+  timer.value = setTimeout(() => {
+    if (isMouseDown.value) {
+      timer.value = setInterval(() => {
+        updProductCount(action, item);
+      }, 100);
+    }
+  }, 800);
+}
+
+function handleMouseUp() {
+  isMouseDown.value = false;
+  clearTimeout(timer.value);
+  clearInterval(timer.value);
+}
+function hasEdit(item) {
+  return item.originQty && item.originQty !== item.qty;
+}
 </script>
 
 <template>
@@ -79,8 +112,46 @@ const deleteProductsId = ref([]);
             {{ item.title }}
           </div>
         </td>
-        <td class="py-3 align-middle">
-          {{ item.qty }}
+        <td class="relative py-3 align-middle">
+          <div class="flex items-center justify-center">
+            <div>
+              <button
+                type="button"
+                class="hover:bg-primary/20 active:bg-primary/25 mx-3 px-2 py-1 text-sm opacity-0 group-hover/table-line:opacity-100"
+                :class="{
+                  'cursor-not-allowed bg-gray-600 text-black': item.qty <= 1,
+                }"
+                @mousedown="handleMouseDown('-', item)"
+                @mouseup="handleMouseUp"
+                @mouseleave="handleMouseUp"
+              >
+                <i class="bi bi-dash-lg"></i>
+              </button>
+            </div>
+            <div>
+              {{ item.qty }}
+            </div>
+            <div>
+              <button
+                type="button"
+                class="hover:bg-primary/20 active:bg-primary/25 mx-3 px-2 py-1 text-sm opacity-0 group-hover/table-line:opacity-100"
+                @mousedown="handleMouseDown('+', item)"
+                @mouseup="handleMouseUp"
+                @mouseleave="handleMouseUp"
+              >
+                <i class="bi bi-plus-lg"></i>
+              </button>
+            </div>
+          </div>
+          <!-- 確定修改 -->
+          <div
+            class="absolute bottom-3 left-1/2 -translate-x-1/2"
+            v-if="hasEdit(item)"
+          >
+            <button type="button" class="active:bg-primary/30 hover:bg-primary/25 bg-primary/20 text-primary p-2">
+              確定修改
+            </button>
+          </div>
         </td>
         <td class="py-3 align-middle">
           <span class="text-gray-500 line-through"
@@ -92,12 +163,6 @@ const deleteProductsId = ref([]);
         <td class="py-3 align-middle"></td>
       </tr>
     </tbody>
-
-    <!-- <tfoot>
-      <tr>
-        <td>表尾內容</td>
-      </tr>
-    </tfoot> -->
   </table>
 </template>
 
