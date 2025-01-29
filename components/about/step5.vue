@@ -38,7 +38,7 @@
     <img
       src="/images/pages/about/about2.jpg"
       class="h-auto max-w-full"
-      data-aos="fade-right"
+      data-aos="fade-left"
       data-aos-easing="linear"
       aos-delay="1000"
       data-aos-duration="1000"
