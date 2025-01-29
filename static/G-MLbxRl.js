@@ -1,1 +1,0 @@
-import{A as t,M as r,B as a,c,o as u}from"./DzEqZT4c.js";import{u as n}from"./CA2Nd7Ci.js";const p={class:"pb-14 pt-10"},f={__name:"index",setup(_){const{category:e,search:o}=t(n()),s=r();return a(()=>{s.push(`/products/${e.value||"全部"}?search=${o.value}`)}),(m,l)=>(u(),c("main",p))}};export{f as default};
