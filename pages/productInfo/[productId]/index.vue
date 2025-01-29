@@ -34,7 +34,7 @@ onMounted(() => {
 <template>
   <main class="pb-14 pt-10">
     <section class="mx-auto max-w-[1200px]">
-      <template v-if="productInfo.id">
+      <template v-if="productInfo?.id">
         <div>
           <PageTitle :title="productInfo?.title || ''" />
         </div>

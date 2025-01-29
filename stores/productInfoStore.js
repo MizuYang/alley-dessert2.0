@@ -4,12 +4,20 @@ export const useProductInfoStore = defineStore("useProductInfoStore", () => {
   const config = useRuntimeConfig();
   const productInfoData = ref({});
 
+  const router = useRouter();
+
   function getProductInfo(product) {
     try {
       productInfoData.value = JSON.parse(JSON.stringify(product));
     } catch (err) {
       console.error(err);
     }
+  }
+  function gotoProductDetail(product = { id: "" }) {
+    const { id } = product;
+    if (!id) return;
+    getProductInfo(product);
+    router.push(`/productInfo/${id}`);
   }
   async function fetchProductInfo(productId) {
     if (!productId) return;
@@ -24,5 +32,10 @@ export const useProductInfoStore = defineStore("useProductInfoStore", () => {
     }
   }
 
-  return { productInfoData, getProductInfo, fetchProductInfo };
+  return {
+    productInfoData,
+    getProductInfo,
+    gotoProductDetail,
+    fetchProductInfo,
+  };
 });

@@ -14,7 +14,7 @@ const router = useRouter();
 const { favoritedPproductKeyName } = storeToRefs(useFavoriteStore());
 const { toggleFavorite, favoriteInit } = useFavoriteStore();
 
-const { getProductInfo } = useProductInfoStore();
+const { gotoProductDetail } = useProductInfoStore();
 
 const { addProductToCart } = useCartStore();
 
@@ -24,15 +24,9 @@ onMounted(() => {
   }
 });
 
-function gotoProductDetail(product = { id: "" }) {
-  const { id } = product;
-  if (!id) return;
-  getProductInfo(product);
-  router.push(`/productInfo/${id}`);
-}
-function addProduct ({product}) {
+function addProduct({ product }) {
   console.log(product);
-  addProductToCart({product});
+  addProductToCart({ product });
 }
 </script>
 
@@ -43,7 +37,8 @@ function addProduct ({product}) {
       :key="`procust-card-${product.id}`"
       @click="gotoProductDetail(product)"
     >
-      <div
+      <NuxtLink
+        :to="`/productInfo/${product.id}`"
         class="border-primary hover:bg-primary/10 group flex h-full cursor-pointer flex-col border border-solid hover:ring-4 hover:ring-gray-400/50"
         data-aos="fade-up"
         aos-delay="1000"
@@ -142,7 +137,7 @@ function addProduct ({product}) {
           <i class="bi bi-cart-check-fill"></i>
           加入購物車
         </button>
-      </div>
+      </NuxtLink>
     </li>
   </ul>
 </template>

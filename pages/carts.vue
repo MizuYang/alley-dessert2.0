@@ -1,5 +1,5 @@
 <script setup>
-import CartTimeline from "@/components/cart/cartTime.vue";
+import CartTimeLine from "@/components/cart/cartTimeLine.vue";
 
 const { cartData } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
@@ -16,7 +16,7 @@ onMounted(() => {
     </div>
 
     <div class="mx-auto max-w-[1200px]">
-      <CartTimeline class="mb-12" />
+      <CartTimeLine class="mb-12" />
 
       <div class="mb-6 text-end">
         <button
