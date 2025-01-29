@@ -11,33 +11,33 @@ const { productInfoData } = toRefs(props);
 const { addProductToCart } = useCartStore();
 
 const qty = ref(1);
+const timer = ref(null);
 const isMouseDown = ref(false);
-let timer = null;
 
-async function updProductCount(type) {
-  isMouseDown.value = true;
-
-  updCount(type);
-
-  // 長按超過 500ms 就連續增減
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  timer = setInterval(() => {
-    clearTimer();
-    updCount(type);
-  }, 50);
-}
-function clearTimer() {
-  if (!isMouseDown.value) {
-    clearTimeout(timer);
-    timer = null;
-    return;
+function updProductCount(action) {
+  if (action === "+" && qty.value) {
+    qty.value++;
+  } else if (action === "-" && qty.value > 1) {
+    qty.value--;
   }
 }
-function updCount(type) {
-  if (!isMouseDown.value) return;
-  if (type === "+") qty.value++;
-  else if (type === "-" && qty.value > 1) qty.value--;
+
+function handleMouseDown(action) {
+  isMouseDown.value = true;
+  updProductCount(action);
+  timer.value = setTimeout(() => {
+    if (isMouseDown.value) {
+      timer.value = setInterval(() => {
+        updProductCount(action);
+      }, 100);
+    }
+  }, 800);
+}
+
+function handleMouseUp() {
+  isMouseDown.value = false;
+  clearTimeout(timer.value);
+  clearInterval(timer.value);
 }
 async function addCart(product, count) {
   await addProductToCart({ product, qty: count });
@@ -103,8 +103,9 @@ async function addCart(product, count) {
             :class="{
               'cursor-not-allowed bg-gray-600 text-black': qty <= 1,
             }"
-            @mousedown="updProductCount('-')"
-            @mouseup="isMouseDown = false"
+            @mousedown="handleMouseDown('-', item)"
+            @mouseup="handleMouseUp"
+            @mouseleave="handleMouseUp"
           >
             <i class="bi bi-dash-lg"></i>
           </button>
@@ -118,8 +119,9 @@ async function addCart(product, count) {
           <button
             type="button"
             class="hover:bg-primary/20 active:bg-primary/25 border-primay border border-solid px-2 py-1 text-4xl"
-            @mousedown="updProductCount('+')"
-            @mouseup="isMouseDown = false"
+            @mousedown="handleMouseDown('+', item)"
+            @mouseup="handleMouseUp"
+            @mouseleave="handleMouseUp"
           >
             <i class="bi bi-plus-lg"></i>
           </button>
