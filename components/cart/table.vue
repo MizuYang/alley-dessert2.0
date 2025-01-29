@@ -6,6 +6,8 @@ const props = defineProps({
   },
 });
 
+const emits = defineEmits(["updDelProdId"]);
+
 const deleteProductsId = ref([]);
 </script>
 
@@ -26,7 +28,8 @@ const deleteProductsId = ref([]);
 
     <tbody>
       <tr
-        class="border-primary border-y border-solid text-xl"
+        class="border-primary hover:bg-primary/15 group/table-line border-y border-solid text-xl"
+        :class="deleteProductsId.includes(item.product.id) && 'bg-primary/10'"
         v-for="item in props.cartData"
         :key="item.id"
       >
@@ -36,6 +39,7 @@ const deleteProductsId = ref([]);
             class="bg-primary focus:ring-primary/50 size-5 text-red-500 ring-4 checked:text-red-500 hover:text-red-500/90 focus:outline-none"
             :value="item.product.id"
             v-model="deleteProductsId"
+            @change="emits('updDelProdId', deleteProductsId)"
           />
         </td>
         <td class="group relative w-[200px] py-3 align-middle">
@@ -64,7 +68,9 @@ const deleteProductsId = ref([]);
           </NuxtLink>
         </td>
         <td class="py-3 align-middle">
-          <div class="flex items-center justify-center">
+          <div
+            class="flex items-center justify-center group-hover/table-line:font-bold"
+          >
             <span
               class="me-2 inline-block rounded-md bg-red-600 p-1 text-sm text-white"
             >

@@ -4,9 +4,15 @@ import CartTimeLine from "@/components/cart/cartTimeLine.vue";
 const { cartData } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
 
+const deleteProductsId = ref([]);
+
 onMounted(() => {
   getCartData();
 });
+
+function updDelProdId(data) {
+  deleteProductsId.value = [...data];
+}
 </script>
 
 <template>
@@ -18,15 +24,9 @@ onMounted(() => {
     <div class="mx-auto max-w-[1200px]">
       <CartTimeLine class="mb-12" />
 
-      <div class="mb-6 text-end">
-        <button
-          type="button"
-          class="border-primary border border-solid px-3 py-2"
-        >
-          全部刪除
-        </button>
-      </div>
-      <CartTable :cartData="cartData" />
+      <CartDelBtns :deleteProductsId="deleteProductsId" />
+      
+      <CartTable :cartData="cartData" @updDelProdId="updDelProdId" />
     </div>
   </main>
 </template>
