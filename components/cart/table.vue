@@ -78,16 +78,16 @@ function hasEdit(item) {
         <td class="group relative w-[200px] py-3 align-middle">
           <NuxtLink :to="`/productInfo/${item.product.id}`">
             <img
-              :src="item.imageUrl"
+              :src="item.product.imageUrl"
               width="200"
               height="160"
               class="mx-auto block object-cover"
-              :alt="item.title"
+              :alt="item.product.title"
             />
             <span
               class="bg-primary absolute left-0 top-3 rounded-br-2xl border border-solid border-red-400 px-2 text-base font-bold text-black"
             >
-              {{ item.category }}
+              {{ item.product.category }}
             </span>
             <!-- hover:遮罩 -->
             <div
@@ -109,7 +109,7 @@ function hasEdit(item) {
             >
               熱門
             </span>
-            {{ item.title }}
+            {{ item.product.title }}
           </div>
         </td>
         <td class="relative py-3 align-middle">
@@ -119,7 +119,8 @@ function hasEdit(item) {
                 type="button"
                 class="hover:bg-primary/20 active:bg-primary/25 mx-3 px-2 py-1 text-sm opacity-0 group-hover/table-line:opacity-100"
                 :class="{
-                  'cursor-not-allowed bg-gray-600 text-black': item.qty <= 1,
+                  'cursor-not-allowed bg-gray-600 text-black':
+                    item.product.qty <= 1,
                 }"
                 @mousedown="handleMouseDown('-', item)"
                 @mouseup="handleMouseUp"
@@ -148,16 +149,19 @@ function hasEdit(item) {
             class="absolute bottom-3 left-1/2 -translate-x-1/2"
             v-if="hasEdit(item)"
           >
-            <button type="button" class="active:bg-primary/30 hover:bg-primary/25 bg-primary/20 text-primary p-2">
+            <button
+              type="button"
+              class="active:bg-primary/30 hover:bg-primary/25 bg-primary/20 text-primary p-2"
+            >
               確定修改
             </button>
           </div>
         </td>
         <td class="py-3 align-middle">
           <span class="text-gray-500 line-through"
-            >${{ item.origin_price }}</span
+            >${{ item.product.origin_price }}</span
           >
-          ${{ item.price }}
+          ${{ item.product.price }}
         </td>
         <td class="py-3 align-middle">${{ item.final_total }}</td>
         <td class="py-3 align-middle"></td>
