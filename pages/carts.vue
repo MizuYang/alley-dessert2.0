@@ -1,5 +1,6 @@
 <script setup>
 import CartTimeLine from "@/components/cart/cartTimeLine.vue";
+import RecommendProductSwiper from "@/components/productInfo/recommendProductSwiper.vue";
 
 const { cartData } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
@@ -29,6 +30,14 @@ function updDelProdId(data) {
       <CartTable :cartData="cartData" @updDelProdId="updDelProdId" />
 
       <CartTotal />
+
+      <h3
+        class="border-primary my-12 border-b border-solid pb-2 text-center text-[32px]"
+      >
+        猜你會喜歡...
+      </h3>
+
+      <RecommendProductSwiper />
     </div>
   </main>
 </template>

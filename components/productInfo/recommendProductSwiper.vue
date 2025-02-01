@@ -17,11 +17,15 @@ const options = ref({
 });
 
 const filterProduct = computed(() => {
-  if (!products.value.length || !props.currentProductId) return [];
-  else
+  if (products.value.length && !props.currentProductId) {
+    return products.value;
+  } else if (!products.value.length || !props.currentProductId) {
+    return [];
+  } else {
     return products.value.filter(
       (product) => product.id !== props.currentProductId,
     );
+  }
 });
 
 onMounted(() => {
