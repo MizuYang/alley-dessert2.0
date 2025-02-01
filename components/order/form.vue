@@ -55,7 +55,7 @@ function getOeder() {
   <form
     class="border-primary rounded-3xl border-2 border-solid px-16 py-10 text-center"
   >
-    <h3 class="text-primary mb-8 text-[32px]">請輸入訂單編號( 20碼 )</h3>
+    <h3 class="text-primary mb-8 text-xl">請輸入訂單編號 ( 20碼 )</h3>
     <input
       type="text"
       class="mb-4 w-full bg-gray-700/80 px-3 py-2 text-xl ring-1 focus:outline-none focus:ring-4"

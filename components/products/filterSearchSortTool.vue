@@ -36,7 +36,7 @@ onMounted(() => {
       <li
         v-for="btn in filterBtnList"
         :key="`filterBtn-${btn}`"
-        class="border-primary shrink-0 hover:bg-primary/20 border border-solid transition-all hover:-translate-y-[2px] hover:rounded-br-2xl hover:rounded-tl-2xl"
+        class="border-primary hover:bg-primary/20 shrink-0 border border-solid transition-all hover:rounded-br-2xl hover:rounded-tl-2xl"
         :class="category === btn && activeStyle"
       >
         <button type="button" class="px-4 py-3" @click="setCategory(btn)">
@@ -44,10 +44,14 @@ onMounted(() => {
         </button>
       </li>
       <li
-        class="border-primary hover:bg-primary/20 border border-solid transition-all hover:-translate-y-[2px] hover:rounded-br-2xl hover:rounded-tl-2xl"
+        class="border-primary hover:bg-primary/20 border border-solid transition-all hover:rounded-br-2xl hover:rounded-tl-2xl"
         :class="typeof isHighToLow === 'boolean' && activeStyle"
       >
-        <button type="button" class="shrink-0 px-4 py-3" @click="sortPriceToggle">
+        <button
+          type="button"
+          class="shrink-0 px-4 py-3"
+          @click="sortPriceToggle"
+        >
           <i class="bi bi-cash-coin"></i>
           {{ sortPriceBtnName }}
         </button>

@@ -14,15 +14,15 @@ const currentStep = computed(() => (route?.carts ? step[route.carts] : 0));
 
 <template>
   <header>
-    <ul class="flex justify-between text-2xl">
+    <ul class="text- flex justify-between">
       <li
         v-for="(item, idx) in timeline"
         :key="`timeline-${item}`"
         class="relative flex w-full items-center justify-center"
       >
         <span
-          class="border-primary rounded-br-3xl rounded-tl-3xl border border-solid px-3 py-2"
-          :class="currentStep === idx && 'bg-primary text-black'"
+          class="border-primary rounded-br-xl rounded-tl-xl border border-solid px-3 py-2"
+          :class="currentStep === idx && 'bg-primary font-black text-black'"
           >{{ item }}</span
         >
 

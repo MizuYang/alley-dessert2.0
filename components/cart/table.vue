@@ -6,13 +6,14 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(["updDelProdId"]);
+// const emits = defineEmits(["updDelProdId"]);
+const { updDelProdId } = useCartStore();
+
+const { updateProductQty } = useCartStore();
 
 const deleteProductsId = ref([]);
 const timer = ref(null);
 const isMouseDown = ref(false);
-
-const { updateProductQty } = useCartStore();
 
 function updProductCount(action, item) {
   if (!item.originQty) item.originQty = item.qty;
@@ -61,8 +62,8 @@ function hasEdit(item) {
 
     <tbody>
       <tr
-        class="border-primary hover:bg-primary/15 group/table-line border-y border-solid text-xl"
-        :class="deleteProductsId.includes(item.product.id) && 'bg-primary/10'"
+        class="border-primary hover:bg-primary/10 group/table-line border-y border-solid text-xl"
+        :class="deleteProductsId.includes(item.product.id) && '!bg-red-400/15'"
         v-for="item in props.cartData"
         :key="item.id"
       >
@@ -72,37 +73,37 @@ function hasEdit(item) {
             class="bg-primary focus:ring-primary/50 size-5 text-red-500 ring-4 checked:text-red-500 hover:text-red-500/90 focus:outline-none"
             :value="item.product.id"
             v-model="deleteProductsId"
-            @change="emits('updDelProdId', deleteProductsId)"
+            @change="updDelProdId(deleteProductsId)"
           />
         </td>
-        <td class="group relative w-[200px] py-3 align-middle">
+        <td class="group w-[150px] py-3 align-middle">
           <NuxtLink :to="`/productInfo/${item.product.id}`">
-            <img
-              :src="item.product.imageUrl"
-              width="200"
-              height="160"
-              class="mx-auto block object-cover"
-              :alt="item.product.title"
-            />
-            <span
-              class="bg-primary absolute left-0 top-3 rounded-br-2xl border border-solid border-red-400 px-2 text-base font-bold text-black"
-            >
-              {{ item.product.category }}
-            </span>
-            <!-- hover:遮罩 -->
-            <div
-              class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-50"
-            ></div>
-            <img
-              class="absolute left-1/2 top-1/2 h-[120px] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 group-hover:opacity-100"
-              alt="顯示產品細節"
-              src="/images/other/product_info.png"
-            />
+            <div class="relative">
+              <img
+                :src="item.product.imageUrl"
+                class="mx-auto block h-[100px] w-[150px] object-cover"
+                :alt="item.product.title"
+              />
+              <span
+                class="bg-primary absolute left-0 top-0 rounded-br-2xl border border-solid border-red-400 px-2 text-base font-bold text-black"
+              >
+                {{ item.product.category }}
+              </span>
+              <!-- hover:遮罩 -->
+              <div
+                class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-50"
+              ></div>
+              <img
+                class="absolute left-1/2 top-1/2 h-[90px] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 group-hover:opacity-100"
+                alt="顯示產品細節"
+                src="/images/other/product_info.png"
+              />
+            </div>
           </NuxtLink>
         </td>
         <td class="py-3 align-middle">
           <div
-            class="flex items-center justify-center group-hover/table-line:font-bold"
+            class="flex items-center justify-start pl-[150px] group-hover/table-line:font-bold"
           >
             <span
               class="me-2 inline-block rounded-md bg-red-600 p-1 text-sm text-white"

@@ -43,7 +43,10 @@ function addProduct({ product }) {
         aos-delay="1000"
         data-aos-once="true"
       >
-        <NuxtLink :to="`/productInfo/${product.id}`">
+        <NuxtLink
+          :to="`/productInfo/${product.id}`"
+          class="mb-auto inline-block"
+        >
           <div class="relative">
             <img
               :src="product.imageUrl"
@@ -99,36 +102,36 @@ function addProduct({ product }) {
               </button>
             </div>
           </div>
-          <div class="flex-grow p-4 pb-0">
+          <div class="p-4">
             <h3
               class="mb-3 flex items-center justify-between group-hover:font-black"
             >
-              <span class="inline-block text-[28px] underline">
-                {{ product.title }}</span
-              >
+              <span class="inline-block text-xl"> {{ product.title }}</span>
               <span
                 v-if="product.popular > 2"
                 class="inline-block bg-red-600 p-1 text-sm font-semibold text-white"
                 >熱門</span
               >
             </h3>
-            <p class="mb-3 line-clamp-3 text-xl">{{ product.description }}</p>
+            <p class="mb-auto line-clamp-3 text-lg">
+              {{ product.description }}
+            </p>
           </div>
-          <p class="flex justify-between px-4 pb-1 pt-0 text-xl">
-            <span class="text-xl text-gray-300 line-through"
-              >原價 ${{ product.origin_price }}</span
-            >
-            <strong>
-              <span class="text-[32px] font-black text-red-500">{{
-                product.price
-              }}</span>
-              元
-            </strong>
-          </p>
         </NuxtLink>
+        <p class="flex justify-between px-4 pb-1 text-xl">
+          <span class="text-xl text-gray-300 line-through"
+            >原價 ${{ product.origin_price }}</span
+          >
+          <strong>
+            <span class="text-[32px] font-black text-red-500">{{
+              product.price
+            }}</span>
+            元
+          </strong>
+        </p>
         <button
           type="button"
-          class="m-auto block w-full bg-red-800 py-3 text-2xl group-hover:bg-red-700/90 group-active:bg-red-600/80"
+          class="block w-full bg-red-800 py-3 text-2xl group-hover:bg-red-700/90 group-active:bg-red-600/80"
           @click.stop="addProduct({ product })"
         >
           <i class="bi bi-cart-check-fill"></i>

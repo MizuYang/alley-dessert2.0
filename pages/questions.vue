@@ -135,13 +135,13 @@ onMounted(() => {
       >
         <div
           class="border-primary hover:bg-primary/20 cursor-pointer border border-solid p-4"
-          :class="enabledListIdx === idx && 'bg-primary/20'"
+          :class="enabledListIdx === idx && 'bg-primary/10'"
         >
           <h3 class="flex items-center">
             <span class="me-3 inline-block text-lg font-black"
               >{{ idx + 1 }}.</span
             >
-            <span class="text-2xl font-black">{{ que.title }}</span>
+            <span class="text-lg font-black">{{ que.title }}</span>
           </h3>
         </div>
         <div
