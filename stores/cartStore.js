@@ -64,6 +64,7 @@ export const useCartStore = defineStore("useCartStore", () => {
     try {
       const res = await $fetch(api, { ...options });
       console.log(res);
+      data.originQty = data.qty;
     } catch (err) {
       console.error(err);
     }

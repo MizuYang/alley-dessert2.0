@@ -45,7 +45,7 @@ function hasEdit(item) {
 </script>
 
 <template>
-  <table class="w-full text-center mb-5">
+  <table class="mb-5 w-full text-center">
     <thead class="align-middle">
       <tr class="border-primary border-b-2 border-solid text-xl font-bold">
         <th scope="col" class="pb-2">
@@ -121,6 +121,7 @@ function hasEdit(item) {
                 :class="{
                   'cursor-not-allowed bg-gray-600 text-black':
                     item.product.qty <= 1,
+                  'opacity-100': hasEdit(item),
                 }"
                 @mousedown="handleMouseDown('-', item)"
                 @mouseup="handleMouseUp"
@@ -136,6 +137,7 @@ function hasEdit(item) {
               <button
                 type="button"
                 class="hover:bg-primary/20 active:bg-primary/25 mx-3 px-2 py-1 text-sm opacity-0 group-hover/table-line:opacity-100"
+                :class="{ 'opacity-100': hasEdit(item) }"
                 @mousedown="handleMouseDown('+', item)"
                 @mouseup="handleMouseUp"
                 @mouseleave="handleMouseUp"
@@ -151,7 +153,7 @@ function hasEdit(item) {
           >
             <button
               type="button"
-              class="active:bg-primary/30 hover:bg-primary/25 bg-primary/20 text-sm text-primary p-1"
+              class="active:bg-primary/30 hover:bg-primary/25 bg-primary/20 text-primary p-1 text-sm"
               @click="updateProductQty(item)"
             >
               確定修改
