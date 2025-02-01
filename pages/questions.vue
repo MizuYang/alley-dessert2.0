@@ -64,7 +64,7 @@ const questions = ref([
 const questionHeight = ref({});
 const questionsRefs = ref({});
 const enabledListIdx = ref(-1);
-const isLoaing = ref(true);
+const isQuestionsLoading = ref(true);
 
 function llistToggle(idx) {
   removeAosAnimate(questionsRefs.value[idx].offsetParent);
@@ -102,7 +102,7 @@ function getQuestionHeight() {
     questionHeight.value[index] = el.offsetHeight;
     el.classList.add("h-0");
   });
-  isLoaing.value = false;
+  isQuestionsLoading.value = false;
 }
 function removeAosAnimate(el) {
   el.removeAttribute("data-aos");
@@ -119,7 +119,7 @@ onMounted(() => {
 
     <ul
       class="mx-auto max-w-[1200px]"
-      :class="isLoaing && 'translate-x-[9999px]'"
+      :class="isQuestionsLoading && 'translate-x-[9999px]'"
     >
       <li
         v-for="(que, idx) in questions"
@@ -129,9 +129,10 @@ onMounted(() => {
         @click="llistToggle(idx)"
         data-aos="fade-right"
         data-aos-easing="linear"
-        :data-aos-delay="`${idx <= 6 && (idx + 1) * 150}`"
+        :data-aos-delay="`${idx <= 4 && (idx + 1) * 150}`"
         data-aos-duration="300"
         data-aos-once="true"
+        
       >
         <div
           class="border-primary hover:bg-primary/20 cursor-pointer border border-solid p-4"
@@ -167,12 +168,10 @@ onMounted(() => {
         </div>
       </li>
     </ul>
-    <div
-      v-if="isLoaing"
-      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-black"
-    >
-      讀取中...
-    </div>
+
+    <template v-if="isQuestionsLoading">
+      <LoadingText />
+    </template>
   </main>
 </template>
 

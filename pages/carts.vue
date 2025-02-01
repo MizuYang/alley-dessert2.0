@@ -10,14 +10,10 @@ const { isDelModalShow } = storeToRefs(useCartDelModalStore());
 
 const isCartDataLoading = ref(false);
 
-onMounted(() => {
-  getCartData();
+onMounted(async () => {
+  await getCartData();
   isCartDataLoading.value = true;
 });
-
-// function updDelProdId(data) {
-//   deleteProductsId.value = [...data];
-// }
 </script>
 
 <template>
@@ -27,11 +23,7 @@ onMounted(() => {
     </div>
 
     <template v-if="!isCartDataLoading">
-      <div
-        class="text-primary absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl font-black"
-      >
-        讀取中...
-      </div>
+      <LoadingText />
     </template>
 
     <template v-else>

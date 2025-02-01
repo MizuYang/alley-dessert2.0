@@ -3,8 +3,11 @@ const { products, productsRender, category, search } =
   storeToRefs(useProductStore());
 const { getProducts } = useProductStore();
 
+const isProductLoading = ref(false);
+
 onMounted(() => {
   if (!products.value.length) getProducts();
+  isProductLoading.value = true;
 });
 </script>
 
@@ -12,27 +15,26 @@ onMounted(() => {
   <main class="pb-14 pt-10">
     <PageTitle :title="'精選產品'" />
 
-    <ProductsFilterSearchSortTool />
+    <template v-if="!isProductLoading">
+      <LoadingText />
+    </template>
 
-    <template v-if="productsRender.length">
-      <ProductsCards :products="productsRender" />
-    </template>
-    <template v-else-if="products.length">
-      <div
-        class="text-primary min-h flex items-center justify-center text-center text-2xl"
-      >
-        喔哦! 在『{{ category }}』類別中找不到符合『<span class="underline">{{
-          search
-        }}</span
-        >』名稱的產品 ><
-      </div>
-    </template>
     <template v-else>
-      <div
-        class="text-primary min-h flex items-center justify-center text-center text-2xl"
-      >
-        讀取中..
-      </div>
+      <ProductsFilterSearchSortTool />
+
+      <template v-if="productsRender.length">
+        <ProductsCards :products="productsRender" />
+      </template>
+      <template v-else-if="products.length">
+        <div
+          class="text-primary min-h flex items-center justify-center text-center text-2xl"
+        >
+          喔哦! 在『{{ category }}』類別中找不到符合『<span class="underline">{{
+            search
+          }}</span
+          >』名稱的產品 ><
+        </div>
+      </template>
     </template>
   </main>
 </template>
