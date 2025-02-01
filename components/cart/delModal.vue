@@ -4,7 +4,7 @@ const { modalHide } = useCartDelModalStore();
 
 <template>
   <div
-    class="ring-primary fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 ring-4"
+    class="fixed -inset-20 z-[9999] flex items-center justify-center bg-black/50"
     @click.stop="modalHide"
   >
     <div class="bg-black" @click.stop>
@@ -23,6 +23,7 @@ const { modalHide } = useCartDelModalStore();
         <button
           type="button"
           class="border-primary hover:bg-primary/20 active:bg-primary/25 me-3 inline-block border border-solid px-3 py-1"
+          @click="modalHide"
         >
           取消
         </button>

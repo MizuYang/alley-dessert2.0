@@ -40,9 +40,29 @@ function updDelProdId(data) {
 
       <RecommendProductSwiper />
 
-      <CartDelModal v-if="isDelModalShow" />
+      <transition name="fade">
+        <CartDelModal v-if="isDelModalShow" />
+      </transition>
     </div>
   </main>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s, transform .5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
