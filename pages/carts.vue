@@ -5,6 +5,8 @@ import RecommendProductSwiper from "@/components/productInfo/recommendProductSwi
 const { cartData } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
 
+const { isDelModalShow } = storeToRefs(useCartDelModalStore())
+
 const deleteProductsId = ref([]);
 
 onMounted(() => {
@@ -30,7 +32,6 @@ function updDelProdId(data) {
       <CartTable :cartData="cartData" @updDelProdId="updDelProdId" />
 
       <CartTotal />
-
       <h3
         class="border-primary my-12 border-b border-solid pb-2 text-center text-[32px]"
       >
@@ -38,6 +39,8 @@ function updDelProdId(data) {
       </h3>
 
       <RecommendProductSwiper />
+
+      <CartDelModal v-if="isDelModalShow" />
     </div>
   </main>
 </template>

@@ -6,6 +6,8 @@ const props = defineProps({
     default: [],
   },
 });
+
+const { modalShow } = useCartDelModalStore();
 </script>
 
 <template>
@@ -17,6 +19,7 @@ const props = defineProps({
       type="button"
       class="border-primary relative border border-solid px-3 py-2 hover:bg-red-500/30 active:bg-red-500/40"
       v-if="deleteProductsId.length"
+      @click="modalShow"
     >
       刪除
 
@@ -29,6 +32,7 @@ const props = defineProps({
     <button
       type="button"
       class="border-primary border border-solid px-3 py-2 hover:bg-red-500/30 active:bg-red-500/40"
+      @click="modalShow('all')"
     >
       全部刪除
     </button>
