@@ -45,7 +45,7 @@ function hasEdit(item) {
 </script>
 
 <template>
-  <table class="w-full text-center">
+  <table class="w-full text-center mb-5">
     <thead class="align-middle">
       <tr class="border-primary border-b-2 border-solid text-xl font-bold">
         <th scope="col" class="pb-2">

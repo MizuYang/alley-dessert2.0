@@ -25,8 +25,10 @@ function updDelProdId(data) {
       <CartTimeLine class="mb-12" />
 
       <CartDelBtns :deleteProductsId="deleteProductsId" />
-      
+
       <CartTable :cartData="cartData" @updDelProdId="updDelProdId" />
+
+      <CartTotal />
     </div>
   </main>
 </template>

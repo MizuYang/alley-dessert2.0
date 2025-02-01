@@ -5,6 +5,7 @@ export const useCartStore = defineStore("useCartStore", () => {
   const { apiPath, apiBaseUrl } = config.public;
 
   const cartData = ref([]);
+  const final_total = ref(0);
 
   async function addProductToCart({ product, qty = 1 }) {
     if (!product?.id) return;
@@ -42,6 +43,7 @@ export const useCartStore = defineStore("useCartStore", () => {
       });
       console.log("res", res);
       cartData.value = res.data.carts;
+      final_total.value = res.data.final_total;
     } catch (err) {
       console.error(err);
     }
@@ -69,6 +71,7 @@ export const useCartStore = defineStore("useCartStore", () => {
 
   return {
     cartData,
+    final_total,
     addProductToCart,
     getCartData,
     updateProductQty,
