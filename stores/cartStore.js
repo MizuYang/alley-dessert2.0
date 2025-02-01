@@ -46,10 +46,31 @@ export const useCartStore = defineStore("useCartStore", () => {
       console.error(err);
     }
   }
+  async function updateProductQty(data) {
+    const { qty, id } = data;
+
+    const body = {
+      product_id: data.product.id,
+      qty,
+    };
+    const options = {
+      method: "PUT",
+      body: { data: body },
+    };
+    const api = `${apiBaseUrl}/api/${apiPath}/cart/${id}`;
+
+    try {
+      const res = await $fetch(api, { ...options });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   return {
     cartData,
     addProductToCart,
     getCartData,
+    updateProductQty,
   };
 });

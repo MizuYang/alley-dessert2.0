@@ -12,6 +12,8 @@ const deleteProductsId = ref([]);
 const timer = ref(null);
 const isMouseDown = ref(false);
 
+const { updateProductQty } = useCartStore();
+
 function updProductCount(action, item) {
   if (!item.originQty) item.originQty = item.qty;
 
@@ -21,7 +23,6 @@ function updProductCount(action, item) {
     item.qty--;
   }
 }
-
 function handleMouseDown(action, item) {
   isMouseDown.value = true;
   updProductCount(action, item);
@@ -33,7 +34,6 @@ function handleMouseDown(action, item) {
     }
   }, 800);
 }
-
 function handleMouseUp() {
   isMouseDown.value = false;
   clearTimeout(timer.value);
@@ -146,12 +146,13 @@ function hasEdit(item) {
           </div>
           <!-- 確定修改 -->
           <div
-            class="absolute bottom-3 left-1/2 -translate-x-1/2"
+            class="absolute bottom-6 left-1/2 -translate-x-1/2"
             v-if="hasEdit(item)"
           >
             <button
               type="button"
-              class="active:bg-primary/30 hover:bg-primary/25 bg-primary/20 text-primary p-2"
+              class="active:bg-primary/30 hover:bg-primary/25 bg-primary/20 text-sm text-primary p-1"
+              @click="updateProductQty(item)"
             >
               確定修改
             </button>
