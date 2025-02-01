@@ -6,12 +6,11 @@ const props = defineProps({
   },
 });
 
-// const emits = defineEmits(["updDelProdId"]);
+const { deleteProductsIdArray } = storeToRefs(useCartStore());
 const { updDelProdId } = useCartStore();
 
 const { updateProductQty } = useCartStore();
 
-const deleteProductsId = ref([]);
 const timer = ref(null);
 const isMouseDown = ref(false);
 
@@ -63,7 +62,9 @@ function hasEdit(item) {
     <tbody>
       <tr
         class="border-primary hover:bg-primary/10 group/table-line border-y border-solid text-xl"
-        :class="deleteProductsId.includes(item.product.id) && '!bg-red-400/15'"
+        :class="
+          deleteProductsIdArray.includes(item.product.id) && '!bg-red-400/15'
+        "
         v-for="item in props.cartData"
         :key="item.id"
       >
@@ -71,9 +72,9 @@ function hasEdit(item) {
           <input
             type="checkbox"
             class="bg-primary focus:ring-primary/50 size-5 text-red-500 ring-4 checked:text-red-500 hover:text-red-500/90 focus:outline-none"
-            :value="item.product.id"
-            v-model="deleteProductsId"
-            @change="updDelProdId(deleteProductsId)"
+            :value="item.id"
+            v-model="deleteProductsIdArray"
+            @change="updDelProdId(deleteProductsIdArray)"
           />
         </td>
         <td class="group w-[150px] py-3 align-middle">

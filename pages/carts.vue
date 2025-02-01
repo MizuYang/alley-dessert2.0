@@ -5,17 +5,17 @@ import RecommendProductSwiper from "@/components/productInfo/recommendProductSwi
 const { cartData } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
 
-const { isDelModalShow } = storeToRefs(useCartDelModalStore())
+const { isDelModalShow } = storeToRefs(useCartDelModalStore());
 
-const deleteProductsId = ref([]);
+// const deleteProductsId = ref([]);
 
 onMounted(() => {
   getCartData();
 });
 
-function updDelProdId(data) {
-  deleteProductsId.value = [...data];
-}
+// function updDelProdId(data) {
+//   deleteProductsId.value = [...data];
+// }
 </script>
 
 <template>
@@ -26,10 +26,9 @@ function updDelProdId(data) {
 
     <div class="mx-auto max-w-[1200px]">
       <CartTimeLine class="mb-12" />
+      <CartDelBtns />
 
-      <CartDelBtns :deleteProductsId="deleteProductsId" />
-
-      <CartTable :cartData="cartData" @updDelProdId="updDelProdId" />
+      <CartTable :cartData="cartData" />
 
       <CartTotal />
       <h3
@@ -50,7 +49,9 @@ function updDelProdId(data) {
 <style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .5s, transform .5s;
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
 }
 
 .fade-enter-from,
@@ -64,5 +65,4 @@ function updDelProdId(data) {
   opacity: 1;
   transform: translateY(0);
 }
-
 </style>

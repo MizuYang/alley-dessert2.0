@@ -1,5 +1,8 @@
 <script setup>
+const { isDeleteAll } = storeToRefs(useCartDelModalStore());
 const { modalHide } = useCartDelModalStore();
+
+const { deleteProduct } = useCartStore();
 </script>
 
 <template>
@@ -14,7 +17,9 @@ const { modalHide } = useCartDelModalStore();
       </header>
       <main class="border-primary border border-b-0 border-solid p-5 text-lg">
         您確定要刪除
-        <span class="font-bold text-red-600">勾選商品</span>
+        <span class="font-bold text-red-600">
+          {{ isDeleteAll ? "所有" : "勾選" }}商品
+        </span>
         嗎？(此動作無法恢復)
       </main>
       <footer
@@ -30,6 +35,7 @@ const { modalHide } = useCartDelModalStore();
         <button
           type="button"
           class="inline-block bg-red-600 px-3 py-[5.5px] text-white hover:bg-red-600/80 active:bg-red-600/85"
+          @click="deleteProduct"
         >
           刪除
         </button>

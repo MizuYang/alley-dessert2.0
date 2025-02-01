@@ -1,12 +1,19 @@
 import { defineStore } from "pinia";
 
 export const useCartStore = defineStore("useCartStore", () => {
+  const { isDeleteAll } = storeToRefs(useCartDelModalStore());
+  const { modalHide } = useCartDelModalStore();
+
   const config = useRuntimeConfig();
   const { apiPath, apiBaseUrl } = config.public;
 
   const cartData = ref([]);
   const final_total = ref(0);
+  const deleteProductsIdArray = ref([]);
 
+  function updDelProdId(data) {
+    deleteProductsIdArray.value = [...data];
+  }
   async function addProductToCart({ product, qty = 1 }) {
     if (!product?.id) return;
 
@@ -69,12 +76,73 @@ export const useCartStore = defineStore("useCartStore", () => {
       console.error(err);
     }
   }
+  async function deleteProduct() {
+    isDeleteAll.value ? deleteAllProducts() : deleteIsCheckedProducts();
+  }
+  async function deleteIsCheckedProducts() {
+    for (let i = 0; i < deleteProductsIdArray.value.length; i++) {
+      const id = deleteProductsIdArray.value[i];
+      const api = `${apiBaseUrl}/api/${apiPath}/cart/${id}`;
+      const options = { method: "DELETE" };
+
+      try {
+        const res = await $fetch(api, { ...options });
+        console.log(res);
+        cartData.value = cartData.value.filter((item) => item.id !== id);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    modalHide();
+    deleteProductsIdArray.value = [];
+    // 重新計算總金額
+    console.log("deleteProductsIdArray.value", deleteProductsIdArray.value);
+    console.log("cartData.value", cartData.value);
+    final_total.value = cartData.value.reduce(
+      (acc, pre) => acc + pre.final_total,
+      0,
+    );
+    // deleteCheckProducts () {
+    //   this.isLoading = true
+    //   //* 把勾選的產品 id 跑迴圈刪除
+    //   this.checkbox_productId.forEach((id) => {
+    //     const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`
+    //     this.$http.delete(api).then(() => {
+    //       this.$httpMessageState(true, '刪除勾選產品')
+    //       this.isLoading = false
+    //       this.emitter.emit('get_cart') //* Navbar更新
+    //       this.$emit('getCartList')
+    //       this.delete_modal.hide()
+    //     })
+    //   })
+    // },
+  }
+  async function deleteAllProducts() {
+    const api = `${apiBaseUrl}/api/${apiPath}/carts`;
+    const options = {
+      method: "DELETE",
+    };
+    try {
+      const res = await $fetch(api, { ...options });
+      console.log(res);
+      cartData.value = [];
+    } catch (err) {
+      console.error(err);
+    } finally {
+      modalHide();
+      final_total.value = 0;
+    }
+  }
 
   return {
     cartData,
+    deleteProductsIdArray,
     final_total,
     addProductToCart,
+    updDelProdId,
     getCartData,
     updateProductQty,
+    deleteProduct,
+    deleteAllProducts,
   };
 });

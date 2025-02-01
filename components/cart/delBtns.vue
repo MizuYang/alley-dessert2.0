@@ -1,11 +1,5 @@
 <script setup>
-const props = defineProps({
-  deleteProductsId: {
-    type: Array,
-    required: true,
-    default: [],
-  },
-});
+const { deleteProductsIdArray } = storeToRefs(useCartStore());
 
 const { modalShow } = useCartDelModalStore();
 </script>
@@ -13,20 +7,20 @@ const { modalShow } = useCartDelModalStore();
 <template>
   <div
     class="mb-6 flex items-center"
-    :class="deleteProductsId.length ? 'justify-between' : 'justify-end'"
+    :class="deleteProductsIdArray.length ? 'justify-between' : 'justify-end'"
   >
     <button
       type="button"
       class="border-primary relative border border-solid px-3 py-2 hover:bg-red-500/30 active:bg-red-500/40"
-      v-if="deleteProductsId.length"
-      @click="modalShow"
+      v-if="deleteProductsIdArray.length"
+      @click="modalShow('')"
     >
       刪除
 
       <span
         class="bg-primary-500 absolute -right-7 -top-1 flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-red-500 text-base font-bold"
       >
-        {{ deleteProductsId.length }}
+        {{ deleteProductsIdArray.length }}
       </span>
     </button>
     <button
