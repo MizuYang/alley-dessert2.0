@@ -1,6 +1,7 @@
 <script setup>
 import CartTimeLine from "@/components/cart/cartTimeLine.vue";
 import RecommendProductSwiper from "@/components/productInfo/recommendProductSwiper.vue";
+import CartEmpty from '@/components/cart/cartEmpty.vue';
 
 const { cartData } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
@@ -25,12 +26,18 @@ onMounted(() => {
     </div>
 
     <div class="mx-auto max-w-[1200px]">
-      <CartTimeLine class="mb-12" />
-      <CartDelBtns />
+      <template v-if="cartData.length">
+        <CartTimeLine class="mb-12" />
+        <CartDelBtns />
 
-      <CartTable :cartData="cartData" />
+        <CartTable :cartData="cartData" />
 
-      <CartTotal />
+        <CartTotal />
+      </template>
+      <template v-else>
+        <CartEmpty />
+      </template>
+
       <h3
         class="border-primary my-12 border-b border-solid pb-2 text-center text-[32px]"
       >
