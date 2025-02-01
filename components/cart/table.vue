@@ -62,9 +62,7 @@ function hasEdit(item) {
     <tbody>
       <tr
         class="border-primary hover:bg-primary/10 group/table-line border-y border-solid text-xl"
-        :class="
-          deleteProductsIdArray.includes(item.product.id) && '!bg-red-400/15'
-        "
+        :class="deleteProductsIdArray.includes(item.id) && '!bg-red-400/15'"
         v-for="item in props.cartData"
         :key="item.id"
       >
@@ -121,8 +119,7 @@ function hasEdit(item) {
                 type="button"
                 class="hover:bg-primary/20 active:bg-primary/25 mx-3 px-2 py-1 text-sm opacity-0 group-hover/table-line:opacity-100"
                 :class="{
-                  'cursor-not-allowed bg-gray-600 text-black':
-                    item.product.qty <= 1,
+                  'cursor-not-allowed bg-gray-600 text-black': item.qty <= 1,
                   'opacity-100': hasEdit(item),
                 }"
                 @mousedown="handleMouseDown('-', item)"
@@ -150,7 +147,7 @@ function hasEdit(item) {
           </div>
           <!-- 確定修改 -->
           <div
-            class="absolute bottom-6 left-1/2 -translate-x-1/2"
+            class="absolute bottom-3 left-1/2 -translate-x-1/2"
             v-if="hasEdit(item)"
           >
             <button

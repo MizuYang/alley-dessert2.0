@@ -34,7 +34,16 @@ export const useCartStore = defineStore("useCartStore", () => {
       const res = await $fetch(`${apiBaseUrl}/api/${apiPath}/cart`, {
         ...option,
       });
-      console.log("res", res);
+      console.log("res", res.data);
+      console.log("cartData: ", cartData);
+
+      const curProductidx = cartData.value.findIndex(
+        (item) => item.product_id === res.data.product_id,
+      );
+      const cartHasThisProduct = curProductidx !== -1;
+      cartHasThisProduct
+        ? cartData.value[curProductidx].qty++
+        : cartData.value.push(res.data);
     } catch (err) {
       console.error(err);
     }
