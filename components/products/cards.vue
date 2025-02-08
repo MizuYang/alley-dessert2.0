@@ -38,7 +38,7 @@ function addProduct({ product }) {
       @click="gotoProductDetail(product)"
     >
       <div
-        class="border-primary hover:bg-primary/10 group flex h-full cursor-pointer flex-col border border-solid hover:ring-4 hover:ring-gray-400/50"
+        class="border-primary hover:bg-primary/10 group relative flex h-full cursor-pointer flex-col border border-solid hover:ring-4 hover:ring-gray-400/50"
         data-aos="fade-up"
         aos-delay="1000"
         data-aos-once="true"
@@ -68,39 +68,6 @@ function addProduct({ product }) {
             >
               <p>{{ product.category }}</p>
             </div>
-            <!-- 收藏按鈕 -->
-            <div
-              class="absolute right-0 top-0 rounded-bl-2xl bg-red-800/30 px-2 py-1"
-            >
-              <button
-                data-clickType="btn"
-                type="button"
-                class="badge animation_hover collect_btn"
-                title="加入收藏"
-                @click.stop="toggleFavorite(product)"
-              >
-                <i
-                  class="bi bi-heart-fill text-primary inline-block text-2xl hover:scale-[1.15] hover:text-red-500 active:scale-[1.25] active:text-red-500/80"
-                  :class="
-                    favoritedPproductKeyName[product.id]
-                      ? 'text-red-500'
-                      : 'text-primary'
-                  "
-                ></i>
-                <div
-                  class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
-                >
-                  <i
-                    class="bi bi-heart-fill heart hidden text-red-500"
-                    :class="`heart-full-${product.id}`"
-                  ></i>
-                  <i
-                    class="bi bi-heartbreak-fill heartbreak hidden text-red-500"
-                    :class="`heart-break-${product.id}`"
-                  ></i>
-                </div>
-              </button>
-            </div>
           </div>
           <div class="p-4">
             <h3
@@ -118,6 +85,42 @@ function addProduct({ product }) {
             </p>
           </div>
         </NuxtLink>
+        <!-- 收藏按鈕 -->
+        <div
+          class="absolute right-0 top-0 z-40 rounded-bl-2xl bg-red-800/30 px-2 py-1"
+        >
+          <button
+            data-clickType="btn"
+            type="button"
+            class="badge animation_hover collect_btn"
+            :title="
+              favoritedPproductKeyName[product.id] ? '取消收藏' : '加入收藏'
+            "
+            @click.stop="toggleFavorite(product)"
+          >
+            <i
+              class="bi bi-heart-fill text-primary inline-block text-2xl hover:scale-[1.15] hover:text-red-500 active:scale-[1.25] active:text-red-500/80"
+              :class="
+                favoritedPproductKeyName[product.id]
+                  ? 'text-red-500'
+                  : 'text-primary'
+              "
+            ></i>
+            <div
+              class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+            >
+              <i
+                class="bi bi-heart-fill heart hidden text-red-500"
+                :class="`heart-full-${product.id}`"
+              ></i>
+              <i
+                class="bi bi-heartbreak-fill heartbreak hidden text-red-500"
+                :class="`heart-break-${product.id}`"
+              ></i>
+            </div>
+          </button>
+        </div>
+
         <p class="flex justify-between px-4 pb-1 text-xl">
           <span class="text-xl text-gray-300 line-through"
             >原價 ${{ product.origin_price }}</span
