@@ -28,9 +28,9 @@ const formInput = ref([
     type: "number",
     label: "電話",
     id: "tel",
-    placeholder: "請輸入電話 / 例：09xxxxxxxx",
+    placeholder: "請輸入電話 / 例：0912345678",
     isInvalid: null, // null: 未檢查, false: 通過, true: 未通過
-    requireErrorMsg: "*請輸入 09 開頭的正確電話號碼",
+    requireErrorMsg: "*請輸入正確的電話，例: 0912345678",
     isCustomRule: true,
     rule: (value) => /^09\d{8}$/g.test(value),
   },

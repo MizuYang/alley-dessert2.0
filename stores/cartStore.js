@@ -105,26 +105,10 @@ export const useCartStore = defineStore("useCartStore", () => {
     modalHide();
     deleteProductsIdArray.value = [];
     // 重新計算總金額
-    console.log("deleteProductsIdArray.value", deleteProductsIdArray.value);
-    console.log("cartData.value", cartData.value);
     final_total.value = cartData.value.reduce(
       (acc, pre) => acc + pre.final_total,
       0,
     );
-    // deleteCheckProducts () {
-    //   this.isLoading = true
-    //   //* 把勾選的產品 id 跑迴圈刪除
-    //   this.checkbox_productId.forEach((id) => {
-    //     const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart/${id}`
-    //     this.$http.delete(api).then(() => {
-    //       this.$httpMessageState(true, '刪除勾選產品')
-    //       this.isLoading = false
-    //       this.emitter.emit('get_cart') //* Navbar更新
-    //       this.$emit('getCartList')
-    //       this.delete_modal.hide()
-    //     })
-    //   })
-    // },
   }
   async function deleteAllProducts() {
     const api = `${apiBaseUrl}/api/${apiPath}/carts`;

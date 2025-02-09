@@ -1,7 +1,7 @@
 <script setup>
 const timeline = ref(["確認商品", "填寫資料", "確認付款", "完成訂單"]);
 const step = {
-  cart: 0,
+  carts: 0,
   checkout: 1,
   doubleCheck: 2,
   completed: 3,
@@ -9,7 +9,7 @@ const step = {
 
 const route = useRoute();
 
-const currentStep = computed(() => (route?.carts ? step[route.carts] : 0));
+const currentStep = computed(() => step[route?.name]);
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const currentStep = computed(() => (route?.carts ? step[route.carts] : 0));
       >
         <span
           class="border-primary rounded-br-xl rounded-tl-xl border border-solid px-3 py-2"
-          :class="currentStep === idx && 'bg-primary font-black text-black'"
+          :class="currentStep >= idx && 'bg-primary font-black text-black'"
           >{{ item }}</span
         >
 
