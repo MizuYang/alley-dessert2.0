@@ -4,12 +4,16 @@ import { useFavoriteStore } from "~/stores/favoriteStore.client.js";
 const { category, search } = storeToRefs(useProductStore());
 const { favoriteData } = storeToRefs(useFavoriteStore());
 
+const { cartData } = storeToRefs(useCartStore());
+const { getCartData } = useCartStore();
+
 const { favoriteInit } = useFavoriteStore();
 
 onMounted(() => {
   if (import.meta.client) {
     favoriteInit();
   }
+  if (!cartData.value.length) getCartData();
 });
 </script>
 
@@ -94,10 +98,10 @@ onMounted(() => {
           class="nav-link collect border-primary relative block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
           <template v-if="favoriteData.length">
-            <i class="bi bi-heart-fill text-[30px]" style="color: red" />
+            <i class="bi bi-heart-fill text-[30px] text-red-500" />
 
             <span
-              class="bg-primary absolute -right-5 top-[10px] flex h-5 w-5 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-base font-bold text-red-500"
+              class="bg-primary absolute -right-5 top-[10px] flex -translate-x-[25%] -translate-y-1/2 items-center justify-center rounded-full px-2 text-base font-bold text-red-500"
             >
               {{ favoriteData.length }}
             </span>
@@ -111,9 +115,24 @@ onMounted(() => {
         <NuxtLink
           to="/carts"
           active-class="border-primary border-solid border-b-2 font-bold"
-          class="nav-link collect border-primary block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
+          class="nav-link collect border-primary relative block p-2 transition-all duration-75 hover:scale-105 hover:border-b-2 hover:opacity-90"
         >
-          <i class="bi bi-cart4 text-[30px]" />
+          <i
+            class="bi text-[30px]"
+            :class="
+              cartData.length
+                ? 'bi-cart-check-fill text-red-500'
+                : 'text-primary bi-cart4'
+            "
+          />
+
+          <template v-if="cartData.length">
+            <span
+              class="bg-primary absolute -right-5 top-[10px] flex -translate-x-[25%] -translate-y-1/2 items-center justify-center rounded-full px-2 text-base font-bold text-red-600"
+            >
+              {{ cartData.length }}
+            </span>
+          </template>
         </NuxtLink>
       </li>
     </ul>
