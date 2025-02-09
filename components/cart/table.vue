@@ -52,7 +52,7 @@ function hasEdit(item) {
           <i class="bi bi-check2-square"></i>
         </th>
         <th scope="col" class="pb-2">圖片</th>
-        <th scope="col" class="pb-2">產品名稱</th>
+        <th scope="col" class="pb-2">名稱</th>
         <th scope="col" class="pb-2">數量</th>
         <th scope="col" class="pb-2">單價</th>
         <th scope="col" class="pb-2">小計</th>
@@ -104,11 +104,13 @@ function hasEdit(item) {
           <div
             class="flex items-center justify-start pl-[150px] group-hover/table-line:font-bold"
           >
-            <span
-              class="me-2 inline-block rounded-md bg-red-600 p-1 text-sm text-white"
-            >
-              熱門
-            </span>
+            <template v-if="item.product.popular > 2">
+              <span
+                class="me-2 inline-block rounded-md bg-red-600 p-1 text-sm text-white"
+              >
+                熱門
+              </span>
+            </template>
             {{ item.product.title }}
           </div>
         </td>
