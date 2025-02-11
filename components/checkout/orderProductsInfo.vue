@@ -47,7 +47,6 @@ const props = defineProps({
           <td class="py-3 align-middle"></td>
         </tr>
       </tbody>
-
       <tfoot>
         <tr>
           <td colspan="4" class="py-3 text-right text-xl font-bold">

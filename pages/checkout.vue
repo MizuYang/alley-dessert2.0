@@ -5,9 +5,23 @@ import OrderProductsInfo from "@/components/checkout/orderProductsInfo.vue";
 const { cartData, final_total } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
 
-onMounted(() => {
-  if (!cartData.value.length) getCartData();
+const router = useRouter();
+
+const orderManInfoRef = ref(null);
+const isCartDataLoading = ref(true);
+
+onMounted(async () => {
+  if (!cartData.value.length) await getCartData();
+  if (!cartData.value.length) router.push("/carts");
+  isCartDataLoading.value = false;
 });
+
+function nextStep() {
+  orderManInfoRef.value.submitForm(goToNextStep);
+}
+function goToNextStep() {
+  router.push("/orderConfirm");
+}
 </script>
 
 <template>
@@ -20,8 +34,10 @@ onMounted(() => {
       <CartTimeLine class="mb-12" />
 
       <div class="grid grid-cols-2 items-start gap-x-5">
-        <section>
-          <OrderManInfo>
+        <section
+          class="border-primary mx-auto w-full rounded-3xl border-2 border-solid px-10 py-10 text-xl"
+        >
+          <OrderManInfo ref="orderManInfoRef">
             <ClientOnly>
               <template #title>
                 <h2
@@ -32,26 +48,32 @@ onMounted(() => {
               </template>
             </ClientOnly>
           </OrderManInfo>
+
+          <CheckoutFooter
+            :isCartDataLoading="isCartDataLoading"
+            :cartData="cartData"
+            @nextStep="nextStep"
+          />
         </section>
 
         <section
-          class="border-primary h-full rounded-3xl border-2 border-solid px-10 py-10 text-xl"
+          class="border-primary relative h-full rounded-3xl border-2 border-solid px-10 py-10 text-xl"
         >
-          <OrderProductsInfo
-            :cartData="cartData"
-            :final_total="final_total"
-            class="mb-5"
-          >
-            <template #title>
-              <h2
-                class="border-primary mb-6 border-b border-solid text-2xl font-bold"
-              >
-                訂單明細
-              </h2>
-            </template>
-          </OrderProductsInfo>
+          <template v-if="!isCartDataLoading && cartData.length">
+            <OrderProductsInfo :cartData="cartData" :final_total="final_total">
+              <template #title>
+                <h2
+                  class="border-primary mb-6 border-b border-solid text-2xl font-bold"
+                >
+                  訂單明細
+                </h2>
+              </template>
+            </OrderProductsInfo>
+          </template>
 
-          <CheckoutFooter />
+          <template v-else>
+            <LoadingText />
+          </template>
         </section>
       </div>
     </div>

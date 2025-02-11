@@ -1,7 +1,8 @@
 <script setup>
 import { addAnimate } from "~/utils/animate.client.js";
 
-const form = ref({ payMethod: "-請選擇付款方式-" });
+const { form } = storeToRefs(useOrderConfirmStore());
+
 const formInput = ref([
   {
     inputType: "input",
@@ -14,18 +15,18 @@ const formInput = ref([
   },
   {
     inputType: "input",
-    type: "text",
+    type: "email",
     label: "E-mail",
     id: "email",
     placeholder: "請輸入信箱, 例：xxx@gmail.com.tw",
     isInvalid: null, // null: 未檢查, false: 通過, true: 未通過
-    requireErrorMsg: "*信箱 為必填",
+    requireErrorMsg: "*請輸入正確的信箱, 例：xxx@gmail.com.tw",
     isCustomRule: true,
     rule: (value) => /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/g.test(value),
   },
   {
     inputType: "input",
-    type: "number",
+    type: "tel",
     label: "電話",
     id: "tel",
     placeholder: "請輸入電話 / 例：0912345678",
@@ -40,7 +41,7 @@ const formInput = ref([
     id: "payMethod",
     options: ["-請選擇付款方式-", "超商取貨付款", "信用卡", "Line Pay"],
     isInvalid: null, // null: 未檢查, false: 通過, true: 未通過
-    requireErrorMsg: "付款方式 為必填",
+    requireErrorMsg: "*付款方式 為必填",
     isCustomRule: true,
     rule: (value) => value !== "-請選擇付款方式-",
   },
@@ -60,25 +61,40 @@ const addAnimateFn = ({ element, animateName }) => {
   const fn = addAnimate({ element, animateName });
   if (typeof fn === "function") fn();
 };
-function submitForm() {
+
+defineExpose({
+  submitForm,
+});
+
+function submitForm(fn) {
   console.log(form);
-  checkForm();
+  const result = checkForm();
+  if (result) fn();
 }
 function checkForm() {
+  let result = true;
   formInput.value.forEach((item) => {
     const element = formInputRef.value[item.id];
     // 先檢查有特殊規則的欄位
     if (item.isCustomRule) {
-      !item.rule(form.value[item.id])
-        ? fieldInvalidHandler({ element, item })
-        : (item.isInvalid = false);
+      if (!item.rule(form.value[item.id])) {
+        fieldInvalidHandler({ element, item });
+        result = false;
+      } else {
+        item.isInvalid = false;
+      }
     } else {
       // 檢查必填欄位
-      !form.value[item.id]
-        ? fieldInvalidHandler({ element, item })
-        : (item.isInvalid = false);
+      if (!form.value[item.id]) {
+        fieldInvalidHandler({ element, item });
+        result = false;
+      } else {
+        item.isInvalid = false;
+      }
     }
   });
+
+  return result;
 }
 function fieldInvalidHandler({ element, item }) {
   item.isInvalid = true;
@@ -90,10 +106,7 @@ function fieldInvalidHandler({ element, item }) {
 </script>
 
 <template>
-  <form
-    class="border-primary mx-auto w-full rounded-3xl border-2 border-solid px-10 py-10 text-xl"
-    @submit.prevent="submitForm"
-  >
+  <form class="mb-5" @submit.prevent="submitForm">
     <h3>
       <slot name="title"></slot>
     </h3>
@@ -110,7 +123,7 @@ function fieldInvalidHandler({ element, item }) {
       <br />
       <template v-if="item.inputType === 'input'">
         <input
-          type="text"
+          :type="item.type"
           class="focus:ring-primary/50 w-full bg-gray-700/80 px-3 py-2 ring-1 ring-gray-400 focus:outline-none focus:ring-4"
           :class="[
             { '!ring-red-500': item.isInvalid === true },

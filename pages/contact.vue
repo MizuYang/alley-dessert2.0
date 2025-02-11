@@ -14,18 +14,18 @@ const formInput = ref([
   },
   {
     inputType: "input",
-    type: "text",
+    type: "email",
     label: "E-mail",
     id: "email",
     placeholder: "請輸入信箱, 例：xxx@gmail.com.tw",
     isInvalid: null, // null: 未檢查, false: 通過, true: 未通過
-    requireErrorMsg: "*信箱 為必填",
+    requireErrorMsg: "*請輸入正確的信箱, 例：xxx@gmail.com.tw",
     isCustomRule: true,
     rule: (value) => /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/g.test(value),
   },
   {
     inputType: "input",
-    type: "number",
+    type: "tel",
     label: "電話",
     id: "tel",
     placeholder: "請輸入電話 / 例：0912345678",
@@ -121,7 +121,7 @@ function fieldInvalidHandler({ element, item }) {
             <br />
             <template v-if="item.inputType === 'input'">
               <input
-                type="text"
+                :type="item.type"
                 class="focus:ring-primary/50 w-full bg-gray-700/80 px-3 py-2 ring-1 ring-gray-400 focus:outline-none focus:ring-4"
                 :class="[
                   { '!ring-red-500': item.isInvalid === true },
