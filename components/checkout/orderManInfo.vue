@@ -91,10 +91,13 @@ function fieldInvalidHandler({ element, item }) {
 
 <template>
   <form
-    class="border-primary mx-auto w-full max-w-[700px] rounded-3xl border-2 border-solid px-16 py-10 text-xl"
+    class="border-primary mx-auto w-full rounded-3xl border-2 border-solid px-10 py-10 text-xl"
     @submit.prevent="submitForm"
   >
-    <slot name="formTitle"></slot>
+    <h3>
+      <slot name="title"></slot>
+    </h3>
+
     <label
       :for="item.id"
       v-for="item in formInput"
