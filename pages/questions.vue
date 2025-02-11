@@ -129,10 +129,9 @@ onMounted(() => {
         @click="llistToggle(idx)"
         data-aos="fade-right"
         data-aos-easing="linear"
-        :data-aos-delay="`${idx <= 4 && (idx + 1) * 150}`"
+        :data-aos-delay="`${idx * 50}`"
         data-aos-duration="300"
         data-aos-once="true"
-        
       >
         <div
           class="border-primary hover:bg-primary/20 cursor-pointer border border-solid p-4"
