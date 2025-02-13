@@ -126,6 +126,11 @@ export const useCartStore = defineStore("useCartStore", () => {
       final_total.value = 0;
     }
   }
+  function cartDataInit() {
+    cartData.value = [];
+    final_total.value = 0;
+    deleteProductsIdArray.value = [];
+  }
 
   return {
     cartData,
@@ -137,5 +142,6 @@ export const useCartStore = defineStore("useCartStore", () => {
     updateProductQty,
     deleteProduct,
     deleteAllProducts,
+    cartDataInit,
   };
 });
