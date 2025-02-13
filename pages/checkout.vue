@@ -38,15 +38,13 @@ function goToNextStep() {
           class="border-primary mx-auto w-full rounded-3xl border-2 border-solid px-10 py-10 text-xl"
         >
           <OrderManInfo ref="orderManInfoRef">
-            <ClientOnly>
-              <template #title>
-                <h2
-                  class="border-primary mb-6 border-b border-solid text-2xl font-bold"
-                >
-                  訂購人資料
-                </h2>
-              </template>
-            </ClientOnly>
+            <template #title>
+              <h2
+                class="border-primary mb-6 border-b border-solid text-2xl font-bold"
+              >
+                訂購人資料
+              </h2>
+            </template>
           </OrderManInfo>
 
           <CheckoutFooter

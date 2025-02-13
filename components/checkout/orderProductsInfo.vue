@@ -13,6 +13,12 @@ const props = defineProps({
 
 <template>
   <div>
+    <h3>
+      <ClientOnly>
+        <slot name="title"></slot>
+      </ClientOnly>
+    </h3>
+
     <table class="w-full">
       <thead class="align-middle">
         <tr class="border-primary border-b-2 border-solid text-xl font-bold">

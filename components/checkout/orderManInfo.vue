@@ -108,7 +108,9 @@ function fieldInvalidHandler({ element, item }) {
 <template>
   <form class="mb-5" @submit.prevent="submitForm">
     <h3>
-      <slot name="title"></slot>
+      <ClientOnly>
+        <slot name="title"></slot>
+      </ClientOnly>
     </h3>
 
     <label
