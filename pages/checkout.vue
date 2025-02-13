@@ -5,6 +5,8 @@ import OrderProductsInfo from "@/components/checkout/orderProductsInfo.vue";
 const { cartData, final_total } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
 
+const { sendOrder } = useOrderStore();
+
 const router = useRouter();
 
 const orderManInfoRef = ref(null);
@@ -16,11 +18,9 @@ onMounted(async () => {
   isCartDataLoading.value = false;
 });
 
-function nextStep() {
-  orderManInfoRef.value.submitForm(goToNextStep);
-}
-function goToNextStep() {
-  router.push("/orderConfirm");
+async function nextStep() {
+  const orderId = await orderManInfoRef.value.submitForm(sendOrder);
+  if (orderId) router.push(`/orderConfirm/${orderId}`);
 }
 </script>
 

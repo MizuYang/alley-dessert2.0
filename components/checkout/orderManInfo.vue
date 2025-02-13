@@ -1,7 +1,8 @@
 <script setup>
 import { addAnimate } from "~/utils/animate.client.js";
 
-const { form } = storeToRefs(useOrderConfirmStore());
+const { orderInfoForm } = storeToRefs(useOrderStore());
+// const { sendOrder } = useOrderStore();
 
 const formInput = ref([
   {
@@ -38,7 +39,7 @@ const formInput = ref([
   {
     inputType: "select",
     label: "付款方式",
-    id: "payMethod",
+    id: "pay_method",
     options: ["-請選擇付款方式-", "超商取貨付款", "信用卡", "Line Pay"],
     isInvalid: null, // null: 未檢查, false: 通過, true: 未通過
     requireErrorMsg: "*付款方式 為必填",
@@ -66,10 +67,13 @@ defineExpose({
   submitForm,
 });
 
-function submitForm(fn) {
-  console.log(form);
-  const result = checkForm();
-  if (result) fn();
+function submitForm(sendOrder) {
+  return new Promise(async (resolve, reject) => {
+    const result = checkForm();
+    if (!result) return;
+    const orderId = await sendOrder();
+    resolve(orderId);
+  });
 }
 function checkForm() {
   let result = true;
@@ -77,7 +81,7 @@ function checkForm() {
     const element = formInputRef.value[item.id];
     // 先檢查有特殊規則的欄位
     if (item.isCustomRule) {
-      if (!item.rule(form.value[item.id])) {
+      if (!item.rule(orderInfoForm.value[item.id])) {
         fieldInvalidHandler({ element, item });
         result = false;
       } else {
@@ -85,7 +89,7 @@ function checkForm() {
       }
     } else {
       // 檢查必填欄位
-      if (!form.value[item.id]) {
+      if (!orderInfoForm.value[item.id]) {
         fieldInvalidHandler({ element, item });
         result = false;
       } else {
@@ -106,7 +110,7 @@ function fieldInvalidHandler({ element, item }) {
 </script>
 
 <template>
-  <form class="mb-5" @submit.prevent="submitForm">
+  <form class="mb-5">
     <h3>
       <ClientOnly>
         <slot name="title"></slot>
@@ -134,7 +138,7 @@ function fieldInvalidHandler({ element, item }) {
           :ref="(el) => (formInputRef[item.id] = el)"
           :id="item.id"
           :placeholder="item.placeholder"
-          v-model="form[item.id]"
+          v-model="orderInfoForm[item.id]"
         />
       </template>
       <template v-else-if="item.inputType === 'select'">
@@ -146,7 +150,7 @@ function fieldInvalidHandler({ element, item }) {
           ]"
           :ref="(el) => (formInputRef[item.id] = el)"
           :id="item.id"
-          v-model="form[item.id]"
+          v-model="orderInfoForm[item.id]"
         >
           <option
             v-for="(opt, idx) in item.options"
