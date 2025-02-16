@@ -5,7 +5,7 @@ import OrderProductsInfo from "@/components/checkout/orderProductsInfo.vue";
 const { cartData, final_total } = storeToRefs(useCartStore());
 const { getCartData } = useCartStore();
 
-const { sendOrder } = useOrderStore();
+const { sendOrder, getOrderId } = useOrderStore();
 
 const router = useRouter();
 
@@ -20,7 +20,11 @@ onMounted(async () => {
 
 async function nextStep() {
   const orderId = await orderManInfoRef.value.submitForm(sendOrder);
-  if (orderId) router.push(`/orderPayment/${orderId}`);
+
+  if (orderId) {
+    getOrderId(orderId);
+    router.push(`/orderPayment/${orderId}`);
+  }
 }
 </script>
 
