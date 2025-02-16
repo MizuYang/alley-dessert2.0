@@ -1,12 +1,18 @@
 <script setup>
 const { orderPaymentData } = storeToRefs(useOrderStore());
 
-const props = defineProps({
-  tableData: {
-    type: Object,
-    required: true,
-  },
-});
+const tableData = {
+  orderId: "訂購編號",
+  create_at: "訂購日期",
+  name: "姓名",
+  email: "Email",
+  tel: "電話",
+  address: "地址",
+  products: "訂購產品",
+  total: "總金額",
+  pay_method: "付款方式",
+  is_paid: "付款狀態",
+};
 </script>
 
 <template>
@@ -44,11 +50,6 @@ const props = defineProps({
         </tr>
       </template>
     </tbody>
-    <!-- <tfoot>
-            <tr>
-              <td>表尾內容</td>
-            </tr>
-          </tfoot> -->
   </table>
 </template>
 

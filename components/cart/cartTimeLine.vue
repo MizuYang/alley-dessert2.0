@@ -4,7 +4,7 @@ const step = {
   carts: 0,
   checkout: 1,
   "orderPayment-orderId": 2,
-  completed: 3,
+  "orderComplated-orderId": 3,
 };
 
 const route = useRoute();
