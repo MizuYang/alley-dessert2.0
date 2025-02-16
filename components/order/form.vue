@@ -3,8 +3,11 @@ import { addAnimate } from "~/utils/animate.client.js";
 
 const emits = defineEmits(["showOrder"]);
 
-const orderId = ref("11111111111111111111");
-const orderInput = ref(null);
+const router = useRouter();
+
+const { orderId } = storeToRefs(useOrderStore());
+
+const orderInputRef = ref(null);
 let isUserChange = false;
 const inputClassList = {
   default: "ring-gray-400 focus:ring-gray/50 ",
@@ -32,22 +35,31 @@ const btnClass = computed(() =>
     ? "bg-red-800 hover:bg-red-800/90 active:bg-red-800/80"
     : "bg-gray-400 hover:bg-gray-400/90 active:bg-gray-400/80 cursor-not-allowed",
 );
-const addAnimateFn = ({ element, animateName }) => {
+
+onMounted(() => {
+  if (orderInputRef.value) orderInputRef.value.focus();
+});
+
+function addAnimateFn({ element, animateName }) {
   const fn = addAnimate({ element, animateName });
   if (typeof fn === "function") fn();
-};
-
+}
 function getOeder() {
   if (!isOrderIdInputDisabled.value) {
-    if (orderInput.value) orderInput.value.focus();
+    if (orderInputRef.value) orderInputRef.value.focus();
     addAnimateFn({
-      element: orderInput.value,
+      element: orderInputRef.value,
       animateName: "shakeX",
     });
     return;
   }
-
-  emits("showOrder", orderId.value);
+  emits("showOrder");
+}
+function clearOrder() {
+  orderId.value = "";
+  isUserChange = false;
+  router.push("/order");
+  orderInputRef.value.focus();
 }
 </script>
 
@@ -62,7 +74,7 @@ function getOeder() {
       :class="inputClass"
       placeholder="請輸入訂單編號 (20碼)"
       v-model.trim="orderId"
-      ref="orderInput"
+      ref="orderInputRef"
     />
     <p
       class="text-left text-xl font-bold text-red-500"
@@ -80,6 +92,16 @@ function getOeder() {
     >
       送出
     </button>
+
+    <template v-if="orderId">
+      <button
+        type="button"
+        class="text-primary mx-auto my-5 block w-full rounded-xl bg-slate-400/50 px-4 py-1 text-2xl"
+        @click="clearOrder"
+      >
+        清除
+      </button>
+    </template>
   </form>
 </template>
 

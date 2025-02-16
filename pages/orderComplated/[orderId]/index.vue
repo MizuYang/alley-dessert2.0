@@ -34,7 +34,7 @@ onMounted(async () => {
 
       <template v-if="!isOrderLoading">
         <div class="flex">
-          <OrderComplatedText></OrderComplatedText>
+          <OrderComplatedText />
           <OrderTable />
         </div>
       </template>
