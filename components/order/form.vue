@@ -3,33 +3,23 @@ import { addAnimate } from "~/utils/animate.client.js";
 
 const emits = defineEmits(["showOrder"]);
 
+const route = useRoute();
 const router = useRouter();
 
 const { orderId } = storeToRefs(useOrderStore());
+const { getOrderId, clearOrderData } = useOrderStore();
 
 const orderInputRef = ref(null);
-let isUserChange = false;
+const inputClass = ref(null);
+let isUserChange = ref(null);
 const inputClassList = {
-  default: "ring-gray-400 focus:ring-gray/50 ",
-  error: "ring-red-500 focus:ring-red/50",
-  success: "ring-green-500 focus:ring-green/50",
+  default: "ring-gray-400 focus:ring-gray-400/50 ",
+  error: "ring-red-500 focus:ring-red-500/50",
+  success: "ring-green-500 focus:ring-green-500/50",
 };
+const myOrderId = ref(orderId.value);
 
-const isOrderIdInputDisabled = computed(() => orderId.value.length === 20);
-const inputClass = computed(() => {
-  let inputStatus = "default";
-
-  if (orderId.value === "" && !isUserChange) {
-    inputStatus = "default";
-  } else if (orderId.value.length !== 20) {
-    inputStatus = "error";
-    isUserChange = true;
-  } else {
-    inputStatus = "success";
-    isUserChange = true;
-  }
-  return inputClassList[inputStatus];
-});
+const isOrderIdInputDisabled = computed(() => myOrderId.value?.length === 20);
 const btnClass = computed(() =>
   isOrderIdInputDisabled.value
     ? "bg-red-800 hover:bg-red-800/90 active:bg-red-800/80"
@@ -38,13 +28,32 @@ const btnClass = computed(() =>
 
 onMounted(() => {
   if (orderInputRef.value) orderInputRef.value.focus();
+  if (route.query.orderId) {
+    myOrderId.value = route.query.orderId;
+    getOeder();
+  }
 });
 
 function addAnimateFn({ element, animateName }) {
   const fn = addAnimate({ element, animateName });
   if (typeof fn === "function") fn();
 }
+function getInputStatusClass() {
+  let inputStatus = "default";
+
+  if (myOrderId.value === "" && !isUserChange) {
+    inputStatus = "default";
+  } else if (myOrderId.value.length !== 20) {
+    inputStatus = "error";
+  } else {
+    inputStatus = "success";
+  }
+  inputClass.value = inputClassList[inputStatus];
+}
 function getOeder() {
+  isUserChange.value = true;
+  getInputStatusClass();
+
   if (!isOrderIdInputDisabled.value) {
     if (orderInputRef.value) orderInputRef.value.focus();
     addAnimateFn({
@@ -53,11 +62,19 @@ function getOeder() {
     });
     return;
   }
-  emits("showOrder");
+  console.log("myOrderId.value: ", myOrderId.value);
+  getOrderId(myOrderId.value);
+  // router.replace({ path: `/order`, query: { orderId: myOrderId.value } });
+  router.replace(`/order?orderId=${myOrderId.value}`);
+  setTimeout(() => {
+    emits("showOrder");
+  }, 100);
+  // emits("showOrder");
 }
 function clearOrder() {
-  orderId.value = "";
-  isUserChange = false;
+  myOrderId.value = "";
+  isUserChange.value = false;
+  clearOrderData();
   router.push("/order");
   orderInputRef.value.focus();
 }
@@ -73,15 +90,15 @@ function clearOrder() {
       class="mb-4 w-full bg-gray-700/80 px-3 py-2 text-xl ring-1 focus:outline-none focus:ring-4"
       :class="inputClass"
       placeholder="請輸入訂單編號 (20碼)"
-      v-model.trim="orderId"
+      v-model.trim="myOrderId"
       ref="orderInputRef"
     />
     <p
       class="text-left text-xl font-bold text-red-500"
-      v-if="!isOrderIdInputDisabled && isUserChange"
+      v-if="!isOrderIdInputDisabled && isUserChange !== null"
     >
       *訂單編號
-      {{ orderId.length < 20 ? "不足" : "超過" }}
+      {{ myOrderId.length < 20 ? "不足" : "超過" }}
       20碼
     </p>
     <button
@@ -93,10 +110,10 @@ function clearOrder() {
       送出
     </button>
 
-    <template v-if="orderId">
+    <template v-if="myOrderId">
       <button
         type="button"
-        class="text-primary mx-auto my-5 block w-full rounded-xl bg-slate-400/50 px-4 py-1 text-2xl"
+        class="text-primary mx-auto my-5 block w-full rounded-xl bg-slate-400/50 px-4 py-1 text-2xl hover:bg-slate-400/55 active:bg-slate-400/60"
         @click="clearOrder"
       >
         清除

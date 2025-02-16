@@ -6,7 +6,7 @@ const { getOrderId } = useOrderStore();
 
 function goToOrderPage() {
   getOrderId(route?.params?.orderId);
-  router.push(`/order/${route?.params?.orderId}`);
+  router.push(`/order?orderId=${route?.query?.orderId}`);
 }
 </script>
 
@@ -45,7 +45,7 @@ function goToOrderPage() {
           繼續購物
         </NuxtLink>
       </li>
-      <template v-if="route?.params?.orderId">
+      <template v-if="route?.query?.orderId">
         <li>
           <button
             type="button"

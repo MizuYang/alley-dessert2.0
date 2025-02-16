@@ -5,15 +5,10 @@ const { orderId } = storeToRefs(useOrderStore());
 const orderRef = ref(null);
 const isShow = ref(false);
 
-onMounted(async () => {
-  if (orderId.value) {
-    await getOrder();
-    showOrder();
-  }
-});
-
 async function showOrder() {
   try {
+    await getOrder();
+
     isShow.value = true;
     await new Promise((resolve) => setTimeout(resolve, 50));
     nextTick(() => {

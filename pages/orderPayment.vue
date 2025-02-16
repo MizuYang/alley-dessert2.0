@@ -20,7 +20,7 @@ onMounted(async () => {
     return;
   }
   if (orderPaymentData?.value?.is_paid) {
-    router.push(`/orderComplated/${orderId}`);
+    router.push(`/orderComplated?orderId=${orderId}`);
   }
   isOrderLoading.value = false;
 });
@@ -55,7 +55,6 @@ onMounted(async () => {
         <ErrorText errorTitle="找不到訂單" errorCode="404">
           <template #errorContent>
             <p>請重新確認訂單編號</p>
-            {{ orderPaymentData }}
           </template>
         </ErrorText>
       </template>

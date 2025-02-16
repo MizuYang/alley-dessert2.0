@@ -1,13 +1,16 @@
 <script setup>
+import ErrorText from "@/components/errorsText/text.vue";
+
 const { orderPaymentData } = storeToRefs(useOrderStore());
 const { orderId, getOrder } = useOrderStore();
 
 const router = useRouter();
 
 let isOrderLoading = ref(true);
+const notFoundOrder = ref(false);
 
 onMounted(async () => {
-  if (orderId) await getOrder();
+  await getOrder();
 
   if (!orderPaymentData?.value?.id) {
     // 找不到訂單
@@ -15,7 +18,7 @@ onMounted(async () => {
     return;
   } else if (orderPaymentData?.value?.is_paid === false) {
     // 訂單未付款
-    router.push(`/orderPayment/${orderId}`);
+    router.push(`/orderPayment?orderId=${orderId}`);
     return;
   }
 
@@ -37,6 +40,14 @@ onMounted(async () => {
           <OrderComplatedText />
           <OrderTable />
         </div>
+      </template>
+
+      <template v-else-if="notFoundOrder">
+        <ErrorText errorTitle="找不到訂單" errorCode="404">
+          <template #errorContent>
+            <p>請重新確認訂單編號</p>
+          </template>
+        </ErrorText>
       </template>
 
       <template v-else>
