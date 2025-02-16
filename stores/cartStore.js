@@ -8,8 +8,14 @@ export const useCartStore = defineStore("useCartStore", () => {
   const { apiPath, apiBaseUrl } = config.public;
 
   const cartData = ref([]);
-  const final_total = ref(0);
   const deleteProductsIdArray = ref([]);
+
+  const final_total = computed(() => {
+    return cartData.value.reduce((acc, pre) => {
+      const qty = pre.originQty || pre.qty;
+      return acc + qty * pre.product.price;
+    }, 0);
+  });
 
   function updDelProdId(data) {
     deleteProductsIdArray.value = [...data];
@@ -35,7 +41,6 @@ export const useCartStore = defineStore("useCartStore", () => {
         ...option,
       });
       console.log("res", res.data);
-      console.log("cartData: ", cartData);
 
       const curProductidx = cartData.value.findIndex(
         (item) => item.product_id === res.data.product_id,
@@ -59,7 +64,6 @@ export const useCartStore = defineStore("useCartStore", () => {
       });
       console.log("res", res);
       cartData.value = res.data.carts;
-      final_total.value = res.data.final_total;
     } catch (err) {
       console.error(err);
     }
@@ -128,7 +132,6 @@ export const useCartStore = defineStore("useCartStore", () => {
   }
   function cartDataInit() {
     cartData.value = [];
-    final_total.value = 0;
     deleteProductsIdArray.value = [];
   }
 

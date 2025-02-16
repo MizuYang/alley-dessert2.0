@@ -167,7 +167,9 @@ function hasEdit(item) {
           >
           ${{ item.product.price }}
         </td>
-        <td class="py-3 align-middle">${{ item.final_total }}</td>
+        <td class="py-3 align-middle">
+          ${{ (item?.originQty || item?.qty) * item.product.price }}
+        </td>
         <td class="py-3 align-middle"></td>
       </tr>
     </tbody>
