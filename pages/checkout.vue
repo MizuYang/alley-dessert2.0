@@ -20,7 +20,7 @@ onMounted(async () => {
 
 async function nextStep() {
   const orderId = await orderManInfoRef.value.submitForm(sendOrder);
-  if (orderId) router.push(`/orderConfirm/${orderId}`);
+  if (orderId) router.push(`/orderPayment/${orderId}`);
 }
 </script>
 

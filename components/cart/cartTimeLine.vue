@@ -3,7 +3,7 @@ const timeline = ref(["確認商品", "填寫資料", "確認付款", "完成訂
 const step = {
   carts: 0,
   checkout: 1,
-  doubleCheck: 2,
+  "orderPayment-orderId": 2,
   completed: 3,
 };
 
@@ -14,7 +14,7 @@ const currentStep = computed(() => step[route?.name]);
 
 <template>
   <header>
-    <ul class="text- flex justify-between">
+    <ul class="flex justify-between">
       <li
         v-for="(item, idx) in timeline"
         :key="`timeline-${item}`"
