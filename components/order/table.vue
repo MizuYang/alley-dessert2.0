@@ -23,30 +23,32 @@ const tableData = {
           <td class="inline-block w-[100px] py-2 pe-5 font-black">
             {{ title }}
           </td>
-          <td class="py-2">
-            <!-- 訂購產品 -->
-            <template v-if="key === 'products'">
-              <ul>
-                <template v-for="(product, key) in orderPaymentData[key]">
-                  <li>{{ product.product.title }} x {{ product.qty }}</li>
-                </template>
-              </ul>
-            </template>
-            <!-- 付款狀態 -->
-            <template v-else-if="key === 'is_paid'">
-              <p
-                class="font-black"
-                :class="
-                  orderPaymentData[key] ? 'text-green-500' : 'text-red-500'
-                "
-              >
-                {{ orderPaymentData[key] ? "已付款" : "未付款" }}
-              </p>
-            </template>
-            <template v-else>
-              {{ orderPaymentData[key] }}
-            </template>
-          </td>
+          <template v-if="orderPaymentData?.orderId">
+            <td class="py-2">
+              <!-- 訂購產品 -->
+              <template v-if="key === 'products'">
+                <ul>
+                  <template v-for="(product, key) in orderPaymentData[key]">
+                    <li>{{ product.product.title }} x {{ product.qty }}</li>
+                  </template>
+                </ul>
+              </template>
+              <!-- 付款狀態 -->
+              <template v-else-if="key === 'is_paid'">
+                <p
+                  class="font-black"
+                  :class="
+                    orderPaymentData[key] ? 'text-green-500' : 'text-red-500'
+                  "
+                >
+                  {{ orderPaymentData[key] ? "已付款" : "未付款" }}
+                </p>
+              </template>
+              <template v-else>
+                {{ orderPaymentData[key] }}
+              </template>
+            </td>
+          </template>
         </tr>
       </template>
     </tbody>

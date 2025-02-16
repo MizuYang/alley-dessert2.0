@@ -3,8 +3,8 @@ const timeline = ref(["確認商品", "填寫資料", "確認付款", "完成訂
 const step = {
   carts: 0,
   checkout: 1,
-  "orderPayment-orderId": 2,
-  "orderComplated-orderId": 3,
+  "orderPayment": 2,
+  "orderComplated": 3,
 };
 
 const route = useRoute();

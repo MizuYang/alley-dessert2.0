@@ -19,14 +19,16 @@ export const useOrderStore = defineStore("useOrderStore", () => {
   const config = useRuntimeConfig();
   const { apiPath, apiBaseUrl } = config.public;
 
-  const orderId = ref(route?.params?.orderId || "");
+  const orderId = ref(route?.query?.orderId || "");
 
   function getOrderId(id) {
     orderId.value = id;
   }
   async function getOrder() {
-    const myOrderId = route?.params?.orderId || orderId.value || "";
+    const myOrderId = route?.query?.orderId || orderId.value || "";
+    console.log("myOrderId: ", myOrderId);
     if (!myOrderId) return;
+    getOrderId(myOrderId);
 
     const option = {
       method: "GET",
@@ -41,7 +43,11 @@ export const useOrderStore = defineStore("useOrderStore", () => {
       );
       console.log("res", res);
       if (res?.order?.id)
-        orderPaymentData.value = { ...res.order, ...res.order.user, orderId };
+        orderPaymentData.value = {
+          ...res.order,
+          ...res.order.user,
+          orderId: myOrderId,
+        };
     } catch (err) {
       console.error(err);
     }
@@ -70,6 +76,9 @@ export const useOrderStore = defineStore("useOrderStore", () => {
       console.error(err);
     }
   }
+  function clearOrderData() {
+    orderPaymentData.value = {};
+  }
   async function payment() {
     console.log("orderId", orderId.value);
     const api = `${apiBaseUrl}/api/${apiPath}/pay/${orderId.value}`;
@@ -83,7 +92,7 @@ export const useOrderStore = defineStore("useOrderStore", () => {
         ...option,
       });
       console.log("res", res);
-      router.push(`/orderComplated/${orderId.value}`);
+      router.push(`/orderComplated?orderId=${orderId.value}`);
     } catch (err) {
       console.error(err);
     }
@@ -98,6 +107,7 @@ export const useOrderStore = defineStore("useOrderStore", () => {
     orderPaymentData,
     getOrderId,
     getOrder,
+    clearOrderData,
     sendOrder,
     payment,
   };

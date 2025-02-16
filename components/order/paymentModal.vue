@@ -12,7 +12,7 @@ const { payment } = useOrderStore();
     <div class="min-w-[400px] bg-black" @click.stop>
       <header class="border-primary border border-b-0 border-solid p-3">
         <i class="bi bi-exclamation-octagon-fill"></i>
-        注意
+        檢查資料及付款
       </header>
       <main class="border-primary border border-b-0 border-solid p-5 text-lg">
         請確認您的資料是否正確

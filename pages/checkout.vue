@@ -23,7 +23,7 @@ async function nextStep() {
 
   if (orderId) {
     getOrderId(orderId);
-    router.push(`/orderPayment/${orderId}`);
+    router.push(`/orderPayment?orderId=${orderId}`);
   }
 }
 </script>
