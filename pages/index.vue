@@ -10,9 +10,11 @@ onMounted(() => {
 <template>
   <main class="bg-black text-primary">
     <IndexBanner />
-    <IndexLongImageArea />
-    <IndexPopularProducts />
-    <IndexProductCategory />
+    <div class="max-w-[1200px] mx-auto">
+      <IndexLongImageArea />
+      <IndexPopularProducts />
+      <IndexProductCategory />
+    </div>
   </main>
 </template>
 

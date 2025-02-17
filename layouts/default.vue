@@ -16,7 +16,9 @@ onMounted(() => {
 <template>
   <div>
     <LayoutNavbar />
-    <div class="main-min-height text-primary bg-black pt-[83.53px]">
+    <div
+      class="main-min-height text-primary bg-black pt-[72px] lg:pt-[83.53px]"
+    >
       <slot />
     </div>
     <LayoutFooter />
