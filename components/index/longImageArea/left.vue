@@ -10,7 +10,7 @@ img2.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-主要/「招牌」
 <template>
   <section class="text-primary">
     <div
-      class="flex h-[960px] w-[636px] bg-no-repeat"
+      class="flex h-[960px] bg-no-repeat xl:w-[636px]"
       :style="`background-image: url(${img1});`"
     >
       <div class="m-auto translate-y-16 bg-[#110e0e6c] px-4 py-6 text-center">

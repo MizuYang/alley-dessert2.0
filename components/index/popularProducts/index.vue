@@ -1,11 +1,30 @@
 <script setup>
 const { popularProducts } = storeToRefs(useProductStore());
+
+const options = ref({
+  breakpoints: {
+    350: {
+      slidesPerView: 1,
+      spaceBetween: 20,
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 40,
+    },
+    1024: {
+      slidesPerView: 3,
+      spaceBetween: 50,
+    },
+  },
+});
 </script>
 
 <template>
   <section class="text-primary">
     <div data-aos="zoom-out">
-      <h2 class="pb-12 text-center text-[40px]">用甜點，抓住你的胃 -</h2>
+      <h2 class="pb-12 text-center text-3xl lg:text-[40px]">
+        用甜點，抓住你的胃 -
+      </h2>
     </div>
 
     <h3 class="text-primary pb-6 text-center text-[32px]">熱門商品</h3>
@@ -13,6 +32,7 @@ const { popularProducts } = storeToRefs(useProductStore());
     <IndexProductSwiper
       :slidesPerView="4"
       :products="popularProducts"
+      :options="options"
       :max-width="1200"
     />
 

@@ -34,24 +34,6 @@ let mainSwiper = [
   `${imgBaseUrl}/images/pages/主頁/主要輪播/主頁大輪播2.jpeg`,
   `${imgBaseUrl}/images/pages/主頁/主要輪播/主頁輪播3.jpg`,
 ];
-
-// let mainSwiper = [
-//   "/images/pages/主頁/主要輪播/主頁大輪播1.jpeg",
-//   "/images/pages/主頁/主要輪播/主頁大輪播2.jpeg",
-//   "/images/pages/主頁/主要輪播/主頁輪播3.jpg",
-// ];
-
-// if (process.env.NODE_ENV === "production") {
-//   mainSwiper = [
-//     "/alley-dessert2.0/images/pages/主頁/主要輪播/主頁大輪播1.jpeg",
-//     "/alley-dessert2.0/images/pages/主頁/主要輪播/主頁大輪播2.jpeg",
-//     "/alley-dessert2.0/images/pages/主頁/主要輪播/主頁輪播3.jpg",
-//   ];
-// }
-
-onMounted(() => {
-  // console.log(swiper.instance);
-});
 </script>
 
 <template>
@@ -71,13 +53,16 @@ onMounted(() => {
           <div
             class="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
           >
-            <h2 class="text-primary mb-6 text-right text-[48px]">
-              <span class="mb-2 inline-block bg-[#110e0e6c] px-4 py-2"
+            <h2
+              class="text-primary mb-6 me-16 text-right text-3xl lg:me-0 lg:text-[48px]"
+            >
+              <span
+                class="mb-2 inline-block text-nowrap bg-[#110e0e6c] py-2 lg:px-4"
                 >❝ 最意想不到的...
               </span>
               <br />
               <span
-                class="mb-4 ms-9 inline-block translate-x-16 bg-[#110e0e6c] px-4 py-2"
+                class="mb-4 ms-9 inline-block translate-x-16 text-nowrap bg-[#110e0e6c] py-2 lg:px-4"
                 >永遠最甜蜜 ❞</span
               >
             </h2>

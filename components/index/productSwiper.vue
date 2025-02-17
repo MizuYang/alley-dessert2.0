@@ -17,7 +17,7 @@ const props = defineProps({
   },
   maxWidth: {
     type: Number,
-    required: true,
+    // required: true,
   },
   options: {
     type: Object,
@@ -31,7 +31,7 @@ const { options } = toRefs(props);
 const { addProductToCart } = useCartStore();
 
 const maxW = {
-  390: "max-w-[390px]",
+  // 300: "max-w-[300px]",
   1200: "max-w-[1200px]",
 };
 const indexProfiteroleSwiper = ref(null);
@@ -48,6 +48,9 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
   },
   speed: options.value.speed && options.value.speed,
   freeMode: options.value.freeMode,
+  breakpoints: {
+    ...options.value.breakpoints,
+  },
   // navigation: true,
   // pagination: true,
   // pagination: {
@@ -72,12 +75,13 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
 <template>
   <div
     class="product-swiper-banner text-primary mx-auto"
-    :class="maxW[maxWidth]"
+    :class="maxW[maxWidth] ? maxW[maxWidth] : 'max-w-[250px] xl:max-w-[370px]'"
   >
     <h3 class="mb-4 text-center text-2xl font-bold" v-if="title">
       {{ title }}
     </h3>
 
+    
     <ClientOnly>
       <swiper-container ref="indexProfiteroleSwiper" :init="false">
         <swiper-slide
@@ -122,7 +126,7 @@ const swiper = useSwiper(indexProfiteroleSwiper, {
           <button
             type="button"
             class="bg-danger block w-full bg-red-800 px-3 py-[6px] text-2xl text-white hover:bg-red-700/80 active:bg-red-700/90"
-            @click.stop="addProductToCart({product})"
+            @click.stop="addProductToCart({ product })"
           >
             <i class="bi bi-cart4"></i>加入購物車
           </button>
