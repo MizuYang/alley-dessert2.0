@@ -10,13 +10,27 @@ const { getCartData } = useCartStore();
 const { favoriteInit } = useFavoriteStore();
 
 const { isNavbarShow } = storeToRefs(useNavbarStore());
+const { navbarShow, navbarHide } = useNavbarStore();
 
 onMounted(() => {
   if (import.meta.client) {
     favoriteInit();
   }
   if (!cartData.value.length) getCartData();
+
+  checkWindowWidthNavbarHandler();
 });
+
+// 裝置寬度改變事件
+if (import.meta.client) {
+  window.addEventListener("resize", (e) => {
+    checkWindowWidthNavbarHandler();
+  });
+}
+
+function checkWindowWidthNavbarHandler() {
+  window.innerWidth >= 1024 ? navbarShow() : navbarHide();
+}
 </script>
 
 <template>
@@ -31,7 +45,7 @@ onMounted(() => {
     <!-- class="hidden lg:flex" -->
     <transition name="fade">
       <LayoutNavbarDesktop
-        class="fixed top-[76px] z-50 w-full flex-col bg-black py-5 lg:!static lg:!flex-row"
+        class="fixed top-[76px] z-50 w-full flex-col bg-black py-5 lg:!static lg:!flex lg:!flex-row"
         :class="
           isNavbarShow ? 'mobile-show-animation' : 'mobile-hide-animation'
         "
