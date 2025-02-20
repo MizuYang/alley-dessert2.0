@@ -10,7 +10,7 @@ img2.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-主要/「招牌」
 <template>
   <section class="text-primary">
     <div
-      class="flex h-[960px] bg-no-repeat xl:w-[636px]"
+      class="flex h-[600px] bg-cover bg-no-repeat lg:h-[960px] xl:w-[636px]"
       :style="`background-image: url(${img1});`"
     >
       <div class="m-auto translate-y-16 bg-[#110e0e6c] px-4 py-6 text-center">
@@ -29,7 +29,7 @@ img2.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-主要/「招牌」
           <div>
             <NuxtLink
               class="hover:bg-primary/20 border-primary inline-block border-2 border-solid px-2 py-3 text-2xl transition-all duration-75 hover:scale-[1.01] active:!scale-105"
-              to="/"
+              to="/about"
               title="查看品牌故事"
               >想聽他們的故事</NuxtLink
             >
@@ -37,7 +37,8 @@ img2.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-主要/「招牌」
         </div>
       </div>
     </div>
-    <div
+    <NuxtLink
+      to="/products/蛋糕"
       class="square-main group relative mx-auto my-[5%] block h-[290px] w-[400px] cursor-pointer overflow-hidden bg-contain bg-center bg-no-repeat opacity-70 transition-all hover:!opacity-100"
       :style="`background-image: url(${img2});`"
     >
@@ -52,10 +53,10 @@ img2.value = `${imgBaseUrl}/images/pages/主頁/垂直banner-主要/「招牌」
         >
       </p>
       <span
-        class="text-primary absolute left-1/2 top-1/2 -translate-x-1/2 translate-y-40 text-nowrap bg-[#110e0e6c] px-2 py-3 text-[32px] font-bold transition-all duration-500 group-hover:!-translate-y-1/2"
+        class="text-primary absolute left-1/2 top-1/2 -translate-x-1/2 text-nowrap bg-[#110e0e6c] px-2 py-3 text-[32px] font-bold transition-all duration-500 group-hover:!-translate-y-1/2 lg:translate-y-40"
         >前往經典蛋糕</span
       >
-    </div>
+    </NuxtLink>
   </section>
 </template>
 
