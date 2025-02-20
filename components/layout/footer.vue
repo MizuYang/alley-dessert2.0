@@ -4,8 +4,10 @@
   <footer
     class="text-primary border-primary border-t border-solid bg-black py-3"
   >
-    <ul class="mx-auto flex max-w-[1320px] items-center justify-center text-xl">
-      <li>
+    <ul
+      class="mx-auto flex max-w-[1320px] flex-col items-center justify-center text-xl lg:flex-row"
+    >
+      <li class="mb-5 lg:mb-0">
         <ul>
           <li class="text-center text-2xl">個人聲明</li>
           <li>- 此作品僅為練習使用，無商業用途。</li>
@@ -21,7 +23,7 @@
           </li>
         </ul>
       </li>
-      <li class="mx-auto">
+      <li class="mx-auto mb-5 lg:mb-0">
         <NuxtLink
           to="/"
           class="block transition-all hover:scale-[1.01] hover:opacity-90"
@@ -34,18 +36,17 @@
           />
         </NuxtLink>
       </li>
-      <li class="mr-6">
+      <li class="flex mb-5 lg:mr-6 lg:mb-0">
         <NuxtLink
           to="https://github.com/MizuYang"
-          class="block transition-all duration-75 hover:scale-110 hover:opacity-90"
+          class="block transition-all duration-75 hover:scale-110 hover:opacity-90 me-5"
           target="_blank"
           title="移動到 mizu github"
           external
         >
           <i class="bi bi-github text-[30px]" />
         </NuxtLink>
-      </li>
-      <li class="mr-6">
+
         <NuxtLink
           to="https://equatorial-alloy-23b.notion.site/Mizu_-dc646b31574641de856dd54ac3f6cc1b"
           class="block transition-all duration-75 hover:scale-110 hover:opacity-90"
@@ -56,6 +57,17 @@
           <i class="bi bi-facebook text-[30px]" />
         </NuxtLink>
       </li>
+      <!-- <li class="mb-5 mr-6 lg:mb-0">
+        <NuxtLink
+          to="https://equatorial-alloy-23b.notion.site/Mizu_-dc646b31574641de856dd54ac3f6cc1b"
+          class="block transition-all duration-75 hover:scale-110 hover:opacity-90"
+          target="_blank"
+          title="移動到個人部落格"
+          external
+        >
+          <i class="bi bi-facebook text-[30px]" />
+        </NuxtLink>
+      </li> -->
       <li>
         <NuxtLink
           to="/login"
