@@ -31,7 +31,7 @@ function addProduct({ product }) {
 </script>
 
 <template>
-  <ul class="mx-auto grid max-w-[1200px] grid-cols-4 gap-7">
+  <ul class="mx-auto grid max-w-[1200px] grid-cols-1 gap-7 lg:grid-cols-4">
     <li
       v-for="product in products"
       :key="`procust-card-${product.id}`"
@@ -45,20 +45,20 @@ function addProduct({ product }) {
       >
         <NuxtLink
           :to="`/productInfo/${product.id}`"
-          class="mb-auto inline-block"
+          class="border-primary flex border-b border-solid lg:mb-auto lg:inline-block"
         >
-          <div class="relative">
+          <div class="relative shrink-0">
             <img
               :src="product.imageUrl"
-              class="block h-[240px] w-[300px] object-cover object-center"
+              class="block h-[180px] w-[180px] object-cover object-center lg:h-[240px] lg:w-[300px]"
               :alt="product.title"
             />
             <!-- hover:遮罩 -->
             <div
-              class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-50"
+              class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 lg:group-hover:opacity-50"
             ></div>
             <img
-              class="absolute left-1/2 top-1/2 w-[75%] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 group-hover:opacity-100"
+              class="absolute left-1/2 top-1/2 w-[75%] -translate-x-1/2 -translate-y-1/2 object-contain opacity-0 lg:group-hover:opacity-100"
               alt="顯示產品細節"
               src="/images/other/product_info.png"
             />
@@ -69,22 +69,51 @@ function addProduct({ product }) {
               <p>{{ product.category }}</p>
             </div>
           </div>
-          <div class="p-4">
+          <div class="px-2 py-4 md:p-4">
             <h3
               class="mb-3 flex items-center justify-between group-hover:font-black"
             >
               <span class="inline-block text-xl"> {{ product.title }}</span>
               <span
                 v-if="product.popular > 2"
-                class="inline-block bg-red-600 p-1 text-sm font-semibold text-white"
+                class="hidden bg-red-600 p-1 text-sm font-semibold text-white md:inline-block"
                 >熱門</span
               >
             </h3>
             <p class="mb-auto line-clamp-3 text-lg">
               {{ product.description }}
             </p>
+            <!-- 行動板價格 -->
+            <strong class="block text-end lg:hidden">
+              <span class="text-[32px] font-black text-red-500">{{
+                product.price
+              }}</span>
+              元
+            </strong>
           </div>
         </NuxtLink>
+
+        <!-- 桌機板的價格 -->
+        <p class="hidden justify-between px-4 pb-1 text-xl lg:flex">
+          <span class="text-xl text-gray-300 line-through"
+            >原價 ${{ product.origin_price }}</span
+          >
+          <strong>
+            <span class="text-[32px] font-black text-red-500">{{
+              product.price
+            }}</span>
+            元
+          </strong>
+        </p>
+        <button
+          type="button"
+          class="block w-full bg-red-800 py-3 text-2xl group-hover:bg-red-700/90 group-active:bg-red-600/80"
+          @click.stop="addProduct({ product })"
+        >
+          <i class="bi bi-cart-check-fill"></i>
+          加入購物車
+        </button>
+
         <!-- 收藏按鈕 -->
         <div
           class="absolute right-0 top-0 z-40 rounded-bl-2xl bg-red-800/30 px-2 py-1"
@@ -120,26 +149,6 @@ function addProduct({ product }) {
             </div>
           </button>
         </div>
-
-        <p class="flex justify-between px-4 pb-1 text-xl">
-          <span class="text-xl text-gray-300 line-through"
-            >原價 ${{ product.origin_price }}</span
-          >
-          <strong>
-            <span class="text-[32px] font-black text-red-500">{{
-              product.price
-            }}</span>
-            元
-          </strong>
-        </p>
-        <button
-          type="button"
-          class="block w-full bg-red-800 py-3 text-2xl group-hover:bg-red-700/90 group-active:bg-red-600/80"
-          @click.stop="addProduct({ product })"
-        >
-          <i class="bi bi-cart-check-fill"></i>
-          加入購物車
-        </button>
       </div>
     </li>
   </ul>

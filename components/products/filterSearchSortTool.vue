@@ -32,7 +32,9 @@ onMounted(() => {
 
 <template>
   <div class="text-primary mb-8">
-    <ul class="mx-auto flex max-w-[1200px] items-center gap-x-8">
+    <ul
+      class="mx-auto flex max-w-[1200px] flex-wrap items-center justify-center gap-x-8 gap-y-4 lg:justify-normal lg:gap-y-0"
+    >
       <li
         v-for="btn in filterBtnList"
         :key="`filterBtn-${btn}`"
@@ -56,7 +58,7 @@ onMounted(() => {
           {{ sortPriceBtnName }}
         </button>
       </li>
-      <li class="ml-auto shrink-0">
+      <li class="lg:ml-auto ml-0 shrink-0">
         <label for="products-search-input">
           <i class="bi bi-search me-4 text-3xl"></i>
           <input

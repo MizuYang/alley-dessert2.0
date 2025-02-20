@@ -98,8 +98,12 @@ let mainSwiper = [
   --swiper-pagination-color: #f1ebd8;
 }
 .swiper-banner swiper-slide {
-  --nav-height: 83.53px;
+  --nav-height: 76px;
   height: calc(100vh - var(--nav-height));
+  @media (min-width: 768px) {
+    --nav-height: 83.53px;
+    height: calc(100vh - var(--nav-height));
+  }
 }
 
 .finger-active-animation {
