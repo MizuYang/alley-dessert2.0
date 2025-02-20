@@ -42,7 +42,6 @@ function checkWindowWidthNavbarHandler() {
       :favoriteData="favoriteData"
       :cartData="cartData"
     />
-    <!-- class="hidden lg:flex" -->
     <transition name="fade">
       <LayoutNavbarDesktop
         class="fixed top-[76px] z-50 w-full flex-col bg-black py-5 lg:!static lg:!flex lg:!flex-row"

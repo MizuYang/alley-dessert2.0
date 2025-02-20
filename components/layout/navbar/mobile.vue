@@ -22,8 +22,12 @@ const { toggleNavbar } = useNavbarStore();
 <template>
   <ul class="text-primary flex items-center justify-around py-2 text-4xl">
     <li>
-      <NuxtLink to="/" class="block p-1">
-        <i class="bi bi-house-door fs-1 ms-2"></i>
+      <NuxtLink
+        to="/"
+        class="block p-1"
+        active-class="border-primary border-solid border-b-2 font-bold"
+      >
+        <i class="bi bi-house-door fs-1"></i>
       </NuxtLink>
     </li>
     <li>
