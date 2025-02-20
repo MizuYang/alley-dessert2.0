@@ -11,6 +11,20 @@ function removeXAxosGeneratedByAos() {
 onMounted(() => {
   removeXAxosGeneratedByAos();
 });
+
+const route = useRoute();
+
+const { isNavbarShow } = storeToRefs(useNavbarStore());
+const { navbarHide } = useNavbarStore();
+
+watch(
+  () => route.fullPath,
+  () => changePageMobileNavbarHide(),
+);
+
+function changePageMobileNavbarHide() {
+  if (isNavbarShow.value) navbarHide();
+}
 </script>
 
 <template>
