@@ -16,7 +16,7 @@ const props = defineProps({
 
 const { category, search, cartData } = toRefs(props);
 
-const { toggleNavbar } = useNavbarStore();
+const { navbarToggle } = useNavbarStore();
 </script>
 
 <template>
@@ -64,7 +64,7 @@ const { toggleNavbar } = useNavbarStore();
       </NuxtLink>
     </li>
     <li>
-      <button type="button" class="block p-2" @touchstart="toggleNavbar">
+      <button type="button" class="block p-2" @touchstart="navbarToggle">
         <i class="bi bi-justify"></i>
       </button>
     </li>

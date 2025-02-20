@@ -1,4 +1,29 @@
 <script setup lang="ts">
+const route = useRoute();
+
+const { isNavbarShow } = storeToRefs(useNavbarStore());
+const { navbarShow, navbarHide } = useNavbarStore();
+
+const { isMobile } = storeToRefs(useWindowSizeStore());
+const { getWindowSize, resizeHandler } = useWindowSizeStore();
+
+const { isDesktop } = storeToRefs(useWindowSizeStore());
+
+watch(
+  () => route.fullPath,
+  () => handleNavbarAutoHideOnPageChange(),
+  { immediate: true },
+);
+
+onMounted(() => {
+  removeXAxosGeneratedByAos();
+  if (import.meta.client) {
+    getWindowSize();
+    handleNavbarVisibility();
+    window.addEventListener("resize", resizeHandler);
+  }
+});
+
 // 解決 aos 產生的X軸
 function removeXAxosGeneratedByAos() {
   document.documentElement.style.overflowX = "hidden";
@@ -7,23 +32,11 @@ function removeXAxosGeneratedByAos() {
   // 即使高度不足出現滾動條, 也給予滾動條, 避免因時有時無滾動條造成畫面跳動
   document.documentElement.style.overflowY = "scroll";
 }
-
-onMounted(() => {
-  removeXAxosGeneratedByAos();
-});
-
-const route = useRoute();
-
-const { isNavbarShow } = storeToRefs(useNavbarStore());
-const { navbarHide } = useNavbarStore();
-
-watch(
-  () => route.fullPath,
-  () => changePageMobileNavbarHide(),
-);
-
-function changePageMobileNavbarHide() {
-  if (isNavbarShow.value) navbarHide();
+function handleNavbarAutoHideOnPageChange() {
+  if (isNavbarShow.value && isMobile.value) navbarHide();
+}
+function handleNavbarVisibility() {
+  isDesktop.value ? navbarShow() : navbarHide();
 }
 </script>
 

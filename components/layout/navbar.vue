@@ -10,27 +10,13 @@ const { getCartData } = useCartStore();
 const { favoriteInit } = useFavoriteStore();
 
 const { isNavbarShow } = storeToRefs(useNavbarStore());
-const { navbarShow, navbarHide } = useNavbarStore();
 
 onMounted(() => {
   if (import.meta.client) {
     favoriteInit();
   }
   if (!cartData.value.length) getCartData();
-
-  checkWindowWidthNavbarHandler();
 });
-
-// 裝置寬度改變事件
-if (import.meta.client) {
-  window.addEventListener("resize", (e) => {
-    checkWindowWidthNavbarHandler();
-  });
-}
-
-function checkWindowWidthNavbarHandler() {
-  window.innerWidth >= 1024 ? navbarShow() : navbarHide();
-}
 </script>
 
 <template>

@@ -1,21 +1,23 @@
 import { defineStore } from "pinia";
 
 export const useNavbarStore = defineStore("useNavbarStore", () => {
+  const { isMobile } = storeToRefs(useWindowSizeStore());
+
   const isNavbarShow = ref(false);
 
   function navbarShow() {
-    isNavbarShow.value = true;
+    if (isMobile) isNavbarShow.value = true;
   }
   function navbarHide() {
     isNavbarShow.value = false;
   }
-  function toggleNavbar() {
-    isNavbarShow.value = !isNavbarShow.value;
+  function navbarToggle() {
+    if (isMobile) isNavbarShow.value = !isNavbarShow.value;
   }
   return {
     isNavbarShow,
     navbarShow,
     navbarHide,
-    toggleNavbar,
+    navbarToggle,
   };
 });
